@@ -23,56 +23,42 @@ const auth = async (username, password) => {
         username: username,
     };
 
-    username = authenticate(options);
+    try {
+        const ldapAuthResponse = await authenticate(options);
 
-    username
-        .then((response) => {
-            console.log(response)
-            return response            
-        })
-        .catch((err) => {
-            return err;
-        });
+        return ldapAuthResponse
+
+    } catch (error) {
+        console.log(error);
+    }
+
 };
 
 // Validate credentials User
 const authAdmin = async (req, res) => {
+    
     let username = req.body.user;
-    let correo = `${username}@utp.edu.co`;
+    let localEmail = `${username}@utp.edu.co`;
     let password = req.body.password;
 
-    let infoUser = User.findOne({ where: { correo: correo } });
+    try {
 
-    let responseLdap = auth(username, password)
-    responseLdap.then( (response) => {
-        console.log(response)
-        res.status(200).json({ data: response})
+        const infoUser = await User.findOne({ where: { correo: localEmail } });
 
-    })
-
-
-
-    //   const validateLdap = async () => {
-    //     const validateData = await auth(username, password);
-    //     return validateData
-    //   };
-
-    //   users
-    //     .then((response) => {
-    //       if (response.admin) {
-    //         res
-    //           .status(200)
-    //           .send(`El usuario ${username} si es administrador en el aplicativo`);
-    //       } else {
-    //         res
-    //           .status(200)
-    //           .send(`El usuario ${username} no es administrador en el aplicativo`);
-    //       }
-    //     })
-
-    //     .catch((error) => {
-    //       res.status(404).send(error);
-    //     });
+        if(infoUser){
+            if(infoUser.admin) {
+                const checkUserLdap = await auth(username, password);
+                res.status(200).send(JSON.stringify(checkUserLdap));
+            }else{
+                res.status(200).send(`El usuario ${username} no es administrador en el aplicativo`);
+            }
+        }else{
+            res.status(404).send(`El usuario ${username} no se encuentra registrado en el aplicativo`);
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Ha ocurrido un error interno');
+    }
 };
 
 module.exports = {
