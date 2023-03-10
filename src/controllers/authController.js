@@ -3,7 +3,7 @@ const { authenticate } = require("ldap-authentication");
 const dbConfig = require("../config/ldapConfig.js");
 const db = require("../models");
 
-const { createToken } = require("../services/token.js")
+const token = require("../services/token.js")
 
 // create main Model
 const User = db.users;
@@ -45,11 +45,15 @@ const authAdmin = async (req, res) => {
             if (infoUser.admin) {
                 const checkUserLdap = await auth(username, password);
 
-                const { idtercero } = checkUserLdap;
-                const responseWithToken = await createToken(idtercero, localEmail);
-
-                // res.status(200).send(JSON.stringify(checkUserLdap));
-                res.status(200).json(responseWithToken)
+                // const { idtercero } = checkUserLdap;
+                
+                // Implementación token
+                const tokenReturn = await token.encode(infoUser.id , localEmail);
+                const response = {
+                    token: tokenReturn.token,
+                    data: infoUser 
+                }
+                res.status(200).json(response)
             } else {
                 res
                     .status(200)

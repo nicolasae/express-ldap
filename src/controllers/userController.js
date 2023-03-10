@@ -1,5 +1,4 @@
-const { users } = require("../models");
-
+const jwt = require('jsonwebtoken');
 const db = require("../models");
 
 // create main Model
@@ -41,17 +40,18 @@ const updateUser = async (req, res) => {
   res.status(200).send(user);
 };
 
-// 5.Delete product by Id
+// 5.Delete user by Id
 const deleteUser = async (req, res) => {
   let id = req.params.id;
   await User.destroy({ where: { id: id } });
   res.status(200).send("User is deleted!");
 };
 
-// 6.Get published product
+// 6.Get admin users
 const getAdminUser = async (req, res) => {
   const users = await User.findAll({ where: { admin: true } });
   res.status(200).send(users);
+
 };
 
 
