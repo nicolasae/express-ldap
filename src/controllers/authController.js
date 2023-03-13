@@ -1,7 +1,7 @@
 const { authenticate } = require("ldap-authentication");
 
-const dbConfig = require("../config/ldapConfig.js");
-const db = require("../models");
+const dbConfig = require("../../database/config/ldap.js");
+const db = require("../../database/models");
 
 const token = require("../services/token.js")
 

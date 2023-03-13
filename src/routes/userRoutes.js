@@ -1,4 +1,4 @@
-const userController = require('../controllers/userController.js')
+const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
 
 const { checkUser } = require('../middleware/auth.js')
@@ -6,17 +6,17 @@ const { checkUser } = require('../middleware/auth.js')
 const router = require('express').Router()
 
 // Add user
-router.post('addUser', checkUser, userController.addUser)
+router.post('addUser',userController.addUser)
 // Get all users
-router.get('allUser', checkUser, userController.getAllUsers)
+router.get('allUser',userController.getAllUsers)
 // Get all admin users
-router.get('/listAdmin', checkUser,  userController.getAdminUser)
+router.get('/listAdmin', userController.getAdminUser)
 // Get user by id
-router.get('/:id', checkUser, userController.getOneUser)
+router.get('/:id',userController.getOneUser)
 // Update user by id
-router.put('/:id', checkUser, userController.updateUser)
+router.put('/:id',userController.updateUser)
 // Delete user by id
-router.delete('/:id', checkUser, userController.deleteUser)
+router.delete('/:id',userController.deleteUser)
 
 
 router.post('/login/', authController.authAdmin)

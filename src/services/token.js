@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const db = require("../models");
+const db = require("../../database/models");
+const { key } = require("../../database/config/keys")
 // create main Model
 const User = db.users;
 
@@ -25,13 +26,12 @@ const checkToken = async( token ) =>  {
 
 
 const encode = async (localIdUser, localEmail) => {
-    
     let token;
 
     try {
         token = jwt.sign(
             { userId: localIdUser, email: localEmail },
-            "my_secret_key",
+            key,
             { expiresIn: "1h" }
         );
 
@@ -54,7 +54,7 @@ const encode = async (localIdUser, localEmail) => {
 const decode = async ( token ) => { 
     
     try {
-        const { userId } = await jwt.verify(token, "my_secret_key")
+        const { userId } = await jwt.verify(token, key)
         const  user = await User.findOne({ where: { id: userId } });
         
         return user
@@ -63,6 +63,7 @@ const decode = async ( token ) => {
     }catch(error) {
         // console.log(error)
         const newToken = await checkToken(token)
+
         return newToken
     }
 }

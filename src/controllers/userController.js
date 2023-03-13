@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const db = require("../models");
+const db = require("../../database/models");
 
 // create main Model
 const User = db.users;
