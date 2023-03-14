@@ -14,4 +14,10 @@ Conexión y validación de usuarios express con ldap
 
 13-03-2023
 - Creación de api key token para aplicación
-- Instalación EJS 
+- Instalación EJS y Sequelize-cli
+- Creación de -sequelizerc 
+- Problema creación de llave foranea de modelo role y user
+
+14-04-2023
+- Creación correcta de llave foranea 
+
