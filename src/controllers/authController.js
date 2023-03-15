@@ -1,64 +1,55 @@
 const { authenticate } = require("ldap-authentication");
 
-const dbConfig = require("../../database/config/ldap.js");
-const db = require("../../database/models");
-
-const token = require("../services/token.js")
-
-// create main Model
-const User = db.users;
-
+const ldapConnection = require("../database/config/ldap.js");
+const models = require('../database/models');
 
 // Authentication with LDAP
-const auth = async (username, password) => {
+const authLdap = async (username, password) => {
     let options = {
         ldapOpts: {
-            url: dbConfig.url,
+            url: ldapConnection.url,
         },
-        adminDn: dbConfig.adminDn,
-        adminPassword: dbConfig.adminPassword,
+        adminDn: ldapConnection.adminDn,
+        adminPassword: ldapConnection.adminPassword,
         userPassword: password,
-        userSearchBase: dbConfig.userSearchBase,
-        usernameAttribute: dbConfig.usernameAttribute,
+        userSearchBase: ldapConnection.userSearchBase,
+        usernameAttribute: ldapConnection.usernameAttribute,
         username: username,
     };
 
+    let ldapAuthResponse
     try {
-        const ldapAuthResponse = await authenticate(options);
+        ldapAuthResponse = await authenticate(options);
 
-        return ldapAuthResponse;
     } catch (error) {
-        console.log(error);
+        ldapAuthResponse = error.lde_message
+        
     }
+    return ldapAuthResponse;
 };
 
 // Validate credentials User
-const authAdmin = async (req, res) => {
-    let username = req.body.user;
-    let localEmail = `${username}@utp.edu.co`;
-    let password = req.body.password;
+const authenticationLogin = async (req, res) => {
 
+    const username = req.body.username;
+    const password = req.body.password;
+    const localEmail = `${username}@utp.edu.co`;
+    
     try {
-        const infoUser = await User.findOne({ where: { correo: localEmail } });
+        
+        const infoUser = await models.User.findOne({ where: { email: localEmail } });
 
         if (infoUser) {
-            if (infoUser.admin) {
-                const checkUserLdap = await auth(username, password);
 
-                // const { idtercero } = checkUserLdap;
+            const checkUserLdap = await authLdap(username,password);
+            if ( checkUserLdap !== "Invalid Credentials" ){
+                console.log(infoUser)
+                res.status(200).json(infoUser)
                 
-                // Implementación token
-                const tokenReturn = await token.encode(infoUser.id , localEmail);
-                const response = {
-                    token: tokenReturn.token,
-                    data: infoUser 
-                }
-                res.status(200).json(response)
-            } else {
-                res
-                    .status(200)
-                    .send(`El usuario ${username} no es administrador en el aplicativo`);
+            }else {                
+                res.status(401).json({'message': 'LDAP: El usuario no se encuentra registrado'})
             }
+            
         } else {
             res
                 .status(404)
@@ -74,5 +65,5 @@ const authAdmin = async (req, res) => {
 
 
 module.exports = {
-    authAdmin,
+    authenticationLogin,
 };

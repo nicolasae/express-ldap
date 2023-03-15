@@ -1,67 +1,102 @@
-const jwt = require('jsonwebtoken');
-const db = require("../../database/models");
+const models = require('../database/models');
 
-// create main Model
-const User = db.users;
+// LOGIN
+const login = async (req,res) => {
+  return res.render('users/login')
+}
 
-// Main Work
+//GET ALL USERS
+const list = async (req, res) => {
 
-// 1.Create User
-const addUser = async (req, res) => {
-  let info = {
-    nombre: req.body.nombre,
-    correo: req.body.correo,
-    admin: req.body.admin ? req.body.admin : false,
-  };
-
-  const user = await User.create(info);
-  res.status(200).send(user);
-  console.log(user);
+  try {
+    let users = await models.User.findAll();
+    res.status(200).send(users);
+  }
+  catch(error){
+    console.log(error)
+    res.status(500).json({ "message":`Problema con el servidor`})
+  }
 };
 
-// 2.Get All Users
-const getAllUsers = async (req, res) => {
-  let users = await User.findAll({
-  });
-  res.status(200).send(users);
-};
 
-// 3.Get Single User
-const getOneUser = async (req, res) => {
-  let id = req.params.id;
-  let users = await User.findOne({ where: { id: id } });
-  res.status(200).send(users);
-};
+// // Get Single User
+// const getUserById = async (req, res) => {
+  
+//   const id = req.params.id;
+  
+//   try {
+//     let users = await models.User.findByPk(id);
+//     ( users ) ? 
+//       res.status(200).send(users) : 
+//       res.status(500).json({ "message":`No hay un usuario relacionado al id ${id}`});
+//   }
+//   catch(error){
+//     console.log(error)
+//     res.status(500).json({ "message":`Problema con el servidor`})
+//   }
 
-// 4.Get update User
-const updateUser = async (req, res) => {
-  let id = req.params.id;
-  const user = await User.update(req.body, { where: { id: id } });
-  res.status(200).send(user);
-};
+// };
 
-// 5.Delete user by Id
-const deleteUser = async (req, res) => {
-  let id = req.params.id;
-  await User.destroy({ where: { id: id } });
-  res.status(200).send("User is deleted!");
-};
+// // Delete user by Id
+// const deleteUser = async (req, res) => {
+//   let id = req.params.id;
 
-// 6.Get admin users
-const getAdminUser = async (req, res) => {
-  const users = await User.findAll({ where: { admin: true } });
-  res.status(200).send(users);
+//   try {
+//     await User.destroy({ where: { id: id } });
+//     res.status(200).send("User deleted!");
+//   }
+//   catch(error){
+//     console.log(error)
+//     res.status(500).json({ "message":`Problema con el servidor`})
+//   }
+// };
 
-};
+
+
+// // Create User
+// const addUser = async (req, res) => {
+//   let info = {
+//     name: req.body.name,
+//     email: req.body.email,
+//     active: req.body.active,
+//     idRole: req.body.idRole ? req.body.idRole : 2,
+//   };
+
+//   const user = await models.User.create(info);
+//   res.status(200).send(user);
+//   console.log(user);
+// };
+
+
+
+
+// // Get update User
+// const updateUserById = async (req, res) => {
+//   let id = req.params.id;
+//   const user = await models.User.update(req.body, { where: { id: id } });
+//   res.status(200).send(user);
+// };
+
+
+
+// // 6.Get admin users
+// const getAdminUser = async (req, res) => {
+//   const users = await User.findAll({ where: { admin: 2 } });
+//   res.status(200).send(users);
+
+// };
 
 
 
 module.exports = {
-  addUser,
-  getAllUsers,
-  getOneUser,
-  updateUser,
-  deleteUser,
-  getAdminUser,
+  list,
+  login,
+  // getUserById,
+  // deleteUser,
+  
+  // addUser,
+  // getAllUsers,
+  // updateUserById,
+  // getAdminUser,
 
 };

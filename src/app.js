@@ -1,31 +1,44 @@
 const express = require('express')
-const cors = require('cors')
-const router = require('./routes/userRoutes')
+const path = require('path');
+const cors = require('cors');
 
-const app = express()
-
-const corOptions = {
-    origin: 'https://localhost:3000'
+/*** CORS */
+const corsOptions = {
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
 }
 
-// motor de plantilla
-// app.set('view engine','ejs')
-// app.set('views',__dirname,'./views')
+/*** Main Router (require) */
+const mainRoutes = require("./routes/mainRoutes")
 
-// middleware
-app.use(cors(corOptions))
 
+// ************ Express() ************/
+const app = express()
+
+
+// ************  Middlewares ************/
+
+app.use(express.static(path.join(__dirname, "../public/")));
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(cors(corsOptions)) // Use this after the variable declaration
 
-app.use( express.urlencoded({ extended: true }))
 
+// ************ EJS *************/
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/views'));
+
+/*** Main Router (use) */
+app.use("/", mainRoutes);
 // routers
-// app.use('/api/users', router)
+// app.use('/api', UserRoutes)
 
-// port
-const PORT = process.env.PORT || 8080
 
-// server
-app.listen(PORT, () => {
-    console.log(`server is running port ${PORT}`)
-})
+// ************ Servidor ************/
+const port = 8080;
+app.listen(process.env.PORT || port, () => {
+    console.log(`Servidor corriendo en puerto ${port} - URL: http://localhost:${port}`)
+});
+
+module.exports = app;
