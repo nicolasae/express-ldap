@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head', {title : 'Express App' }) %>
+<%- include('./partials/head', {title : 'Express App' }) %>
 
     <body>
-        <%- include('../partials/header') %>
+        <%- include('./partials/header') %>
 
         <main id="contenido" class="cuerpo-contenido">
             <div class="cuerpo">
@@ -14,7 +14,7 @@
                                 <div class="col-12 login">
                                     <div class="form-block">
                                         <div class="form-container">
-                                            <form class="form-horizontal" action="/users/login" method="post" id="demo-form">
+                                            <form class="form-horizontal" action="/login" method="post" id="login-form">
                                                 <div class="form-group">
                                                     <label for="username">Usuario</label>
                                                     <input 
@@ -38,7 +38,7 @@
                                                     <button 
                                                         type="submit"
                                                         class="btn-submit center-block"
-                                                        >
+                                                    >
                                                         Ingresar
                                                     </button>
                                                 </div>
@@ -53,7 +53,7 @@
             </div>
         </main>
 
-        <%- include('../partials/footer') %>
+        <%- include('./partials/footer') %>
     </body>
 
 </html>

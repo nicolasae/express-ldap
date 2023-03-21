@@ -129,8 +129,24 @@
     border-radius: 5px;
     width: 100%;
     padding: 10px;
-    color: white;
+    color: var(--blanco);
 }
+
+.error404_img {
+    width: auto;
+    height: 300px;
+}
+
+.btn-institucional, .btn-institucional:hover {
+    color: var(--blanco);
+    background-color: var(--institucional);
+    border-color: var(--institucional);
+}
+
+.nav-link {
+    color: var(--institucional)
+}
+
 
 @media (min-width: 768px) {
     .access-panel {

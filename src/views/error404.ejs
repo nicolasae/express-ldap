@@ -4,9 +4,12 @@
 <body>
     <%- include('./partials/header') %> 
     <main class="main-general">
-        <div class="image-404">
-            <img src="/img/cono_error_404.png" alt="Error 404">
-            <p>La página que estás buscando no existe :(</p>
+        <div class="row align-items-center justify-content-center my-5">
+            <div class="col-lg-6 col-md-7 col-sm-8 col-12 error404">
+				<p>Ooops... Lo sentimos, no se ha podido encontrar la página solicitada.</p>
+				<p>Si desea contactar, dirijase al <strong>pie de pagina</strong> del sitio, dando click <a href="#pie-de-pagina" style="text-decoration:underline;"> aqui</a></p>
+			</div>
+            <img class="col-lg-6 col-md-5 col-sm-4 col-xs-12 error404_img" src="/img/cono_error_404.png" title="Error 404">
         </div>
     </main>
     <%- include('./partials/footer') %> 

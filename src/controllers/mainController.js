@@ -10,11 +10,6 @@ const index = async (req, res) => {
     }
 }
 
-const login = async ( req, res) => {
-    
-}
-
 module.exports = {
     index,
-    login,
 }

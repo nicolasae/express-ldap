@@ -1,0 +1,49 @@
+:root {
+    --institucional: #004278;
+    --blanco: #ffffff;
+    --gris: #BCBDC0;
+}
+
+.admin-body {
+    max-width: 100%;
+}
+
+.navbar{
+    background-color: #004278;
+}
+
+.navbar a {
+    color: var(--blanco);
+}
+
+.sidebar {
+    background-color: var(--gris);
+}
+.sidebar-sticky {
+    height: calc(100vh - 48px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.title-admin {
+    color: #F2F2F2;
+    background: linear-gradient(90deg, #131516 1%, #004278 50%);
+    padding: 0.2em 1em;
+    margin: 40px 0;
+    font-family: 'Oswald';
+    font-size: 30pt;
+}
+
+.title-admin h1 {
+    color: var(--blanco);
+}
+
+.btn-outline-institucional {
+    color: var(--institucional);
+    border-color: var(--institucional);
+}
+
+.form-check-input:checked {
+    background-color: var(--institucional);
+    border-color: var(--institucional);
+}

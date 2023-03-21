@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include('../partials/head', {title : 'List of users' }) %>
+
+    <body class="admin-body">
+        <%- include('../components/navBar') %>
+        <div class="">
+            <div class="row">
+                <%- include('../components/sideBarMenu') %>
+                <main class="col-md-10 ms-sm-auto col-lg-11 px-md-4">
+                    <div class="title-admin">
+                        <h1>Editar <%= users.dataValues.name %>!</h1>
+                        
+                    </div>
+                </main>
+            </div>
+        </div>
+
+    </body>
+
+</html>

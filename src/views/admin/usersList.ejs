@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/head', {title : 'List of users' }) %>
+
+    <body class="admin-body">
+        <%- include('../components/navBar') %>
+
+        <div class="">
+            <div class="row">
+                <%- include('../components/sideBarMenu') %>
+
+
+                <main class="col-md-10 ms-sm-auto col-lg-11 px-md-4">
+                    <div class="title-admin">
+                        <h1>Users List</h1>                        
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Active</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% users.forEach(user => { %>
+                                <tr>
+                                    <th scope="row">
+                                        <input type="checkbox" id="check-box" value="first_checkbox">
+                                        <!-- <%= user.id %> -->
+                                    </th>
+                                    <td>
+                                        <!-- <a href="<%= user.id %>/edit"> -->
+                                        <a href="/admin/usuario-detalle/<%= user.id %>">
+                                            <%= user.name %>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="/admin/usuario-detalle/<%= user.id %>">
+                                            <%= user.email %>
+                                        </a>
+                                    </td>
+                                    <td><%= user.role %></td>
+                                    <td><%= user.active %></td>
+                                </tr>
+                            <% }) %>                            
+                            
+                        </tbody>
+                    </table>
+                </main>
+            </div>
+        </div>
+    </body>
+
+</html>

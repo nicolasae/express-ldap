@@ -1,6 +1,7 @@
 // ************ Require's ************/
 const express = require("express");
 const router = express.Router();
+const path = require('path');
 
 const mainController = require("../controllers/mainController");
 const usersRoutes = require("./users")
@@ -10,6 +11,6 @@ router.get("/", mainController.index);
 
 
 /*** Users Router */
-router.use("/users", usersRoutes);
+router.use("", usersRoutes);
 
 module.exports = router;
