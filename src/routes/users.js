@@ -5,7 +5,7 @@ const multer = require('multer');
 
 const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
-const authMiddleware = require('../middleware/authMiddleware'); 
+const { verifyCredentials, verifySuperAdmin} = require('../middleware/authMiddleware'); 
 
 /**** LOGIN*/
 router.get('/login/', userController.login )
@@ -15,19 +15,26 @@ router.post('/login/', authController.authenticationLogin)
 router.get('/logout', userController.logout); 
 
 /**** ADMIN ROUTES*/
-router.get('/admin', authMiddleware, userController.admin); 
+router.get('/admin', verifyCredentials, userController.admin); 
 /**** GET ALL USERS*/
-router.get('/admin/usuarios', authMiddleware, userController.usersList)
+router.get('/admin/usuarios', verifyCredentials, userController.usersList)
 /**** CREATE USER*/
-router.get('/admin/usuarios/nuevo',authMiddleware, userController.newUser)
-router.post('/admin/usuarios/nuevo',authMiddleware, userController.newUserAction)
+router.get('/admin/usuarios/nuevo',verifySuperAdmin, userController.newUser)
+router.post('/admin/usuarios/nuevo',verifySuperAdmin, userController.newUserAction)
 /**** UPDATE USER*/
-router.get('/admin/:id/editar-usuario',authMiddleware, userController.editUser)
-router.post('/admin/:id/editar-usuario',authMiddleware, userController.editUserAction)
+router.get('/admin/:id/editar-usuario',verifySuperAdmin, userController.editUser)
+router.post('/admin/:id/editar-usuario',verifySuperAdmin, userController.editUserAction)
+/**** UPDATE STATE USER*/
+router.put('/admin/:id/actualizar-estado-usuario', verifySuperAdmin, userController.toggleStateUser);
+/**** DELETE USER*/
+router.delete('/admin/:id/borrar-usuario', verifySuperAdmin, userController.deleteUser);
+
+
+
 
 
 /**** GET USER DETAIL*/
-// router.get('/admin/usuario-detalle/:id', authMiddleware, userController.userDetail)
+// router.get('/admin/usuario-detalle/:id', verifySuperAdmin, userController.userDetail)
 
 
 

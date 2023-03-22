@@ -1,11 +1,13 @@
 const { authenticate } = require("ldap-authentication");
+const bcrypt = require('bcrypt');
+
 
 const ldapConnection = require("../database/config/ldap.js");
 const models = require('../database/models');
-const { use } = require("../routes/users.js");
 
 // Authentication with LDAP
 const authLdap = async (username, password) => {
+    
     let options = {
         ldapOpts: {
             url: ldapConnection.url,

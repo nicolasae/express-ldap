@@ -22,30 +22,50 @@
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
-                            <th scope="col">Active</th>
+                            <% if(infoUserLogged.idRole === 1) { %>
+                                <th scope="col">Actions</th>
+                            <% } %>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <% users.forEach(user => { %>
+                            <% listUsers.forEach(user => { %>
                                 <tr>
                                     <th scope="row">
-                                        <input type="checkbox" id="check-box" value="first_checkbox">
-                                        <!-- <%= user.id %> -->
+                                        <%= user.id %>
                                     </th>
                                     <td>
-                                        <!-- <a href="<%= user.id %>/edit"> -->
-                                        <a href="/admin/<%= user.id %>/editar-usuario">
+                                        <% if(infoUserLogged.idRole === 1) { %>
+                                            <a href="/admin/<%= user.id %>/editar-usuario">
+                                                <%= user.name %>
+                                            </a>
+                                        <% } else { %>
                                             <%= user.name %>
-                                        </a>
+                                        <%} %>
                                     </td>
                                     <td>
-                                        <a href="/admin/<%= user.id %>/editar-usuario">
+                                        <% if(infoUserLogged.idRole === 1) { %>
+                                            <a href="/admin/<%= user.id %>/editar-usuario">
+                                                <%= user.email %>
+                                            </a>
+                                        <% } else { %>
                                             <%= user.email %>
-                                        </a>
+                                        <%} %>
                                     </td>
                                     <td><%= user.role %></td>
-                                    <td><%= user.active %></td>
+                                    <td>
+                                        <% if(infoUserLogged.idRole === 1) { %>
+                                            <form class="" action="/admin/<%= user.id %>/actualizar-estado-usuario?_method=PUT" method="post">
+                                                <button type="submit" class="btn <%= user.state === 'Activo'? 'btn-success': 'btn-secondary'%>">
+                                                    <%= user.state === 'Activo'? 'Active' : 'Inactive' %>
+                                                </button>
+                                            </form>
+
+                                            <form class="" action="/admin/<%= user.id %>/borrar-usuario?_method=DELETE" method="post">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        <% } %>
+                                    </td>
                                 </tr>
                             <% }) %>                            
                             

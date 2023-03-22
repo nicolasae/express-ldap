@@ -7,7 +7,7 @@ const login = async (req,res) => {
 
 const logout = async (req, res) => {
   req.session.destroy();
-  res.redirect('login');
+  res.redirect('/login');
 }
 
 // ADMIN INDEX
@@ -21,9 +21,9 @@ const usersList = async (req, res) => {
     let data = await models.User.findAll();
     data.forEach( user => {      
       user.role  = ( user.idRole === 1 ) ? 'Super Administrador' : 'Administrador' 
+      user.state  = ( user.active === true ) ? 'Activo' : 'Inactivo' 
     })
-    res.render('admin/usersList', { users: data})
-    // res.status(200).send(users);
+    res.render('admin/usersList', { listUsers: data, infoUserLogged: req.session.infoUserLogged })
   }
   catch(error){
     console.log(error)
@@ -37,7 +37,6 @@ const userDetail = async( req,res ) => {
   try {
     let data = await models.User.findByPk(id);
     ( data ) ? 
-      // res.status(200).send(data) : 
       res.render('admin/userDetails', { users: data}):
       res.status(500).json({ "message":`No hay un usuario relacionado al id ${id}`});
   }
@@ -52,22 +51,26 @@ const newUser = async(req, res) => {
   return res.render('admin/newUser',{ active: 'create'});
 }
 
-
 // CREATE USER PROCCESS
 const newUserAction = async (req, res) => {
+
   const { name, email, active, idRole } = req.body
-  
+    
   let infoUser = {
     name,
     email,
-    active: (active) ? active : 1,
-    idRole: (idRole === 'on') ? 1 : 2,
+    active: (active === 'on' ) ? true : false,
+    idRole: (idRole === 'on' ) ? 1 : 2,
   };
 
   try {
-    const user = await models.User.create(infoUser);
-    console.log('Usuario creado exitosamente',infoUser)
-    return res.redirect('/admin')
+    // const user = await models.User.create(infoUser);
+    const user = await models.User.findOrCreate({
+      where: { email: email },
+      defaults: infoUser
+    });
+
+    return res.redirect('/admin/usuarios')
   }
   catch(error){
     console.log(error)
@@ -116,14 +119,28 @@ const deleteUser = async (req, res) => {
   let id = req.params.id;
 
   try {
-    await User.destroy({ where: { id: id } });
-    res.status(200).send("User deleted!");
+    let user = await models.User.destroy({ where: { id: id } });
+    return res.redirect('/admin/usuarios')
   }
   catch(error){
     console.log(error)
-    res.status(500).json({ "message":`Problema con el servidor`})
+    res.status(500).json({ "message":`Problema con la eliminación del usuario`})
   }
 };
+
+const toggleStateUser = async( req, res ) => {
+  const { id } = req.params;
+  try {
+    let user = await models.User.findByPk(id);
+    let state = user.dataValues.active
+    const updateUser = await models.User.update({active: !state }, { where: { id: id } });
+    return res.redirect('/admin/usuarios')
+
+  }catch(error){
+    console.log(error)
+    res.status(500).json({ "message":`Problema con cambio del estado del usuario`})
+  }
+}
 
 module.exports = {
   login,
@@ -135,5 +152,7 @@ module.exports = {
   newUserAction,
   editUser,
   editUserAction,
+  toggleStateUser,
+  deleteUser,
 
 };
