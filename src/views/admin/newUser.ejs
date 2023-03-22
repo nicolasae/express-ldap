@@ -10,15 +10,16 @@
                 <main class="col-md-10 ms-sm-auto col-lg-11 px-md-4">
                     <% if (locals.active && locals.active === 'create') { %>
                         <div class="title-admin">
-                            <h1>Agregar </h1>
+                            <h1>Agregar</h1>
                         </div>
+                        <form class="create-form" action="/admin/usuarios/nuevo" method="post" id="create-user-form">
                     <% } else { %>
                         <div class="title-admin">
                             <h1>Editar</h1>
                         </div>
+                        <form class="edit-form" action="/admin/<%= locals.id %>/editar-usuario" method="post" id="edit-user-form">
                     <%} %>
-                    <form class="create-form" action="/admin/usuarios/nuevo" method="post" id="create-user-form">
-
+                    
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input 
@@ -26,9 +27,11 @@
                                 id="name"
                                 class="form-control" 
                                 name="name"
-                                value=""
-                                required>
+                                value="<%= locals? locals.name : '' %>" 
+                                required
+                            >
                         </div>
+
                         <div class="mb-3">
                           <label for="email" class="form-label">Email address</label>
                           <input 
@@ -36,23 +39,49 @@
                             id="email" 
                             class="form-control" 
                             name="email"
+                            value="<%= locals? locals.email : '' %>" 
                             required>
                         </div>
-                        <div class="mb-3 form-check form-switch">
-                            <input 
-                                type="checkbox"
-                                id="idRole"
-                                class="form-check-input"
-                                name="idRole"
-                                role="switch"
-                            >
-                          <label class="form-check-label" for="idRole">Super Admin</label>
-                        </div>
 
-                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <button type="submit" class="btn btn-outline-institucional">Crear</button>
-                            <!-- <button type="button" class="btn btn-outline-institucional">Crear y agregar otro</button> -->
+                        <div class="row">
+                            <div class="mb-3 form-check form-switch">
+                                <input 
+                                    type="checkbox"
+                                    id="idRole"
+                                    class="form-check-input"
+                                    name="idRole"
+                                    role="switch"
+                                    <%= (locals.idRole == 1) ? 'checked' : '' %>
+    
+                                >
+                              <label class="form-check-label" for="idRole">Super Admin</label>
+                            </div>
+    
+                            <div class="mb-3 form-check form-switch">
+                                <input 
+                                    type="checkbox"
+                                    id="active"
+                                    class="form-check-input"
+                                    name="active"
+                                    role="switch"
+                                    <%= ( locals.active == true ) ? 'checked' : '' %>
+                                >
+                              <label class="form-check-label" for="active">Activo</label>
+                            </div>
                         </div>
+                        
+                        <% if (locals.active && locals.active === 'create') { %>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="submit" class="btn btn-outline-institucional">Crear</button>
+                                <!-- <button type="button" class="btn btn-outline-institucional">Crear y agregar otro</button> -->
+                            </div>
+                        <% } else { %>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button type="submit" class="btn btn-outline-institucional">Actualizar</button>
+                                <!-- <button type="button" class="btn btn-outline-institucional">Crear y agregar otro</button> -->
+                            </div>
+                        <%} %>
+                        
                     </form>
                 </main>
             </div>

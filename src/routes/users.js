@@ -21,6 +21,10 @@ router.get('/admin/usuarios', authMiddleware, userController.usersList)
 /**** CREATE USER*/
 router.get('/admin/usuarios/nuevo',authMiddleware, userController.newUser)
 router.post('/admin/usuarios/nuevo',authMiddleware, userController.newUserAction)
+/**** UPDATE USER*/
+router.get('/admin/:id/editar-usuario',authMiddleware, userController.editUser)
+router.post('/admin/:id/editar-usuario',authMiddleware, userController.editUserAction)
+
 
 /**** GET USER DETAIL*/
 // router.get('/admin/usuario-detalle/:id', authMiddleware, userController.userDetail)

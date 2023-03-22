@@ -45,7 +45,6 @@ const authenticationLogin = async (req, res) => {
 
                 const checkUserLdap = await authLdap(username,password);
                 if ( checkUserLdap !== "Invalid Credentials" ){
-                    
                     let response = {
                         'identification' : checkUserLdap.numerodocumento,
                         'role': infoUser.idRole == 1 ? 'Super Administrador' : 'Administrador',
@@ -53,8 +52,6 @@ const authenticationLogin = async (req, res) => {
                     }
                     req.session.infoUserLogged = response
                     res.redirect('/admin');
-                    
-                    
                 }else {                
                     res.status(401).json({'message': 'LDAP: El usuario no se encuentra registrado'})
                 }

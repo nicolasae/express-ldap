@@ -12,7 +12,6 @@ const logout = async (req, res) => {
 
 // ADMIN INDEX
 const admin = async (req, res) => {
-  console.log('entro a admin',req.session.infoUserLogged)
   res.render('admin', { infoUserLogged: req.session.infoUserLogged })
 };
 
@@ -28,7 +27,7 @@ const usersList = async (req, res) => {
   }
   catch(error){
     console.log(error)
-    res.status(500).json({ "message":`Problema con el servidor`})
+    res.status(500).json({ "message":`Problema con el servidor al listar los usuarios`})
   }
 };
 
@@ -57,6 +56,7 @@ const newUser = async(req, res) => {
 // CREATE USER PROCCESS
 const newUserAction = async (req, res) => {
   const { name, email, active, idRole } = req.body
+  
   let infoUser = {
     name,
     email,
@@ -67,49 +67,63 @@ const newUserAction = async (req, res) => {
   try {
     const user = await models.User.create(infoUser);
     console.log('Usuario creado exitosamente',infoUser)
-    return res.render('admin')
+    return res.redirect('/admin')
+  }
+  catch(error){
+    console.log(error)
+    res.status(500).json({ "message":`Problema con el servidor al crear nuevo usuario`})
+  }
+  
+};
+
+// UPDATE USER
+const editUser = async (req, res) => {
+  let id = req.params.id;
+  
+  try {
+    const user = await models.User.findByPk(id);
+    const { dataValues } = user
+    return res.render('admin/newUser', dataValues );
+
+  }catch(error){  
+    console.log(error)
+    res.status(500).json({ "message":`Problema con el servidor`})
+  }
+};
+
+const editUserAction = async( req, res ) => {
+
+  try {
+    let id = req.params.id 
+    const { name, email, active, idRole } = req.body;
+    let infoUser = {
+      name,
+      email,
+      active: (active === 'on') ? true : false,
+      idRole: (idRole === 'on') ? 1 : 2,
+    };
+  
+    const user = await models.User.update(infoUser, { where: { id: id } });
+    return res.redirect('/admin')
+  }catch(error) {
+    console.log(error)
+    res.status(500).json({ "message":`Problema con el servidor al actualizar el usuario`})
+  }
+}
+
+// Delete user by Id
+const deleteUser = async (req, res) => {
+  let id = req.params.id;
+
+  try {
+    await User.destroy({ where: { id: id } });
+    res.status(200).send("User deleted!");
   }
   catch(error){
     console.log(error)
     res.status(500).json({ "message":`Problema con el servidor`})
   }
-  
 };
-
-// EDIT USER
-const editUser = async (req, res) => {
-  let id = req.params.id;
-  const user = await models.User.update(req.body, { where: { id: id } });
-  res.status(200).send(user);
-};
-
-
-// // Delete user by Id
-// const deleteUser = async (req, res) => {
-//   let id = req.params.id;
-
-//   try {
-//     await User.destroy({ where: { id: id } });
-//     res.status(200).send("User deleted!");
-//   }
-//   catch(error){
-//     console.log(error)
-//     res.status(500).json({ "message":`Problema con el servidor`})
-//   }
-// };
-
-
-
-
-
-// // Get admin users
-// const getAdminUser = async (req, res) => {
-//   const users = await User.findAll({ where: { admin: 2 } });
-//   res.status(200).send(users);
-
-// };
-
-
 
 module.exports = {
   login,
@@ -119,5 +133,7 @@ module.exports = {
   userDetail,
   newUser,
   newUserAction,
+  editUser,
+  editUserAction,
 
 };

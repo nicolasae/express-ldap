@@ -28,12 +28,12 @@ app.use(express.static(path.join(__dirname, "../public/")));
 
 // ************  Middlewares ************/
 app.use(session({ 
-    secret: 'keyboard cat tuto',
+    secret: 'secret ldap app',
     resave: false,
     saveUninitialized: true,
     cookie: { 
       secure: false,
-      maxAge: 60 * 5000 //1 minute
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
   }
 ));
