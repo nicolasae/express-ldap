@@ -1,11 +1,45 @@
-<header class="navbar sticky-top lex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Administrador App</a>
-    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-nav">
-      <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="/logout">Log out</a>
+<header id="header">
+
+  <nav class="row align-items-center menu-institucional">
+    <section class="row col-6 text-center text-sm-start logo-titulo ">
+      <!-- contenedor img -->
+      <div class="d-flex align-items-center col-12 titulo">
+          <!-- texto facultades -->
+          <div class="d-sm-block text-start ms-4">
+              <a href="/admin">
+                <span class="tituloSup">App titulo</span>                      
+              </a>
+          </div>
       </div>
+    </section>
+
+    <div class="col-6 d-lg-none text-end">
+        <button class="btn boton text-white dropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu institucional">
+            <i class="bi bi-list-ul fs-1"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/usuarios">Listar Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/usuarios/nuevo">Añadir Usuario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Cerrar Sesión</a>
+            </li>
+        </ul>
     </div>
+    
+    <!-- Menu no responsive -->
+    <!-- <div class="col-10 col-lg-6 d-none d-lg-block">
+        <ul class="nav menu-estandar">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Cerrar Sesión</a>
+            </li>
+        </ul>			
+    </div> -->
+    
+  </nav>
+  <!-- fin sección del banner superior -->
+
 </header>

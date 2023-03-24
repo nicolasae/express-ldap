@@ -9,68 +9,160 @@
             <div class="row">
                 <%- include('../components/sideBarMenu') %>
 
-
-                <main class="col-md-10 ms-sm-auto col-lg-11 px-md-4">
-                    <div class="title-admin">
-                        <h1>Users List</h1>                        
-                    </div>
-
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <% if(infoUserLogged.idRole === 1) { %>
-                                <th scope="col">Actions</th>
-                            <% } %>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <% listUsers.forEach(user => { %>
+                <main class="col-md-9 ms-sm-auto px-md-4">
+                    <!-- Active users list -->
+                    <section>
+                        <div class="title-admin">
+                            <h1>Usuarios activos</h1>                        
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <th scope="row">
-                                        <%= user.id %>
-                                    </th>
-                                    <td>
-                                        <% if(infoUserLogged.idRole === 1) { %>
-                                            <a href="/admin/<%= user.id %>/editar-usuario">
-                                                <%= user.name %>
-                                            </a>
-                                        <% } else { %>
-                                            <%= user.name %>
-                                        <%} %>
-                                    </td>
-                                    <td>
-                                        <% if(infoUserLogged.idRole === 1) { %>
-                                            <a href="/admin/<%= user.id %>/editar-usuario">
-                                                <%= user.email %>
-                                            </a>
-                                        <% } else { %>
-                                            <%= user.email %>
-                                        <%} %>
-                                    </td>
-                                    <td><%= user.role %></td>
-                                    <td>
-                                        <% if(infoUserLogged.idRole === 1) { %>
-                                            <form class="" action="/admin/<%= user.id %>/actualizar-estado-usuario?_method=PUT" method="post">
-                                                <button type="submit" class="btn <%= user.state === 'Activo'? 'btn-success': 'btn-secondary'%>">
-                                                    <%= user.state === 'Activo'? 'Active' : 'Inactive' %>
-                                                </button>
-                                            </form>
-
-                                            <form class="" action="/admin/<%= user.id %>/borrar-usuario?_method=DELETE" method="post">
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
-                                        <% } %>
-                                    </td>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Rol</th>
+                                <% if(infoUserLogged.idRole === 1) { %>
+                                    <th scope="col">Acciones</th>
+                                <% } %>
                                 </tr>
-                            <% }) %>                            
-                            
-                        </tbody>
-                    </table>
+                            </thead>
+
+                            <tbody>
+                                <% listUsersActives.forEach(user => { %>
+                                    <tr>
+                                        <th scope="row">
+                                            <%= user.id %>
+                                        </th>
+                                        <td>
+                                            <% if(infoUserLogged.idRole === 1) { %>
+                                                <a href="/admin/<%= user.id %>/editar-usuario">
+                                                    <%= user.name %>
+                                                </a>
+                                            <% } else { %>
+                                                <%= user.name %>
+                                            <%} %>
+                                        </td>
+                                        <td>
+                                            <% if(infoUserLogged.idRole === 1) { %>
+                                                <a href="/admin/<%= user.id %>/editar-usuario">
+                                                    <%= user.email %>
+                                                </a>
+                                            <% } else { %>
+                                                <%= user.email %>
+                                            <%} %>
+                                        </td>
+                                        <td><%= user.role %></td>
+                                        <td>
+                                            <div class="btn-group">                                            
+                                                <div class="me-4">
+                                                    <a href="/admin/<%= user.id %>/editar-usuario">
+                                                        <button type="submit" class="btn btn-institucional">
+                                                            <i class="bi bi-pencil-square"></i>Editar
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                                <% if((infoUserLogged.idRole === 1) && (infoUserLogged.id !== user.id)) { %>
+                                                    <div class="me-4">
+                                                        <form class="" action="/admin/<%= user.id %>/actualizar-estado-usuario?_method=PUT" method="post">
+                                                            <button type="submit" class="btn btn-secondary">
+                                                                <i class="bi bi-person-dash"></i>
+                                                                Deshabilitar
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                <% } %>           
+                                            </div>                                 
+                                        </td>
+                                    </tr>
+                                <% }) %>                            
+                                
+                            </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Inactive users list -->
+                    <section>
+                        <div class="title-admin">
+                            <h1>Usuarios inactivos</h1>                        
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Rol</th>
+                                    <% if(infoUserLogged.idRole === 1) { %>
+                                        <th scope="col">Acciones</th>
+                                    <% } %>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% listUsersInactives.forEach(user => { %>
+                                        <tr>
+                                            <th scope="row">
+                                                <%= user.id %>
+                                            </th>
+                                            <td>
+                                                <% if(infoUserLogged.idRole === 1) { %>
+                                                    <a href="/admin/<%= user.id %>/editar-usuario">
+                                                        <%= user.name %>
+                                                    </a>
+                                                <% } else { %>
+                                                    <%= user.name %>
+                                                <%} %>
+                                            </td>
+                                            <td>
+                                                <% if(infoUserLogged.idRole === 1) { %>
+                                                    <a href="/admin/<%= user.id %>/editar-usuario">
+                                                        <%= user.email %>
+                                                    </a>
+                                                <% } else { %>
+                                                    <%= user.email %>
+                                                <%} %>
+                                            </td>
+                                            <td><%= user.role %></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <div class="me-4">
+                                                        <a href="/admin/<%= user.id %>/editar-usuario">
+                                                            <button type="submit" class="btn btn-institucional">
+                                                                <i class="bi bi-pencil-square"></i>Editar
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                                    <% if(infoUserLogged.idRole === 1) { %>
+                                                        <div class="me-4">
+                                                            <form class="" action="/admin/<%= user.id %>/actualizar-estado-usuario?_method=PUT" method="post">
+                                                                <button type="submit" class="btn btn-secondary">
+                                                                    <i class="bi bi-person-check"></i>
+                                                                    Habilitar
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="me-4">
+                                                            <form class="" action="/admin/<%= user.id %>/borrar-usuario?_method=DELETE" method="post">
+                                                                <button type="submit" class="btn btn-rojo">
+                                                                    <i class="bi bi-trash3-fill"></i>
+                                                                    Eliminar
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    <% } %>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% }) %>                            
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </main>
             </div>
         </div>

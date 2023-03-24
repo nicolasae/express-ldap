@@ -8,13 +8,13 @@
         <div class="">
             <div class="row">
                 <%- include('./components/sideBarMenu') %>
-                <main class="col-md-10 ms-sm-auto col-lg-11 px-md-4">
+                <main class="col-md-9 ms-sm-auto px-md-4">
                      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1>Bienvenido <%= infoUserLogged.name %>!</h1>
                     </div>                    
                     <div class="card text-center">
                         <div class="card-header">
-                          Users
+                          Usuarios
                         </div>
                         <div class="row">                    
                             <% if (infoUserLogged.idRole === 1) {%> 
@@ -22,7 +22,7 @@
                                     <div class="card-body">
                                         <a href="/admin/usuarios" class="btn btn-institucional">
                                             <i class="bi bi-list-task"></i>
-                                            List
+                                            Listar
                                         </a>
                                     </div>                            
                                 </div>
@@ -31,7 +31,7 @@
                                     <div class="card-body">
                                         <a href="/admin/usuarios/nuevo" class="btn btn-institucional">
                                             <i class="bi bi-plus-square-fill"></i>
-                                            Add
+                                            Agregar
                                         </a>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                     <div class="card-body">
                                         <a href="/admin/usuarios" class="btn btn-institucional">
                                             <i class="bi bi-list-task"></i>
-                                            List
+                                            Listar
                                         </a>
                                     </div>                            
                                 </div>

@@ -17,7 +17,7 @@
 }
 
 .sidebar {
-    background-color: var(--gris);
+    background-color: #f7f7f7;
 }
 .sidebar-sticky {
     height: calc(100vh - 48px);
@@ -43,7 +43,67 @@
     border-color: var(--institucional);
 }
 
+.btn-outline-institucional:hover{
+    background-color: var(--institucional);
+    color: var(--blanco);
+    transition: 1s;
+}
 .form-check-input:checked {
     background-color: var(--institucional);
     border-color: var(--institucional);
 }
+
+/* Accordion sidebar */
+.accordion-item {
+    background-color: #f7f7f7;
+    color: var(--blanco);
+    border: none;
+}
+
+.accordion-button {
+    background-color: #f7f7f7;
+    color: var(--institucional);
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--institucional);
+    background-color: #f7f7f7;
+    box-shadow: none;
+}
+
+.accordion-body {
+    color: var(--institucional);
+    align-items: center;
+    display: flex;
+}
+
+.accordion-body i, .card-body i, .nav-item i {
+    margin-right: 10px;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: var(--institucional);
+}
+/* .nav-link:focus, .nav-link:hover {
+    color: var(--institucional);
+} */
+
+.logos-top-admin{
+    height: 70px;
+} 
+
+.dropdown-menu{
+    background-color: #004278;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.dropdown-menu li > a {
+    color: white;
+}
+
+.dropdown-menu li > a:hover {
+    background-color: #e9ecef;
+    color: #212529;
+}
+

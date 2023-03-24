@@ -18,12 +18,24 @@ const admin = async (req, res) => {
 //GET ALL USERS
 const usersList = async (req, res) => {
   try {
-    let data = await models.User.findAll();
-    data.forEach( user => {      
+    let dataActives = await models.User.findAll({
+      where: { active: 1 },
+    });
+
+    let dataInactives = await models.User.findAll({
+      where: { active: 0 },
+    });
+
+    dataActives.forEach( user => {      
       user.role  = ( user.idRole === 1 ) ? 'Super Administrador' : 'Administrador' 
       user.state  = ( user.active === true ) ? 'Activo' : 'Inactivo' 
     })
-    res.render('admin/usersList', { listUsers: data, infoUserLogged: req.session.infoUserLogged })
+    
+    dataInactives.forEach( user => {      
+      user.role  = ( user.idRole === 1 ) ? 'Super Administrador' : 'Administrador' 
+      user.state  = ( user.active === true ) ? 'Activo' : 'Inactivo' 
+    })
+    res.render('admin/usersList', { listUsersActives: dataActives,listUsersInactives: dataInactives,infoUserLogged: req.session.infoUserLogged })
   }
   catch(error){
     console.log(error)
@@ -130,12 +142,12 @@ const deleteUser = async (req, res) => {
 
 const toggleStateUser = async( req, res ) => {
   const { id } = req.params;
+  
   try {
-    let user = await models.User.findByPk(id);
-    let state = user.dataValues.active
-    const updateUser = await models.User.update({active: !state }, { where: { id: id } });
-    return res.redirect('/admin/usuarios')
-
+      let user = await models.User.findByPk(id);
+      let state = user.dataValues.active
+      const updateUser = await models.User.update({active: !state }, { where: { id: id } });
+      return res.redirect('/admin/usuarios')
   }catch(error){
     console.log(error)
     res.status(500).json({ "message":`Problema con cambio del estado del usuario`})

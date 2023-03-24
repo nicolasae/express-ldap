@@ -2,6 +2,8 @@
     --institucional: #004278;
     --blanco: #ffffff;
     --gris: #BCBDC0;
+    --rojo: #b50822;
+
 }
 
 .content {
@@ -143,6 +145,11 @@
     border-color: var(--institucional);
 }
 
+.btn-rojo, .btn-rojo:hover {
+    color: var(--blanco);
+    background-color: var(--rojo);
+    border-color: var(--rojo);
+}
 .nav-link {
     color: var(--institucional)
 }
