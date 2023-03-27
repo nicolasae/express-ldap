@@ -128,7 +128,7 @@
 .btn-submit {
     background: #004278;
     border: 0;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     width: 100%;
     padding: 10px;
     color: var(--blanco);
@@ -153,7 +153,9 @@
 .nav-link {
     color: var(--institucional)
 }
-
+button#btn-enviar:disabled {
+background-color: var(--gris);
+}
 
 @media (min-width: 768px) {
     .access-panel {

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('./partials/head', {title : 'Express App' }) %>
+<%- include('./partials/head', {title : locals.title }) %>
 
     <body>
         <%- include('./partials/header') %>
@@ -8,14 +8,28 @@
         <main id="contenido" class="cuerpo-contenido">
             <div class="cuerpo">
                 <div class="row cuerpoCont">
+
+                    
                     <section class="d-flex justify-content-center">
                         <div class="access-panel row col-12">
+
+                            <div id="seccionError">
+                                <% if(locals.mensaje) { %>
+                                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                        <div>
+                                        <%= locals.mensaje %>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            </div>
+
                             <div class="col-12 text-center login">
                                 <div class="col-12 login">
                                     <div class="form-block">
                                         <div class="form-container">
                                             <form class="form-horizontal" action="/login" method="post" id="login-form">
                                                 <div class="form-group">
+
                                                     <label for="username">Usuario</label>
                                                     <input 
                                                         type="text"
@@ -24,7 +38,9 @@
                                                         name="username"
                                                         value=""
                                                         placeholder="Ingrese el nombre de usuario"
-                                                        required>
+                                                        required
+                                                    >
+
                                                     <label for="password">Contraseña</label>
                                                     <input
                                                         type="password"
@@ -32,10 +48,12 @@
                                                         class="form-control"
                                                         name="password"
                                                         placeholder="Ingrese la contraseña"
-                                                        required>
+                                                        required
+                                                    >
                                                 </div>
                                                 <div class="btn-institucional mt-4">
                                                     <button 
+                                                        id="btn-enviar"
                                                         type="submit"
                                                         class="btn-submit center-block"
                                                     >
@@ -52,6 +70,8 @@
                 </div>
             </div>
         </main>
+
+        <script src="/js/loginFormValidator.js"></script>
 
         <%- include('./partials/footer') %>
     </body>

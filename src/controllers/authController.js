@@ -1,6 +1,4 @@
 const { authenticate } = require("ldap-authentication");
-const bcrypt = require('bcrypt');
-
 
 const ldapConnection = require("../database/config/ldap.js");
 const models = require('../database/models');
@@ -36,10 +34,11 @@ const authenticationLogin = async (req, res) => {
     const {username , password} = req.body
     const localEmail = `${username}@utp.edu.co`;
 
-    if(username == '' || password == ''){
-        res.redirect('/');
+    if (username == '' || password == '') {
+        res.render('login');
         return;
-    }else {
+    }
+    else {
         try {    
             const infoUser = await models.User.findOne({ where: { email: localEmail } });
             
@@ -54,20 +53,18 @@ const authenticationLogin = async (req, res) => {
                     }
                     req.session.infoUserLogged = response
                     res.redirect('/admin');
-                }else {                
-                    res.status(401).json({'message': 'LDAP: El usuario no se encuentra registrado'})
+                }else {        
+                    res.render('login',{mensaje:'Las credenciales son inválidas'})
+                    // res.status(401).json({'message': 'LDAP: El usuario no se encuentra registrado'})
                 }
                 
             } else {
-                res
-                    .status(401)
-                    .json({
-                        'message':`El usuario ${username} no se encuentra registrado o activo en el aplicativo`
-                    });
+                // res.status(401).json({'message':`El usuario ${username} no se encuentra registrado o activo en el aplicativo`});
+                res.render('login',{mensaje:'Las credenciales son inválidas'})
             }
         } catch (error) {
             console.log(error);
-            res.status(500).send("Ha ocurrido un error interno");
+            res.status(500).json(error);
         }
     }
 };

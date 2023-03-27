@@ -7,6 +7,7 @@ const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
 const { verifyCredentials, verifySuperAdmin} = require('../middleware/authMiddleware'); 
 
+
 /**** LOGIN*/
 router.get('/login/', userController.login )
 router.post('/login/', authController.authenticationLogin)

@@ -2,16 +2,17 @@ const models = require('../database/models');
 
 // LOGIN
 const login = async (req,res) => {
-  return res.render('login')
+  return res.render('login',{title:'Express App'})
 };
 
 const logout = async (req, res) => {
   req.session.destroy();
-  res.redirect('/login');
+  res.redirect('/');
 }
 
 // ADMIN INDEX
 const admin = async (req, res) => {
+  // console.log('controlador de admin',req.session.infoUserLogged)
   res.render('admin', { infoUserLogged: req.session.infoUserLogged })
 };
 
@@ -67,28 +68,26 @@ const newUser = async(req, res) => {
 const newUserAction = async (req, res) => {
 
   const { name, email, active, idRole } = req.body
-    
-  let infoUser = {
-    name,
-    email,
-    active: (active === 'on' ) ? true : false,
-    idRole: (idRole === 'on' ) ? 1 : 2,
-  };
+    let infoUser = {
+      name,
+      email,
+      active: (active === 'on' ) ? true : false,
+      idRole: (idRole === 'on' ) ? 1 : 2,
+    };
 
-  try {
-    // const user = await models.User.create(infoUser);
-    const user = await models.User.findOrCreate({
-      where: { email: email },
-      defaults: infoUser
-    });
+    try {
+      // const user = await models.User.create(infoUser);
+      const user = await models.User.findOrCreate({
+        where: { email: email },
+        defaults: infoUser
+      });
 
-    return res.redirect('/admin/usuarios')
-  }
-  catch(error){
-    console.log(error)
-    res.status(500).json({ "message":`Problema con el servidor al crear nuevo usuario`})
-  }
-  
+      return res.redirect('/admin/usuarios')
+    }
+    catch(error){
+      console.log(error)
+      res.status(500).json({ "message":`Problema con el servidor al crear nuevo usuario`})
+    }
 };
 
 // UPDATE USER
