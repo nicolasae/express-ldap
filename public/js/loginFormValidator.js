@@ -8,18 +8,20 @@ document.addEventListener('DOMContentLoaded', (e) => {
     let enableBtn = [0, 0];
 
     const checkEnableBtn = () => {
+
+        console.log(enableBtn)
         if (enableBtn.includes(0)) {
 
-            seccionErrorSelector.innerHTML = `
-            <div class="alert alert-danger d-flex align-items-center" role="alert">
-                <div>
-                Todos los campos son requeridos
-                </div>
-            </div>`
+            // seccionErrorSelector.innerHTML = `
+            // <div class="alert alert-warning d-flex align-items-center" role="alert">
+            //     <div>
+            //     Ingresar todos los campos
+            //     </div>
+            // </div>`
 
             btnEnviar.disabled = true;
         } else {
-            seccionErrorSelector.innerHTML = ''
+            // seccionErrorSelector.innerHTML = ''
             btnEnviar.disabled = false;
         }
     }
@@ -48,14 +50,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
     passwordInput.addEventListener('input', passwordValidator)
 
 
-    document.getElementById("login-form").addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (passwordInput.value.length < 6 && userNameInput.value.length < 4) {
-            console.log('El usuario y la contraseña deben tener al menos 4 y 6 caracteres respectivamente')
-        } else {
-            document.getElementById("login-form").submit();
-        }
-        console.log('submit')
-    })
+    // document.getElementById("login-form").addEventListener('submit', (e) => {
+    //     e.preventDefault();
+    //     if (passwordInput.value.length < 6 && userNameInput.value.length < 4) {
+    //         console.log('El usuario y la contraseña deben tener al menos 4 y 6 caracteres respectivamente')
+    //     } else {
+    //         document.getElementById("login-form").submit();
+    //     }
+    //     console.log('submit')
+    // })
 })
 

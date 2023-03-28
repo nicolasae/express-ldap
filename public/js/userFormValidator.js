@@ -1,20 +1,24 @@
 document.addEventListener('DOMContentLoaded', (e) => {
-    console.log('entro')
     const btnEnviar = document.getElementById('btn-enviar');
     const nameInput = document.getElementById("name")
     const emailInput = document.getElementById("email")
 
+    const seccionErrorSelector = document.getElementById("seccionError")
+
     let enableBtn = [0,0];
 
-    const checkEnableBtn = () => {
+    const checkEnableBtn = () => { 
+        console.log(enableBtn)
         if (enableBtn.includes(0)) {
             btnEnviar.disabled = true;
         } else {
+            seccionErrorSelector.innerHTML = ''
             btnEnviar.disabled = false;
         }
     }
 
     const nameValidator = (e) => {
+        console.log(nameInput.value)
         if (nameInput.value.length < 4) {
             enableBtn[0] = 0;
         }

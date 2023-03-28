@@ -1,4 +1,6 @@
 const models = require('../database/models');
+const { validationResult } = require('express-validator')
+
 
 // LOGIN
 const login = async (req,res) => {
@@ -7,12 +9,11 @@ const login = async (req,res) => {
 
 const logout = async (req, res) => {
   req.session.destroy();
-  res.redirect('/');
+  res.redirect('/login');
 }
 
 // ADMIN INDEX
 const admin = async (req, res) => {
-  // console.log('controlador de admin',req.session.infoUserLogged)
   res.render('admin', { infoUserLogged: req.session.infoUserLogged })
 };
 
@@ -39,29 +40,13 @@ const usersList = async (req, res) => {
     res.render('admin/usersList', { listUsersActives: dataActives,listUsersInactives: dataInactives,infoUserLogged: req.session.infoUserLogged })
   }
   catch(error){
-    console.log(error)
-    res.status(500).json({ "message":`Problema con el servidor al listar los usuarios`})
+    console.log('Ha ocurrido un error: ' + error);
   }
 };
 
-const userDetail = async( req,res ) => {
-  const { id } = req.params
-
-  try {
-    let data = await models.User.findByPk(id);
-    ( data ) ? 
-      res.render('admin/userDetails', { users: data}):
-      res.status(500).json({ "message":`No hay un usuario relacionado al id ${id}`});
-  }
-  catch(error){
-    console.log(error)
-    res.status(500).json({ "message":`Problema con el servidor`})
-  }
-}
-
 // CREATE USER VIEW 
 const newUser = async(req, res) => {
-  return res.render('admin/newUser',{ active: 'create'});
+  return res.render('admin/newUser',{ infoUser:'',active: 'create'});
 }
 
 // CREATE USER PROCCESS
@@ -82,18 +67,15 @@ const newUserAction = async (req, res) => {
         defaults: infoUser
       });
       
-      console.log(created)
       if(created){
-        // res.status(200).json({'mensaje':'Usuario creado con éxito'})
-        res.render('admin/newUser',{ active: 'create', mensaje: 'Usuario creado con éxito', ok:true })
+        res.render('admin/newUser',{ infoUser:'', active: 'create', mensaje: 'Usuario creado con éxito', ok:true })
       }else {
-        // res.status(302).json({'mensaje':'Correo no disponible para creación de usuario'})
-        res.render('admin/newUser',{ active: 'create', mensaje: 'Correo no disponible para creación de usuario', ok:false })
+        res.render('admin/newUser',{ infoUser:'',active: 'create', mensaje: 'Correo no disponible para creación de usuario', ok:false })
       }
 
     }
     catch(error){
-      console.log(error)
+      console.log('Ha ocurrido un error: ' + error);
       res.status(500).json({ "message":`Problema con el servidor al crear nuevo usuario`})
     }
 };
@@ -105,10 +87,10 @@ const editUser = async (req, res) => {
   try {
     const user = await models.User.findByPk(id);
     const { dataValues } = user
-    return res.render('admin/newUser', dataValues );
+    return res.render('admin/newUser', { infoUser: dataValues });
 
   }catch(error){  
-    console.log(error)
+    console.log('Ha ocurrido un error: ' + error);
     res.status(500).json({ "message":`Problema con el servidor`})
   }
 };
@@ -126,10 +108,13 @@ const editUserAction = async( req, res ) => {
     };
   
     const user = await models.User.update(infoUser, { where: { id: id } });
-    return res.redirect('/admin')
+
+    res.render('admin/newUser', {infoUser: infoUser, mensaje:'Usuario actualizado correctamente',ok:true} );
+
   }catch(error) {
-    console.log(error)
-    res.status(500).json({ "message":`Problema con el servidor al actualizar el usuario`})
+    console.log('Ha ocurrido un error: ' + error);
+    res.render('admin/newUser', {infoUser: infoUser, mensaje:'Problema actulizando usuario',ok:false} );
+
   }
 }
 
@@ -142,8 +127,7 @@ const deleteUser = async (req, res) => {
     return res.redirect('/admin/usuarios')
   }
   catch(error){
-    console.log(error)
-    res.status(500).json({ "message":`Problema con la eliminación del usuario`})
+    console.log('Ha ocurrido un error: ' + error);
   }
 };
 
@@ -154,10 +138,11 @@ const toggleStateUser = async( req, res ) => {
       let user = await models.User.findByPk(id);
       let state = user.dataValues.active
       const updateUser = await models.User.update({active: !state }, { where: { id: id } });
-      return res.redirect('/admin/usuarios')
+      
+      res.redirect('/admin/usuarios')
+
   }catch(error){
-    console.log(error)
-    res.status(500).json({ "message":`Problema con cambio del estado del usuario`})
+    console.log('Ha ocurrido un error: ' + error);
   }
 }
 
@@ -166,7 +151,6 @@ module.exports = {
   logout,
   admin,
   usersList,
-  userDetail,
   newUser,
   newUserAction,
   editUser,

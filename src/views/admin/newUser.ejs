@@ -17,7 +17,7 @@
                         <div class="title-admin">
                             <h1>Editar</h1>
                         </div>
-                        <form class="edit-form" action="/admin/<%= locals.id %>/editar-usuario" method="post" id="edit-user-form">
+                        <form class="edit-form" action="/admin/<%= locals.infoUser.id %>/editar-usuario" method="post" id="edit-user-form">
                     <%} %>
                             
 
@@ -38,7 +38,7 @@
                                 id="name"
                                 class="form-control" 
                                 name="name"
-                                value="<%= locals? locals.name : '' %>" 
+                                value="<%= locals.infoUser? locals.infoUser.name : '' %>" 
                                 required
                             >
                         </div>
@@ -50,7 +50,7 @@
                             id="email" 
                             class="form-control" 
                             name="email"
-                            value="<%= locals? locals.email : '' %>" 
+                            value="<%= locals.infoUser? locals.infoUser.email : '' %>" 
                             required>
                         </div>
 
@@ -62,7 +62,7 @@
                                     class="form-check-input"
                                     name="idRole"
                                     role="switch"
-                                    <%= (locals.idRole == 1) ? 'checked' : '' %>
+                                    <%= (locals.infoUser.idRole == 1) ? 'checked' : '' %>
     
                                 >
                               <label class="form-check-label" for="idRole">Super Admin</label>
@@ -75,7 +75,7 @@
                                     class="form-check-input"
                                     name="active"
                                     role="switch"
-                                    <%= ( locals.active == true ) ? 'checked' : '' %>
+                                    <%= ( locals.infoUser.active == true ) ? 'checked' : '' %>
                                 >
                               <label class="form-check-label" for="active">Activo</label>
                             </div>

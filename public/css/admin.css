@@ -75,6 +75,7 @@
     color: var(--institucional);
     align-items: center;
     display: flex;
+    padding-left: 50px;
 }
 
 .accordion-body i, .card-body i, .nav-item i {
