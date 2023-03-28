@@ -11,42 +11,99 @@
                 <main class="col-md-9 ms-sm-auto px-md-4">
                      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1>Bienvenido <%= infoUserLogged.name %>!</h1>
-                    </div>                    
-                    <div class="card text-center">
-                        <div class="card-header">
-                          Usuarios
+                    </div>   
+                    
+                    <section class="my-5 px-4">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <b>Usuarios</b>
+                            </div>
+                            <div class="row">                    
+                                <% if (infoUserLogged.idRole === 1) {%> 
+                                    <div class="col-6">
+                                        <div class="card-body">
+                                            <a href="/admin/usuarios" class="btn btn-institucional">
+                                                <i class="bi bi-list-task"></i>
+                                                Listar
+                                            </a>
+                                        </div>                            
+                                    </div>
+                                    
+                                    <div class="col-6">
+                                        <div class="card-body">
+                                            <a href="/admin/usuarios/nuevo" class="btn btn-institucional">
+                                                <i class="bi bi-plus-square-fill"></i>
+                                                Agregar
+                                            </a>
+                                        </div>
+                                    </div>
+                                <%}  else {%>  
+                                    <div class="col-12">
+                                        <div class="card-body">
+                                            <a href="/admin/usuarios" class="btn btn-institucional">
+                                                <i class="bi bi-list-task"></i>
+                                                Listar
+                                            </a>
+                                        </div>                            
+                                    </div>
+                                <%} %>                                  
+                            </div>
                         </div>
-                        <div class="row">                    
-                            <% if (infoUserLogged.idRole === 1) {%> 
+                    </section>
+
+                    <section class="my-5 px-4">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <b>Noticias</b>
+                            </div>
+                            <div class="row">                                                    
                                 <div class="col-6">
                                     <div class="card-body">
-                                        <a href="/admin/usuarios" class="btn btn-institucional">
+                                        <a href="#" class="btn btn-institucional">
                                             <i class="bi bi-list-task"></i>
                                             Listar
                                         </a>
                                     </div>                            
                                 </div>
-                                   
+                                
                                 <div class="col-6">
                                     <div class="card-body">
-                                        <a href="/admin/usuarios/nuevo" class="btn btn-institucional">
+                                        <a href="#" class="btn btn-institucional">
                                             <i class="bi bi-plus-square-fill"></i>
                                             Agregar
                                         </a>
                                     </div>
-                                </div>
-                            <%}  else {%>  
-                                <div class="col-12">
+                                </div>        
+                            </div>
+                        </div>                                                       
+                    </section>
+
+                    <section class="my-5 px-4">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <b>Categorías</b>
+                            </div>
+                            <div class="row">                                                    
+                                <div class="col-6">
                                     <div class="card-body">
-                                        <a href="/admin/usuarios" class="btn btn-institucional">
+                                        <a href="#" class="btn btn-institucional">
                                             <i class="bi bi-list-task"></i>
                                             Listar
                                         </a>
                                     </div>                            
                                 </div>
-                            <%} %>                                                                                
-                        </div>
-                    </div>
+                                
+                                <div class="col-6">
+                                    <div class="card-body">
+                                        <a href="#" class="btn btn-institucional">
+                                            <i class="bi bi-plus-square-fill"></i>
+                                            Agregar
+                                        </a>
+                                    </div>
+                                </div>        
+                            </div>
+                        </div>                                                       
+                    </section>
                     
                 </main>
             </div>

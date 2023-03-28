@@ -3,41 +3,102 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/admin">
-                    <i class="bi bi-house-door-fill fs-3"></i>
+                    <i class="bi bi-house-door fs-3"></i>
                     Inicio
                 </a>
             </li>
 
             <li class="nav-item">
+
                 <div class="accordion-item">
-                    <div class="accordion" id="accordionExample">
-                        <h2 class="accordion-header" id="flush-users">                          
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <i class="bi bi-person-fill fs-3"></i>
-                                Usuarios
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-users" data-bs-parent="#accordionFlushExample">
+                    <h2 class="accordion-header" id="headingUsers">                         
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
+                        <i class="bi bi-person fs-3"></i>
+                        Usuarios
+                      </button>
+                    </h2>
+                
+                    <div id="collapseUser" class="accordion-collapse collapse" aria-labelledby="headingUsers" data-bs-parent="#accordionExample">
                         <a href="/admin/usuarios">
                             <div class="accordion-body">
                                 <i class="bi bi-list-task fs-3"></i>Listar
                             </div>
                         </a>
                     </div>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-users" data-bs-parent="#accordionFlushExample">
+                
+                    <div id="collapseUser" class="accordion-collapse collapse" aria-labelledby="headingUsers" data-bs-parent="#accordionExample">
                         <a href="/admin/usuarios/nuevo">
                             <div class="accordion-body">
-                                <i class="bi bi-plus-square-fill fs-3"></i>Agregar
+                                <i class="bi bi-plus-square fs-3"></i>Agregar
                             </div>
                         </a>
                     </div>
+                
                 </div>
             </li>
 
             <li class="nav-item">
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingNews">                         
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNew" aria-expanded="true" aria-controls="collapseNew">
+                        <i class="bi bi-newspaper fs-3"></i>
+                        Noticias
+                      </button>
+                    </h2>
+                
+                    <div id="collapseNew" class="accordion-collapse collapse" aria-labelledby="headingNews" data-bs-parent="#accordionExample">
+                        <a href="#">
+                            <div class="accordion-body">
+                                <i class="bi bi-list-task fs-3"></i>Listar
+                            </div>
+                        </a>
+                    </div>
+                
+                    <div id="collapseNew" class="accordion-collapse collapse" aria-labelledby="headingNews" data-bs-parent="#accordionExample">
+                        <a href="#">
+                            <div class="accordion-body">
+                                <i class="bi bi-plus-square fs-3"></i>Agregar
+                            </div>
+                        </a>
+                    </div>
+                
+                </div>
+            </li>
+
+            <li class="nav-item">
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingCategories">                         
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="true" aria-controls="collapseCategory">
+                        <i class="bi bi-funnel fs-3"></i>
+                        Categorías
+                      </button>
+                    </h2>
+                
+                    <div id="collapseCategory" class="accordion-collapse collapse" aria-labelledby="headingCategories" data-bs-parent="#accordionExample">
+                        <a href="#">
+                            <div class="accordion-body">
+                                <i class="bi bi-list-task fs-3"></i>Listar
+                            </div>
+                        </a>
+                    </div>
+                
+                    <div id="collapseCategory" class="accordion-collapse collapse" aria-labelledby="headingCategories" data-bs-parent="#accordionExample">
+                        <a href="#">
+                            <div class="accordion-body">
+                                <i class="bi bi-plus-square fs-3"></i>Agregar
+                            </div>
+                        </a>
+                    </div>
+                
+                </div>
+            </li>
+            
+
+            <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/logout">
-                    <i class="bi bi-door-closed-fill fs-3"></i>
+                    <i class="bi bi-door-closed fs-3"></i>
                     Cerrar Sesión
                 </a>
             </li>

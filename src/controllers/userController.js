@@ -77,12 +77,20 @@ const newUserAction = async (req, res) => {
 
     try {
       // const user = await models.User.create(infoUser);
-      const user = await models.User.findOrCreate({
+      const [user, created] = await models.User.findOrCreate({
         where: { email: email },
         defaults: infoUser
       });
+      
+      console.log(created)
+      if(created){
+        // res.status(200).json({'mensaje':'Usuario creado con éxito'})
+        res.render('admin/newUser',{ active: 'create', mensaje: 'Usuario creado con éxito', ok:true })
+      }else {
+        // res.status(302).json({'mensaje':'Correo no disponible para creación de usuario'})
+        res.render('admin/newUser',{ active: 'create', mensaje: 'Correo no disponible para creación de usuario', ok:false })
+      }
 
-      return res.redirect('/admin/usuarios')
     }
     catch(error){
       console.log(error)

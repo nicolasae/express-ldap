@@ -19,9 +19,20 @@
                         </div>
                         <form class="edit-form" action="/admin/<%= locals.id %>/editar-usuario" method="post" id="edit-user-form">
                     <%} %>
+                            
+
+                        <div id="seccionError">
+                            <% if(locals.mensaje) { %>
+                                <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> d-flex align-items-center" role="alert">
+                                    <div>
+                                    <%= locals.mensaje %>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
                     
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Nombre</label>
                             <input 
                                 type="text" 
                                 id="name"
@@ -33,7 +44,7 @@
                         </div>
 
                         <div class="mb-3">
-                          <label for="email" class="form-label">Email address</label>
+                          <label for="email" class="form-label">Correo Electrónico</label>
                           <input 
                             type="email" 
                             id="email" 
@@ -72,12 +83,12 @@
                         
                         <% if (locals.active && locals.active === 'create') { %>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <button type="submit" class="btn btn-outline-institucional">Crear</button>
+                                <button id="btn-enviar" type="submit" class="btn btn-outline-institucional">Crear</button>
                                 <!-- <button type="button" class="btn btn-outline-institucional">Crear y agregar otro</button> -->
                             </div>
                         <% } else { %>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <button type="submit" class="btn btn-outline-institucional">Actualizar</button>
+                                <button id="btn-enviar" type="submit" class="btn btn-outline-institucional">Actualizar</button>
                                 <!-- <button type="button" class="btn btn-outline-institucional">Crear y agregar otro</button> -->
                             </div>
                         <%} %>
@@ -86,6 +97,8 @@
                 </main>
             </div>
         </div>
+
+        <script src="/js/userFormValidator.js"></script>
 
     </body>
 
