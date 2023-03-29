@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Category.belongsToMany(models.New, {
         through: "New_category",
-        as: "news",
-        foreignKey: "category_id",
+        as: "News",
+        foreignKey: "idCategory",
       });
     }
   }
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      tableName:'categories',
+      tableName:'Categories',
       modelName: 'Category',
   });
   return Category;

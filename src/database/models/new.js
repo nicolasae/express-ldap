@@ -13,9 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       New.belongsToMany(models.Category, {
         through: "New_category",
-        as: "categories",
-        foreignKey: "new_id",
+        as: "Categories",
+        foreignKey: "idNew",
       });
+      New.belongsTo(models.User, {
+        foreignKey:'idAuthor',
+      })
     }
   }
   New.init(
@@ -46,14 +49,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull:false
       }, 
+      activeForPortal:{
+        type: DataTypes.BOOLEAN,
+        allowNull:false
+      }, 
       idAuthor: {
         type:DataTypes.INTEGER,
         allowNull: false,
-      } 
+      }
     }, 
     {
       sequelize,
-      tableName:'news',
+      tableName:'News',
       modelName: 'New',
     }
   );

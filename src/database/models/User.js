@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.belongsTo(models.Role, {
         foreignKey:'idRole',
+      });
+      User.hasMany(models.New, {
+        foreignKey:'idAuthor',
       })
     }
   }
@@ -44,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      tableName: 'users',
+      tableName: 'Users',
       modelName: 'User',
     }
   );

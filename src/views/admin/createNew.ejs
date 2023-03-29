@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include('../partials/head', {title : 'List of news' }) %>
+
+    <body class="admin-body">
+        <%- include('../components/navBar') %>
+        <div class="">
+            <div class="row">
+                <%- include('../components/sideBarMenu') %>
+                <main class="col-md-9 ms-sm-auto px-md-4">
+                <% if (locals.active && locals.active === 'create') { %>
+                    <div class="title-admin">
+                        <h1>Nueva noticia</h1>
+                    </div>
+                    <form class="create-form" action="/admin/usuarios/nuevo" method="post" id="create-user-form">
+                <% } else { %>
+                    <div class="title-admin">
+                        <h1>Editar noticia</h1>
+                    </div>
+                    <form class="edit-form" action="/admin/<%= locals.infoUser.id %>/editar-usuario" method="post" id="edit-user-form">
+                <%} %>
+                    
+                        <div id="seccionError">
+                            <% if(locals.mensaje) { %>
+                                <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> d-flex align-items-center" role="alert">
+                                    <div>
+                                    <%= locals.mensaje %>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Título</label>
+                            <input 
+                                type="text" 
+                                id="title"
+                                class="form-control" 
+                                name="name"
+                                value="<%= locals.infoUser? locals.infoUser.name : '' %>" 
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Resumen</label>
+                            <div id="editor"></div>
+                            <!-- <input 
+                                type="text" 
+                                id="summary"
+                                class="form-control" 
+                                name="summary"
+                                value="<%= locals.infoUser? locals.infoUser.name : '' %>" 
+                                required
+                            > -->
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Enlace</label>
+                            <input 
+                                type="text" 
+                                id="link"
+                                class="form-control" 
+                                name="link"
+                                value="<%= locals.infoUser? locals.infoUser.name : '' %>" 
+                                required
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Imagen</label>
+                            <input class="form-control" type="file" id="formFile">
+                            
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Selecciona una(s) categoría</label>
+                            <select id="select-categories" placeholder="Elige una o varias categorías">
+                                <% dataCategories.forEach(category => { %>
+                                    <option value="<%= category.id %>"><%= category.name %></option>
+                                <% }) %>  
+                            </select>
+                        </div>
+
+                        <div class="mb-3 form-check form-switch">
+                            <input 
+                                type="checkbox"
+                                id="idRole"
+                                class="form-check-input"
+                                name="idRole"
+                                role="switch"
+
+                            >
+                          <label class="form-check-label" for="idRole">Activo</label>
+                        </div>
+
+                        <div class="mb-3 form-check form-switch">
+                            <input 
+                                type="checkbox"
+                                id="active"
+                                class="form-check-input"
+                                name="active"
+                                role="switch"
+                                
+                            >
+                          <label class="form-check-label" for="active">Activo para el Portal</label>
+                        </div>
+
+
+
+                        
+                        <% if (locals.active && locals.active === 'create') { %>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button id="btn-enviar" type="submit" class="btn btn-outline-institucional">Crear</button>
+                                <!-- <button type="button" class="btn btn-outline-institucional">Crear y agregar otro</button> -->
+                            </div>
+                        <% } else { %>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button id="btn-enviar" type="submit" class="btn btn-outline-institucional">Actualizar</button>
+                                <!-- <button type="button" class="btn btn-outline-institucional">Crear y agregar otro</button> -->
+                            </div>
+                        <%} %>
+                        
+                    </form>
+                </main>
+            </div>
+        </div>
+
+        <!-- SELECTIZE -->
+        <script>   
+            $(function () {
+
+                $('#select-categories').selectize({
+                    maxItems: null,
+                    valueField: 'id',
+                    labelField: 'title',
+                    searchField: 'title',
+                    create: false
+                });
+            }); 
+        </script>
+        <!-- CKEDITOR5 -->
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#editor' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
+        
+    </body>
+
+</html>

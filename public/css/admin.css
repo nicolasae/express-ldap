@@ -108,3 +108,28 @@
     color: #212529;
 }
 
+/* Selectize */
+.item, .selectize-dropdown-content {
+    font-size: 16px;
+}
+
+.selectize-control.multi .selectize-input>div {
+    background-color: #e9ecef !important;
+    color: var(--institucional) !important;
+}
+
+.selectize-control.multi .selectize-input [data-value] {
+    text-shadow: none;
+    border-radius: 0;
+    background-color: #1b9dec;
+    background-image: none;
+    box-shadow: none;
+}
+
+.selectize-control.multi .selectize-input > div {
+    padding: 8px 16px;
+    border: 0;
+}
+#select-categories-selectized {
+    font-size: 16px;
+}
