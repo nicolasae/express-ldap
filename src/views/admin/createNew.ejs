@@ -12,12 +12,12 @@
                     <div class="title-admin">
                         <h1>Nueva noticia</h1>
                     </div>
-                    <form class="create-form" action="/admin/usuarios/nuevo" method="post" id="create-user-form">
+                    <form class="create-form" action="/admin/noticias/nuevo" method="post" id="create-new-form" enctype="multipart/form-data">
                 <% } else { %>
                     <div class="title-admin">
                         <h1>Editar noticia</h1>
                     </div>
-                    <form class="edit-form" action="/admin/<%= locals.infoUser.id %>/editar-usuario" method="post" id="edit-user-form">
+                    <form class="edit-form" action="/admin/<%= locals.infoUser.id %>/editar-usuario" method="post" id="edit-user-form" enctype="multipart/form-data" >
                 <%} %>
                     
                         <div id="seccionError">
@@ -36,7 +36,7 @@
                                 type="text" 
                                 id="title"
                                 class="form-control" 
-                                name="name"
+                                name="title"
                                 value="<%= locals.infoUser? locals.infoUser.name : '' %>" 
                                 required
                             >
@@ -44,15 +44,7 @@
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Resumen</label>
-                            <div id="editor"></div>
-                            <!-- <input 
-                                type="text" 
-                                id="summary"
-                                class="form-control" 
-                                name="summary"
-                                value="<%= locals.infoUser? locals.infoUser.name : '' %>" 
-                                required
-                            > -->
+                            <textarea name="summary" id="editor"></textarea name="summary">
                         </div>
 
                         <div class="mb-3">
@@ -68,7 +60,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Imagen</label>
-                            <input class="form-control" type="file" id="formFile">
+                            <!-- <input class="form-control" type="file" id="imageFile"> -->
+                            <input 
+                                class="form-control" 
+                                id="imagen" 
+                                name="imagen"
+                                type="file" 
+                            >
                             
                         </div>
 
@@ -84,9 +82,9 @@
                         <div class="mb-3 form-check form-switch">
                             <input 
                                 type="checkbox"
-                                id="idRole"
+                                id="active"
                                 class="form-check-input"
-                                name="idRole"
+                                name="active"
                                 role="switch"
 
                             >
@@ -96,9 +94,9 @@
                         <div class="mb-3 form-check form-switch">
                             <input 
                                 type="checkbox"
-                                id="active"
+                                id="activeForPortal"
                                 class="form-check-input"
-                                name="active"
+                                name="activeForPortal"
                                 role="switch"
                                 
                             >
@@ -111,12 +109,10 @@
                         <% if (locals.active && locals.active === 'create') { %>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
                                 <button id="btn-enviar" type="submit" class="btn btn-outline-institucional">Crear</button>
-                                <!-- <button type="button" class="btn btn-outline-institucional">Crear y agregar otro</button> -->
                             </div>
                         <% } else { %>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
                                 <button id="btn-enviar" type="submit" class="btn btn-outline-institucional">Actualizar</button>
-                                <!-- <button type="button" class="btn btn-outline-institucional">Crear y agregar otro</button> -->
                             </div>
                         <%} %>
                         

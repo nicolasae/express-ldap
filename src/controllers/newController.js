@@ -50,40 +50,50 @@ const createNew = async( req, res ) => {
 }
 
 // CREATE NEW PROCCESS
-// const createNewAction = async (req, res) => {
-//     const { title, summary, link, image, active, activeForPortal, idAuthor} = req.body
-    
-//     try {
-//         const newData = await models.New.create({
-//             title: title,
-//             summary:summary,
-//             link: link,
-//             image: image,
-//             active: active,
-//             activeForPortal: activeForPortal,
-//             idAuthor: idAuthor,
-//             Categories: [
-//                 { name: 'Educación' },
-//                 { name: 'Egresados' }
-//             ]
-//         }, 
-//         {
-//             include: [{ 
-//                 model: models.Category,
-//                 as: 'Categories'
-//             }]
-//         }
-//         )
+const createNewAction = async (req, res) => {
+    const { title, summary, link, image, active, activeForPortal} = req.body
+    console.log(req.body)
+
+    const infoNew = {
+        title,
+        summary,
+        link,
+        image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
+        active: (active === 'on' ) ? 1 : 0,
+        activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
+    }
+    res.status(200).json(infoNew)
+    // try {
+    //     const newData = await models.New.create({
+    //         title: title,
+    //         summary:summary,
+    //         link: link,
+    //         image: image,
+    //         active: active,
+    //         activeForPortal: activeForPortal,
+    //         idAuthor: idAuthor,
+    //         Categories: [
+    //             { name: 'Educación' },
+    //             { name: 'Egresados' }
+    //         ]
+    //     }, 
+    //     {
+    //         include: [{ 
+    //             model: models.Category,
+    //             as: 'Categories'
+    //         }]
+    //     }
+    //     )
 
         
-//     }catch(error){
-//         console.log('Ha ocurrido un error: ' + error);
-//     }
+    // }catch(error){
+    //     console.log('Ha ocurrido un error: ' + error);
+    // }
 
-// }
+}
 
 module.exports = {
     // newsList,
     createNew,
-    // createNewAction,
+    createNewAction,
 }
