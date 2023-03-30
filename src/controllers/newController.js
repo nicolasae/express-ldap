@@ -51,8 +51,23 @@ const createNew = async( req, res ) => {
 
 // CREATE NEW PROCCESS
 const createNewAction = async (req, res) => {
-    const { title, summary, link, image, active, activeForPortal} = req.body
-    console.log(req.body)
+    const { title, summary, link,active, activeForPortal, selectCategories} = req.body
+
+    const convertArrayCategories = []
+
+    if( typeof selectCategories == "string") {
+        convertArrayCategories[0] = parseInt(selectCategories)
+    }
+    else if(typeof selectCategories == "object" ) {
+        selectCategories.forEach((idCategory, index ) => {
+            convertArrayCategories[index] = parseInt(idCategory)
+        })
+    }
+    else {
+        convertArrayCategories[0] = 1
+    }  
+    
+    console.log(convertArrayCategories)
 
     const infoNew = {
         title,
@@ -61,34 +76,45 @@ const createNewAction = async (req, res) => {
         image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
         active: (active === 'on' ) ? 1 : 0,
         activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
+        idAuthor: 1,
     }
-    res.status(200).json(infoNew)
-    // try {
-    //     const newData = await models.New.create({
-    //         title: title,
-    //         summary:summary,
-    //         link: link,
-    //         image: image,
-    //         active: active,
-    //         activeForPortal: activeForPortal,
-    //         idAuthor: idAuthor,
-    //         Categories: [
-    //             { name: 'Educación' },
-    //             { name: 'Egresados' }
-    //         ]
-    //     }, 
-    //     {
-    //         include: [{ 
-    //             model: models.Category,
-    //             as: 'Categories'
-    //         }]
-    //     }
-    //     )
 
+    try {
+        // Insert a new
+        const newData = await models.New.create({
+            title: infoNew.title,
+            summary:infoNew.summary,
+            link: infoNew.link,
+            image: infoNew.image,
+            active: infoNew.active,
+            activeForPortal: infoNew.activeForPortal,
+            idAuthor: infoNew.idAuthor,
+        })
         
-    // }catch(error){
-    //     console.log('Ha ocurrido un error: ' + error);
-    // }
+        convertArrayCategories.forEach(async (item) => {
+            const category = await models.Category.findOne({
+                where: { id: item },
+                attributes: ['id','name'],
+                raw:true,
+            })
+
+            if(!category) {
+                return res.status(400)
+            }
+
+            const nc = {
+                idCategory: item,
+                idNew: newData.id
+            }
+
+            const saveNewCategory = await models.New_Category.create(nc)
+        })
+        
+        res.status(200).json({'message': 'Usuario creado con exito'})
+
+    }catch(error){
+        console.log('Ha ocurrido un error: ' + error);
+    }
 
 }
 

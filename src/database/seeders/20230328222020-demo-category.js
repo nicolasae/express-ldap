@@ -11,6 +11,18 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+      { 
+        id: 2,
+        name: 'Institucional',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      { 
+        id: 3,
+        name: 'Académico',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ]);
   },
 
