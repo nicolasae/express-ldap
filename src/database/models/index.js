@@ -41,10 +41,10 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 // if force is 2 everytime that we run app we lose our data
-// db.sequelize.sync({ force: false})
-// .then(() => {
-//     console.log('yes re-sync done!')
-// })
+db.sequelize.sync({ force: false})
+.then(() => {
+    console.log('yes re-sync done!')
+})
 
 
 module.exports = db;

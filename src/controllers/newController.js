@@ -3,35 +3,33 @@ const { validationResult } = require('express-validator')
 
 
 //GET ALL NEWS
-// const newsList = async (req, res) => {
+const newsList = async (req, res) => {
 
-//     // const queryObject = req.query
-//     // const filters = {}
+    try {
+        let dataNews = await models.New.findAll({
+            include: [{ 
+                model: models.Category,
+                as: 'Categories',
+            }],
+            raw:true,
 
-//     // for (const [key, value] of Object.entries(queryObject)) {
-//     //     filters[key]= parseInt(value)
-//     // }
-//     // console.log(filters)
+          });
 
-//     try {
-//         let dataNews = await models.New.findAll({
-//             include: [{ 
-//                 model: models.Category,
-//                 as: 'Categories'
-//             }],
-//             // where: { 
-//             //     idAuthor:filters.idAuthor,
-//             //     active:filters.active,
-//             //     activeForPortal:filters.activeForPortal
-//             // },
-//           });
-      
-//         res.status(200).json({dataNews})
+        // dataNews.forEach((element, index) => {
+        //     let auxDate = new Date((element.createdAt))
+        //     const dateCorrectFormat = `${auxDate.getFullYear()}-${auxDate.getMonth()}-${auxDate.getDate()} ${auxDate.getHours()}:${auxDate.getMinutes()}:${auxDate.getSeconds()}`
+        //     console.log(auxDate.get)
+        //     element.createdAt = dateCorrectFormat
+        // })
+        console.log(dataNews)
+
+        res.render('admin/newsLIst', { dataNews: dataNews})
+        
     
-//     }catch(error){
-//         console.log('Ha ocurrido un error: ' + error);
-//     }
-// }
+    }catch(error){
+        console.log('Ha ocurrido un error: ' + error);
+    }
+}
 
 
 // CREATE NEW
@@ -53,6 +51,8 @@ const createNew = async( req, res ) => {
 const createNewAction = async (req, res) => {
     const { title, summary, link,active, activeForPortal, selectCategories} = req.body
 
+    console.log(summary)
+
     const convertArrayCategories = []
 
     if( typeof selectCategories == "string") {
@@ -67,8 +67,6 @@ const createNewAction = async (req, res) => {
         convertArrayCategories[0] = 1
     }  
     
-    console.log(convertArrayCategories)
-
     const infoNew = {
         title,
         summary,
@@ -97,10 +95,10 @@ const createNewAction = async (req, res) => {
                 attributes: ['id','name'],
                 raw:true,
             })
-
-            if(!category) {
-                return res.status(400)
-            }
+            // Validation of existing category 
+            // if(!category) {
+            //     return res.status(400)
+            // }
 
             const nc = {
                 idCategory: item,
@@ -118,8 +116,28 @@ const createNewAction = async (req, res) => {
 
 }
 
+// DETAIL NEW
+const detailNew = async(req, res) => {
+    let id = req.params.id;
+    try {
+        const newData = await models.New.findOne({
+            include: [{ 
+                model: models.Category,
+                as: 'Categories'
+            }],
+            where:{ id: id },
+            raw: true
+        })
+        // console.log(newData)
+        res.render('admin/newDetail.ejs')
+    }catch(error){
+        console.log('Ha ocurrido un error: ' + error);
+    }
+}
+
 module.exports = {
-    // newsList,
+    newsList,
     createNew,
     createNewAction,
+    detailNew,
 }

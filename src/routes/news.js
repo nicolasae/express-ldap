@@ -20,12 +20,15 @@ const upload = multer({ storage: storage });
 
 /**** GET ALL NEWS*/
 // router.get('/admin/noticias', verifyCredentials, newController.usersList)
-// router.get('/admin/noticias', newController.newsList)
+router.get('/admin/noticias', newController.newsList)
 
 /**** CREATE USER*/
 // router.get('/admin/noticias/nuevo',verifyCredentials, newController.createNew)
 router.get('/admin/noticias/nuevo', newController.createNew)
 router.post('/admin/noticias/nuevo', upload.single('imagen'), newController.createNewAction)
+/**** DETAIL NEW*/
+router.get('/admin/:id/noticia', newController.detailNew)
+
 /**** UPDATE USER*/
 // router.get('/admin/:id/editar-noticia',verifyCredentials, newController.editUser)
 // router.post('/admin/:id/editar-noticia',verifyCredentials, newController.editUserAction)

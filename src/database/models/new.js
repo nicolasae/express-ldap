@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
       idAuthor: {
         type:DataTypes.INTEGER,
         allowNull: false,
-      }
+      },
     }, 
     {
       sequelize,
