@@ -126,9 +126,26 @@ const detailNew = async(req, res) => {
     }
 }
 
+const toggleStatePortal = async( req, res ) => {
+    const { id } = req.params;
+    console.log(id)
+    try {
+        let newData = await models.New.findByPk(id);
+        console.log(newData.active)
+        // let state = user.dataValues.active
+        // const updateUser = await models.User.update({active: !state }, { where: { id: id } });
+        
+        // res.redirect('/admin/usuarios')
+  
+    }catch(error){
+      console.log('Ha ocurrido un error: ' + error);
+    }
+}
+
 module.exports = {
     newsList,
     createNew,
     createNewAction,
     detailNew,
+    toggleStatePortal
 }

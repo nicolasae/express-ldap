@@ -32,8 +32,8 @@ router.get('/admin/:id/noticia', newController.detailNew)
 /**** UPDATE USER*/
 // router.get('/admin/:id/editar-noticia',verifyCredentials, newController.editUser)
 // router.post('/admin/:id/editar-noticia',verifyCredentials, newController.editUserAction)
-// /**** UPDATE STATE USER*/
-// router.put('/admin/:id/actualizar-estado-noticia', verifyCredentials, newController.toggleStateUser);
+// /**** UPDATE STATE NEW*/
+router.put('/admin/:id/actualizar-estado-portal-noticia', newController.toggleStatePortal);
 // /**** DELETE USER*/
 // router.delete('/admin/:id/borrar-noticia', verifyCredentials, newController.deleteUser);
 

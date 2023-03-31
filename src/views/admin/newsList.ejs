@@ -41,14 +41,7 @@
                                         <td><%= news.createdAt.getFullYear() %>-<%= news.createdAt.getMonth() %>-<%= news.createdAt.getDate() %></td>
                                         <td>
                                             <div class="btn-group">
-                                                <div class="me-4">
-                                                    <a href="/admin/<%= news.id %>/noticia">
-                                                        <button type="submit" class="btn btn-info">
-                                                            <i class="bi bi-eye-fill"></i>
-                                                            Ver
-                                                        </button>
-                                                    </a>
-                                                </div>
+                        
                                                 <div class="me-4">
                                                     <a href="">
                                                         <button type="submit" class="btn btn-institucional">
@@ -57,15 +50,15 @@
                                                     </a>
                                                 </div>                                                
                                                 <div class="me-4">
-                                                    <form class="" action="" method="post">
+                                                    <form class="" action="/admin/<%= news.id %>/actualizar-estado-portal-noticia?_method=PUT" method="post">
                                                         <% if(news.activeForPortal) { %>
                                                             <button type="submit" class="btn btn-secondary">
-                                                                <i class="bi bi-person-check"></i>
+                                                                <i class="bi bi-eye-fill"></i>
                                                                 Visible
                                                             </button>
                                                         <% } else { %>
                                                             <button type="submit" class="btn btn-primary">
-                                                                <i class="bi bi-person-check"></i>
+                                                                <i class="bi bi-eye-slash-fill"></i>
                                                                 Oculto
                                                             </button>
                                                         <%} %>
