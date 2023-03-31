@@ -1,7 +1,6 @@
 const models = require('../database/models');
 const { validationResult } = require('express-validator')
 
-
 //GET ALL NEWS
 const newsList = async (req, res) => {
 
@@ -10,27 +9,15 @@ const newsList = async (req, res) => {
             include: [{ 
                 model: models.Category,
                 as: 'Categories',
+                attributes:['id','name'],
             }],
-            raw:true,
-
-          });
-
-        // dataNews.forEach((element, index) => {
-        //     let auxDate = new Date((element.createdAt))
-        //     const dateCorrectFormat = `${auxDate.getFullYear()}-${auxDate.getMonth()}-${auxDate.getDate()} ${auxDate.getHours()}:${auxDate.getMinutes()}:${auxDate.getSeconds()}`
-        //     console.log(auxDate.get)
-        //     element.createdAt = dateCorrectFormat
-        // })
-        console.log(dataNews)
-
-        res.render('admin/newsLIst', { dataNews: dataNews})
+        });
         
-    
+        res.render('admin/newsList', { dataNews: dataNews})  
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
     }
 }
-
 
 // CREATE NEW
 const createNew = async( req, res ) => {
@@ -121,15 +108,19 @@ const detailNew = async(req, res) => {
     let id = req.params.id;
     try {
         const newData = await models.New.findOne({
+            where:{ id: id },
             include: [{ 
                 model: models.Category,
-                as: 'Categories'
+                as: 'Categories',
+                attributes:['id','name'],
+                through:{
+                    attributes: [],
+                }
             }],
-            where:{ id: id },
-            raw: true
         })
-        // console.log(newData)
-        res.render('admin/newDetail.ejs')
+        console.log(newData.Categories)
+        // res.json(newData)
+        res.render('admin/newDetail.ejs',{newData: newData, categories:newData.Categories})
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
     }

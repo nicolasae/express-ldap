@@ -28,10 +28,17 @@
                             <tbody>
                                 <% dataNews.forEach(news => { %>
                                     <tr>
-                                        <td><%= news.title %></td>
-                                        <td><%= news.summary %></td>
-                                        <td><%= news.activeForPortal %></td>
-                                        <td><%= news.createdAt %></td>
+                                        <td>
+                                            <a href="/admin/<%= news.id %>/noticia">
+                                                <%= news.title %>
+                                            </a>
+                                        </td>
+                                        <td><%- news.summary %></td>
+                                        <td>
+                                            <%- (news.activeForPortal) ? '<span class="badge bg-success">SI</span>': '<span class="badge bg-danger">NO</span>'%>
+                                            
+                                        </td>
+                                        <td><%= news.createdAt.getFullYear() %>-<%= news.createdAt.getMonth() %>-<%= news.createdAt.getDate() %></td>
                                         <td>
                                             <div class="btn-group">
                                                 <div class="me-4">
@@ -51,13 +58,27 @@
                                                 </div>                                                
                                                 <div class="me-4">
                                                     <form class="" action="" method="post">
+                                                        <% if(news.activeForPortal) { %>
+                                                            <button type="submit" class="btn btn-secondary">
+                                                                <i class="bi bi-person-check"></i>
+                                                                Visible
+                                                            </button>
+                                                        <% } else { %>
+                                                            <button type="submit" class="btn btn-primary">
+                                                                <i class="bi bi-person-check"></i>
+                                                                Oculto
+                                                            </button>
+                                                        <%} %>
+                                                    </form>
+                                                </div>
+                                                <div class="me-4">
+                                                    <form class="" action="" method="post">
                                                         <button type="submit" class="btn btn-secondary">
                                                             <i class="bi bi-person-check"></i>
-                                                            Habilitar
+                                                            Activar
                                                         </button>
                                                     </form>
                                                 </div>
-                                                
                                             </div>
                                         </td>
                                     </tr>
