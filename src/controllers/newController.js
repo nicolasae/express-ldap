@@ -5,7 +5,16 @@ const { validationResult } = require('express-validator')
 const newsList = async (req, res) => {
 
     try {
-        let dataNews = await models.New.findAll({
+        let dataNewsActives = await models.New.findAll({
+            where:{active:1},
+            include: [{ 
+                model: models.Category,
+                as: 'Categories',
+                attributes:['id','name'],
+            }],
+        });
+        let dataNewsInactives = await models.New.findAll({
+            where:{active:0},
             include: [{ 
                 model: models.Category,
                 as: 'Categories',
@@ -13,7 +22,7 @@ const newsList = async (req, res) => {
             }],
         });
         
-        res.render('admin/newsList', { dataNews: dataNews})  
+        res.render('admin/newsList', { dataNewsActives: dataNewsActives, dataNewsInactives: dataNewsInactives})  
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
     }
@@ -31,14 +40,14 @@ const createNew = async( req, res ) => {
         infoNew:'', 
         active: 'create',
         dataCategories: dataCategories,
+        newData: '',
     });
 }
 
 // CREATE NEW PROCCESS
 const createNewAction = async (req, res) => {
+    console.log(req.session.infoUserLogged)
     const { title, summary, link,active, activeForPortal, selectCategories} = req.body
-
-    console.log(summary)
 
     const convertArrayCategories = []
 
@@ -63,6 +72,7 @@ const createNewAction = async (req, res) => {
         activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
         idAuthor: 1,
     }
+    console.log(infoNew)
 
     try {
         // Insert a new
@@ -82,26 +92,83 @@ const createNewAction = async (req, res) => {
                 attributes: ['id','name'],
                 raw:true,
             })
-            // Validation of existing category 
-            // if(!category) {
-            //     return res.status(400)
-            // }
-
             const nc = {
                 idCategory: item,
                 idNew: newData.id
             }
-
             const saveNewCategory = await models.New_Category.create(nc)
         })
         
-        res.status(200).json({'message': 'Usuario creado con exito'})
+        res.render('admin/newsList')
 
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
     }
-
 }
+
+// UPDATE USER
+const editNew = async (req, res) => {
+    let id = req.params.id;
+    
+    try {
+        
+        const newData = await models.New.findOne({
+            where:{ id: id },
+            include: [{ 
+                model: models.Category,
+                as: 'Categories',
+                attributes:['id','name'],
+                through:{
+                    attributes: [],
+                }
+            }],
+        })
+
+        const dataCategories = await models.Category.findAll({
+            attributes:['id','name'],
+            order: [['id','ASC']],
+            raw:true,
+        })
+
+        return res.render('admin/createNew',{ 
+            infoNew:'', 
+            active: 'edit',
+            newData: newData,
+            dataCategories: dataCategories
+        });
+        
+    }catch(error){  
+      console.log('Ha ocurrido un error: ' + error);
+    }
+};
+
+const editNewAction = async( req, res ) => {
+    console.log('entro')
+    try {
+      let id = req.params.id 
+
+      console.log(id)
+      res.json({
+        'message':'entro'
+      })
+    //   const { name, email, active, idRole } = req.body;
+    //   let infoUser = {
+    //     name,
+    //     email,
+    //     active: (active === 'on') ? true : false,
+    //     idRole: (idRole === 'on') ? 1 : 2,
+    //   };
+    
+    //   const user = await models.User.update(infoUser, { where: { id: id } });
+  
+    //   res.render('admin/newUser', {infoUser: infoUser, mensaje:'Usuario actualizado correctamente',ok:true} );
+  
+    }catch(error) {
+        console.log('Ha ocurrido un error: ' + error);
+  
+    }
+}
+
 
 // DETAIL NEW
 const detailNew = async(req, res) => {
@@ -118,24 +185,51 @@ const detailNew = async(req, res) => {
                 }
             }],
         })
-        console.log(newData.Categories)
-        // res.json(newData)
         res.render('admin/newDetail.ejs',{newData: newData, categories:newData.Categories})
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
     }
 }
 
+
+
+// Delete new by Id
+const deleteNew = async (req, res) => {
+    let id = req.params.id;
+  
+    try {
+      let newData = await models.New.destroy({ where: { id: id } });
+      return res.redirect('/admin/noticias')
+    }
+    catch(error){
+      console.log('Ha ocurrido un error: ' + error);
+    }
+};
+
 const toggleStatePortal = async( req, res ) => {
     const { id } = req.params;
-    console.log(id)
     try {
         let newData = await models.New.findByPk(id);
-        console.log(newData.active)
-        // let state = user.dataValues.active
-        // const updateUser = await models.User.update({active: !state }, { where: { id: id } });
+        let state = newData.activeForPortal
+        console.log(state)
+        const updateUser = await models.New.update({activeForPortal: !state }, { where: { id: id } });
         
-        // res.redirect('/admin/usuarios')
+        res.redirect('/admin/noticias')
+  
+    }catch(error){
+      console.log('Ha ocurrido un error: ' + error);
+    }
+}
+
+const toggleState = async( req, res ) => {
+    const { id } = req.params;
+    try {
+        let newData = await models.New.findByPk(id);
+        let state = newData.active
+        console.log(state)
+        const updateUser = await models.New.update({active: !state }, { where: { id: id } });
+        
+        res.redirect('/admin/noticias')
   
     }catch(error){
       console.log('Ha ocurrido un error: ' + error);
@@ -146,6 +240,10 @@ module.exports = {
     newsList,
     createNew,
     createNewAction,
+    editNew,
+    editNewAction,
     detailNew,
-    toggleStatePortal
+    deleteNew,
+    toggleStatePortal,
+    toggleState
 }
