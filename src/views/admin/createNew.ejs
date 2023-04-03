@@ -17,7 +17,7 @@
                     <div class="title-admin">
                         <h1>Editar noticia</h1>
                     </div>
-                    <form class="edit-form" action="/admin/<%= locals.newData.id %>/editar-noticia" method="post" id="edit-new-form" enctype="multipart/form-data" ></form>
+                    <form class="edit-form" action="/admin/<%= locals.newData.id %>/editar-noticia" method="post" id="edit-noticia-form" enctype="multipart/form-data">
                 <%} %>
                     
                         <div id="seccionError">
@@ -63,6 +63,15 @@
 
                         <div class="mb-3 block-image">
                             <% if(locals.newData) { %>
+                                <label for="name" class="form-label">Imagen</label>
+                                <!-- <input class="form-control" type="file" id="imageFile"> -->
+                                <input 
+                                    class="form-control" 
+                                    id="imagen" 
+                                    name="imagen"
+                                    type="file" 
+                                >   
+                                <input type="text" disabled="disabled" class="form-control my-4" value="<%= newData.image%>">
                                 <img src="/img/uploads/<%=newData.image%>" alt="imagen de <%= newData.title%>">
                             <% } else { %>
                                 <label for="name" class="form-label">Imagen</label>

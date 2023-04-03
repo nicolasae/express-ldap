@@ -1,5 +1,6 @@
 const models = require('../database/models');
-const { validationResult } = require('express-validator')
+const { validationResult } = require('express-validator');
+const { where } = require('sequelize');
 
 //GET ALL NEWS
 const newsList = async (req, res) => {
@@ -46,8 +47,8 @@ const createNew = async( req, res ) => {
 
 // CREATE NEW PROCCESS
 const createNewAction = async (req, res) => {
-    console.log(req.session.infoUserLogged)
     const { title, summary, link,active, activeForPortal, selectCategories} = req.body
+    const idAuthor = req.session.infoUserLogged.id
 
     const convertArrayCategories = []
 
@@ -70,10 +71,9 @@ const createNewAction = async (req, res) => {
         image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
         active: (active === 'on' ) ? 1 : 0,
         activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
-        idAuthor: 1,
+        idAuthor,
     }
-    console.log(infoNew)
-
+    
     try {
         // Insert a new
         const newData = await models.New.create({
@@ -92,6 +92,7 @@ const createNewAction = async (req, res) => {
                 attributes: ['id','name'],
                 raw:true,
             })
+
             const nc = {
                 idCategory: item,
                 idNew: newData.id
@@ -99,7 +100,7 @@ const createNewAction = async (req, res) => {
             const saveNewCategory = await models.New_Category.create(nc)
         })
         
-        res.render('admin/newsList')
+        res.redirect('/admin/noticias')
 
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
@@ -143,25 +144,47 @@ const editNew = async (req, res) => {
 };
 
 const editNewAction = async( req, res ) => {
-    console.log('entro')
-    try {
-      let id = req.params.id 
+    const id = req.params.id 
+    const { title, summary, link,active, activeForPortal, selectCategories} = req.body
+    const idAuthor = req.session.infoUserLogged.id
 
-      console.log(id)
-      res.json({
-        'message':'entro'
-      })
-    //   const { name, email, active, idRole } = req.body;
-    //   let infoUser = {
-    //     name,
-    //     email,
-    //     active: (active === 'on') ? true : false,
-    //     idRole: (idRole === 'on') ? 1 : 2,
-    //   };
-    
-    //   const user = await models.User.update(infoUser, { where: { id: id } });
-  
-    //   res.render('admin/newUser', {infoUser: infoUser, mensaje:'Usuario actualizado correctamente',ok:true} );
+    const convertArrayCategories = []
+
+    if( typeof selectCategories == "string") {
+        convertArrayCategories[0] = parseInt(selectCategories)
+    }
+    else if(typeof selectCategories == "object" ) {
+        selectCategories.forEach((idCategory, index ) => {
+            convertArrayCategories[index] = parseInt(idCategory)
+        })
+    }
+    else {
+        convertArrayCategories[0] = 1
+    }  
+
+    const infoNew = {
+        title,
+        summary,
+        link,
+        image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
+        active: (active === 'on' ) ? 1 : 0,
+        activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
+        idAuthor,
+    }
+
+    try {
+        const newData = await models.New.update(infoNew, { where: { id: id } })
+        convertArrayCategories.forEach(async (item) => {
+            const category = await models.Category.findOne({
+                where: { id: item },
+                attributes: ['id','name'],
+                raw:true,
+            })                
+        })
+            
+        res.json({
+            'data':convertArrayCategories
+        })
   
     }catch(error) {
         console.log('Ha ocurrido un error: ' + error);
@@ -190,8 +213,6 @@ const detailNew = async(req, res) => {
         console.log('Ha ocurrido un error: ' + error);
     }
 }
-
-
 
 // Delete new by Id
 const deleteNew = async (req, res) => {
