@@ -1,5 +1,6 @@
 const models = require('../database/models');
 const { validationResult } = require('express-validator');
+const urlSite = 'http://localhost:8080'
 
 //GET ALL NEWS
 const newsList = async (req, res) => {
@@ -48,9 +49,11 @@ const createNew = async( req, res ) => {
 const createNewAction = async (req, res) => {
     const { title, summary, active, activeForPortal, selectCategories} = req.body
     const idAuthor = req.session.infoUserLogged.id
-
     const convertArrayCategories = []
 
+    const countDataNew = await models.New.count()
+    const actualId = countDataNew + 1 
+      
     if( typeof selectCategories == "string") {
         convertArrayCategories[0] = parseInt(selectCategories)
     }
@@ -64,9 +67,10 @@ const createNewAction = async (req, res) => {
     }  
     
     const infoNew = {
+        id: actualId, 
         title,
         summary,
-        link:`/admin/2/noticia`,
+        link:`${urlSite}/admin/${actualId}/noticia`,
         image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
         active: (active === 'on' ) ? 1 : 0,
         activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
@@ -76,6 +80,7 @@ const createNewAction = async (req, res) => {
     try {
         // Insert a new
         const newData = await models.New.create({
+            id: infoNew.id,
             title: infoNew.title,
             summary:infoNew.summary,
             link: infoNew.link,
@@ -117,10 +122,14 @@ const editNew = async (req, res) => {
             include: [{ 
                 model: models.Category,
                 as: 'Categories',
-                attributes:['id','name'],
+                attributes:['id','name'],                
                 through:{
                     attributes: [],
                 }
+            }],
+            include:[{
+                model: models.User,
+                as: 'User', 
             }],
         })
 
@@ -129,7 +138,7 @@ const editNew = async (req, res) => {
             order: [['id','ASC']],
             raw:true,
         })
-
+        
         return res.render('admin/createNew',{ 
             infoNew:'', 
             active: 'edit',
@@ -170,8 +179,11 @@ const editNewAction = async( req, res ) => {
         activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
         idAuthor:1
     }
-
+    
     try {
+        console.log(infoNew)
+        const data = await models.New.update(infoNew,{ where: {id: id }})
+
         const newRecord = await models.New.findOne({ where: { id: id } });
         const categories = await models.Category.findAll({ where: { id: convertArrayCategories } });
         
@@ -181,7 +193,6 @@ const editNewAction = async( req, res ) => {
   
     }catch(error) {
         console.log('Ha ocurrido un error: ' + error);
-  
     }
 }
 

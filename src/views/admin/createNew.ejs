@@ -130,11 +130,12 @@
                             >
                           <label class="form-check-label" for="active">Activo para el Portal</label>
                         </div>   
-                        
-                        <div class="">
-                            <label for="name" class="form-label">Author de la noticia</label>
-                            <input type="text" disabled="disabled" class="form-control mb-4" value="<%= newData.idAuthor%>">
-                        </div>
+                        <% if(locals.newData) { %>
+                            <div class="">
+                                <label for="name" class="form-label">Autor de la noticia</label>
+                                <input type="text" disabled="disabled" class="form-control mb-4" value="<%= newData.User.name%>">
+                            </div>
+                        <% } %>
 
                         <% if (locals.active && locals.active === 'create') { %>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
