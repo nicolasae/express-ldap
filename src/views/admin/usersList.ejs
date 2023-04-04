@@ -15,8 +15,8 @@
                         <div class="title-admin">
                             <h1>Usuarios activos</h1>                        
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
+                        <!-- <div class="table-responsive"> -->
+                            <table id="table-users" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                 <th scope="col">Id</th>
@@ -80,7 +80,7 @@
                                 
                             </tbody>
                             </table>
-                        </div>
+                        <!-- </div> -->
                     </section>
 
                     <!-- Inactive users list -->
@@ -88,8 +88,8 @@
                         <div class="title-admin">
                             <h1>Usuarios inactivos</h1>                        
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
+                        <!-- <div class="table-responsive"> -->
+                            <table id="table-users-inactives" class="display" style="width:100%">
                                 <thead>
                                     <tr>
                                     <th scope="col">Id</th>
@@ -161,11 +161,59 @@
                                     
                                 </tbody>
                             </table>
-                        </div>
+                        <!-- </div> -->
                     </section>
                 </main>
             </div>
         </div>
+        <script>
+             document.addEventListener("DOMContentLoaded", function () {
+                let tabla = new DataTable('#table-users', {
+                    responsive: true,
+                    // order: [2, 'desc'],
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+                    "language": {
+                        searchPlaceholder: "Búsqueda",
+                        paginate: {
+                            first: "Primera",
+                            last: "Ultima",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                        },
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
+                        search: "Buscar: ",
+                        processing: "Tratamiento en curso...",
+                        "lengthMenu": "Mostrar _MENU_  registros",
+                        "zeroRecords": "No se encontró ningún registro en el rango de fecha",
+                        "info": "Mostrando registros del _PAGE_ al _PAGES_ de un total de _MAX_ registros",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)"
+                    },
+                });
+                let tablaInactivos = new DataTable('#table-users-inactives', {
+                    responsive: true,
+                    // order: [2, 'desc'],
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+                    "language": {
+                        searchPlaceholder: "Búsqueda",
+                        paginate: {
+                            first: "Primera",
+                            last: "Ultima",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                        },
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
+                        search: "Buscar: ",
+                        processing: "Tratamiento en curso...",
+                        "lengthMenu": "Mostrar _MENU_  registros",
+                        "zeroRecords": "No se encontró ningún registro en el rango de fecha",
+                        "info": "Mostrando registros del _PAGE_ al _PAGES_ de un total de _MAX_ registros",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)"
+                    },
+                });
+            })
+        </script>
     </body>
 
 </html>

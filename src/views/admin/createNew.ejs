@@ -48,19 +48,19 @@
                                 <%= locals.newData? locals.newData.summary : '' %>
                             </textarea name="summary">
                         </div>                                                
-                        
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Enlace</label>
-                            <input 
-                                type="text" 
-                                id="link"
-                                class="form-control" 
-                                name="link"
-                                value="<%= locals.newData? locals.newData.link : '' %>" 
-                                required
-                            >                            
-                        </div>
-
+                        <% if(locals.newData) { %>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Enlace</label>
+                                <input 
+                                    type="text" 
+                                    id="link"
+                                    class="form-control" 
+                                    name="link"
+                                    value="<%= locals.newData.link %>" 
+                                    required
+                                >                            
+                            </div>
+                        <% } %>
                         <div class="mb-3 block-image">
                             <% if(locals.newData) { %>
                                 <label for="name" class="form-label">Imagen</label>
@@ -89,8 +89,10 @@
                             <% if(locals.newData) { %>
                                 <label for="name" class="form-label">Selecciona una(s) categoría</label>
                                 <select id="selectCategories" name="selectCategories" placeholder="Elige una o varias categorías">
+                                    
                                     <% dataCategories.forEach(category => { %>
                                         <option value="<%= category.id %>"><%= category.name %></option>
+                                        
                                     <% }) %>  
                                 </select>
                             <% } else { %>                                
@@ -115,7 +117,7 @@
                             >
                           <label class="form-check-label" for="idRole">Activo</label>
                         </div>
-                        
+                                                
                         <div class="mb-3 form-check form-switch">
                             <input 
                                 type="checkbox"
@@ -127,7 +129,12 @@
                                 
                             >
                           <label class="form-check-label" for="active">Activo para el Portal</label>
-                        </div>                                                
+                        </div>   
+                        
+                        <div class="">
+                            <label for="name" class="form-label">Author de la noticia</label>
+                            <input type="text" disabled="disabled" class="form-control mb-4" value="<%= newData.idAuthor%>">
+                        </div>
 
                         <% if (locals.active && locals.active === 'create') { %>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">

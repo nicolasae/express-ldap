@@ -19,29 +19,30 @@ const upload = multer({ storage: storage });
 
 
 /**** GET ALL NEWS*/
-router.get('/admin/noticias', verifyCredentials, newController.newsList)
+// router.get('/admin/noticias', verifyCredentials, newController.newsList)
+router.get('/admin/noticias', newController.newsList)
 
 /**** CREATE USER*/
-router.get('/admin/noticias/nuevo',  verifyCredentials,newController.createNew)
-router.post('/admin/noticias/nuevo',  verifyCredentials,upload.single('imagen'), newController.createNewAction)
+router.get('/admin/noticias/nuevo', newController.createNew)
+router.post('/admin/noticias/nuevo', upload.single('imagen'), newController.createNewAction)
 
 /**** DETAIL NEW*/
-router.get('/admin/:id/noticia', verifyCredentials, newController.detailNew)
+router.get('/admin/:id/noticia', newController.detailNew)
 
 /**** UPDATE USER*/
-router.get('/admin/:id/editar-noticia', verifyCredentials, newController.editNew)
-router.post('/admin/:id/editar-noticia', verifyCredentials,upload.single('imagen'), newController.editNewAction)
+router.get('/admin/:id/editar-noticia', newController.editNew)
+router.post('/admin/:id/editar-noticia',upload.single('imagen'), newController.editNewAction)
 
 
 // /**** UPDATE PORTAL STATE NEW*/
 
-router.put('/admin/:id/actualizar-estado-portal-noticia', verifyCredentials,newController.toggleStatePortal);
+router.put('/admin/:id/actualizar-estado-portal-noticia',newController.toggleStatePortal);
 // /**** UPDATE PORTAL STATE NEW*/
 
-router.put('/admin/:id/actualizar-estado-noticia', verifyCredentials,newController.toggleState);
+router.put('/admin/:id/actualizar-estado-noticia',newController.toggleState);
 // /**** DELETE USER*/
 
-router.delete('/admin/:id/borrar-noticia', verifyCredentials, newController.deleteNew);
+router.delete('/admin/:id/borrar-noticia', newController.deleteNew);
 
 
 module.exports = router

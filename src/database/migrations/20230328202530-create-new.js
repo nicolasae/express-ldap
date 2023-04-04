@@ -10,10 +10,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       summary: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       link: {
         type: Sequelize.STRING
@@ -22,10 +24,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       active: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      activeForPortal: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
       },
       idAuthor: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

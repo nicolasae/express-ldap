@@ -1,6 +1,5 @@
 const models = require('../database/models');
 const { validationResult } = require('express-validator');
-const { where } = require('sequelize');
 
 //GET ALL NEWS
 const newsList = async (req, res) => {
@@ -22,7 +21,7 @@ const newsList = async (req, res) => {
                 attributes:['id','name'],
             }],
         });
-        
+
         res.render('admin/newsList', { dataNewsActives: dataNewsActives, dataNewsInactives: dataNewsInactives})  
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
@@ -47,7 +46,7 @@ const createNew = async( req, res ) => {
 
 // CREATE NEW PROCCESS
 const createNewAction = async (req, res) => {
-    const { title, summary, link,active, activeForPortal, selectCategories} = req.body
+    const { title, summary, active, activeForPortal, selectCategories} = req.body
     const idAuthor = req.session.infoUserLogged.id
 
     const convertArrayCategories = []
@@ -67,13 +66,13 @@ const createNewAction = async (req, res) => {
     const infoNew = {
         title,
         summary,
-        link,
+        link:`/admin/2/noticia`,
         image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
         active: (active === 'on' ) ? 1 : 0,
         activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
         idAuthor,
     }
-    
+        
     try {
         // Insert a new
         const newData = await models.New.create({
@@ -97,7 +96,7 @@ const createNewAction = async (req, res) => {
                 idCategory: item,
                 idNew: newData.id
             }
-            const saveNewCategory = await models.New_Category.create(nc)
+            const saveNewCategory = await models.NewCategory.create(nc)
         })
         
         res.redirect('/admin/noticias')
@@ -146,7 +145,7 @@ const editNew = async (req, res) => {
 const editNewAction = async( req, res ) => {
     const id = req.params.id 
     const { title, summary, link,active, activeForPortal, selectCategories} = req.body
-    const idAuthor = req.session.infoUserLogged.id
+    // const idAuthor = req.session.infoUserLogged.id
 
     const convertArrayCategories = []
 
@@ -169,29 +168,22 @@ const editNewAction = async( req, res ) => {
         image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
         active: (active === 'on' ) ? 1 : 0,
         activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
-        idAuthor,
+        idAuthor:1
     }
 
     try {
-        const newData = await models.New.update(infoNew, { where: { id: id } })
-        convertArrayCategories.forEach(async (item) => {
-            const category = await models.Category.findOne({
-                where: { id: item },
-                attributes: ['id','name'],
-                raw:true,
-            })                
-        })
-            
-        res.json({
-            'data':convertArrayCategories
-        })
+        const newRecord = await models.New.findOne({ where: { id: id } });
+        const categories = await models.Category.findAll({ where: { id: convertArrayCategories } });
+        
+        await newRecord.setCategories(categories);
+
+        res.redirect(`/admin/${id}/noticia`)
   
     }catch(error) {
         console.log('Ha ocurrido un error: ' + error);
   
     }
 }
-
 
 // DETAIL NEW
 const detailNew = async(req, res) => {
@@ -208,6 +200,7 @@ const detailNew = async(req, res) => {
                 }
             }],
         })
+
         res.render('admin/newDetail.ejs',{newData: newData, categories:newData.Categories})
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
@@ -232,7 +225,6 @@ const toggleStatePortal = async( req, res ) => {
     try {
         let newData = await models.New.findByPk(id);
         let state = newData.activeForPortal
-        console.log(state)
         const updateUser = await models.New.update({activeForPortal: !state }, { where: { id: id } });
         
         res.redirect('/admin/noticias')
@@ -247,7 +239,6 @@ const toggleState = async( req, res ) => {
     try {
         let newData = await models.New.findByPk(id);
         let state = newData.active
-        console.log(state)
         const updateUser = await models.New.update({active: !state }, { where: { id: id } });
         
         res.redirect('/admin/noticias')
