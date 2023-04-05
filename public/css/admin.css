@@ -41,12 +41,20 @@
 
 .new-content {
     display: flex;
-    /* justify-content: center; */
     padding: 0 20px;
     margin: 0 auto;
 }
 .new-content h2 {
     text-transform: uppercase;
+}
+
+.card-header {
+    text-align: left;
+}
+.card-body a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 figure {
@@ -67,6 +75,13 @@ figure {
     font-weight: normal;
 }
 
+.admin .btn-institucional {
+    padding: 0;
+}
+
+.admin .card-body {
+    padding: 1rem 0;
+}
 .btn-outline-institucional {
     color: var(--institucional);
     border-color: var(--institucional);
@@ -107,16 +122,17 @@ figure {
     padding-left: 50px;
 }
 
-.accordion-body i, .card-body i, .nav-item i {
+.accordion-body i, .nav-item i {
     margin-right: 10px;
+}
+.card-body i {
+    margin-right: 10px ;
+    margin-left: 10px ;
 }
 
 .nav-link:focus, .nav-link:hover {
     color: var(--institucional);
 }
-/* .nav-link:focus, .nav-link:hover {
-    color: var(--institucional);
-} */
 
 .logos-top-admin{
     height: 70px;

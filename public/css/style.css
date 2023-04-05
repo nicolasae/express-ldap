@@ -17,11 +17,7 @@
 }
 
 .access-panel {
-    /* background-color: var(--institucional); */
-    border-radius: 0.8em;
-    line-height: 1.3em;
-    color: var(--blanco);
-    width: 35vh;
+    /* width: 35vh; */
     margin: 20px auto;
 }
 
@@ -157,20 +153,27 @@ button#btn-enviar:disabled {
 background-color: var(--gris);
 }
 
+@media (min-width: 576px) {
+    
+}
 @media (min-width: 768px) {
-    .access-panel {
-        width: 70vw;
-    }
+   .access-panel{
+    width: 70%;
+   }
 }
 
 @media (min-width: 992px) {
-    .access-panel {
-        width: 50vw;
+    .access-panel{
+        width: 50%;
     }
 }
 
 @media (min-width: 1200px) {
-    .access-panel {
-        width: 35vw;
+    
+}
+
+@media (min-width: 1920px) {
+    .access-panel{
+        width: 40%;
     }
 }
