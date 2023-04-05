@@ -6,6 +6,7 @@ const path = require('path');
 const mainController = require("../controllers/mainController");
 const usersRoutes = require("./users")
 const newsRoutes = require("./news")
+const categoriesRoutes = require("./categories")
 
 /*** Home */
 router.get("/", mainController.index);
@@ -15,5 +16,7 @@ router.get("/", mainController.index);
 router.use("", usersRoutes);
 /*** News Router */
 router.use("", newsRoutes);
+/*** Categories Router */
+router.use("", categoriesRoutes);
 
 module.exports = router;

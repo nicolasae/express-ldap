@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/head', {title : 'Lista de noticias' }) %>
+
+    <body class="admin-body">
+        <%- include('../components/navBar') %>
+
+        <div class="">
+            <div class="row">
+                <%- include('../components/sideBarMenu') %>
+
+                <main class="col-md-9 ms-sm-auto px-md-4">
+                    <section>
+                        <div class="title-new">
+                            <h1>
+                                <%= categoryData.name%>
+                            </h1>                        
+                        </div>
+                        <div class="new-content col-12">
+                            <div class="row col-12 g-0 border overflow-hidden flex-md-row mb-4">
+
+                                <div class="col-7 p-4 d-flex flex-column justify-content-around">
+                                  
+                                    <h2 class="mb-0"><%= categoryData.name%></h2>
+
+                                    <div class="mb-1 text-body-secondary">
+                                        <p>Fecha de publicación:</p>
+                                        <span>
+                                            <%= categoryData.createdAt.getFullYear() %>-<%= categoryData.createdAt.getMonth() %>-<%= categoryData.createdAt.getDate() %>
+                                        </span>
+                                    </div>
+
+                                    <div class="mb-1 text-body-secondary">
+                                        <p>Fecha de actualización:</p>
+                                        <span>
+                                            <%= categoryData.updatedAt.getFullYear() %>-<%= categoryData.updatedAt.getMonth() %>-<%= categoryData.updatedAt.getDate() %>
+                                        </span>
+                                    </div>
+
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

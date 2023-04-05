@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/head', {title : 'Lista de noticias' }) %>
+
+    <body class="admin-body">
+        <%- include('../components/navBar') %>
+
+        <div class="">
+            <div class="row">
+                <%- include('../components/sideBarMenu') %>
+
+                <main class="col-md-9 ms-sm-auto px-md-4">
+                    <section>
+                        <div class="title-admin">
+                            <h1>Lista de categorias</h1>                        
+                        </div>
+                        
+                        <table id="table-categories" class="display" style="width:100%">
+                            <thead>
+                                <tr>                                   
+                                    <th>Nombre</th>
+                                    <th>Fecha de Publicación</th>
+                                    <th>Fecha de Actualización</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% dataCategories.forEach(categories => { %>
+                                    <tr>
+                                        <td>
+                                            <a href="/admin/<%= categories.id %>/categoria">
+                                                <%- categories.name %>
+                                            </a>
+                                        </td>
+                                        <td><%= categories.createdAt.getFullYear() %>-<%= categories.createdAt.getMonth() %>-<%= categories.createdAt.getDate() %></td>
+                                        <td><%= categories.updatedAt.getFullYear() %>-<%= categories.updatedAt.getMonth() %>-<%= categories.updatedAt.getDate() %></td>                                      
+                                        <td>
+                                            <div class="btn-group">                       
+                                                <div class="me-4">
+                                                    <a href="/admin/<%= categories.id %>/editar-categoria">
+                                                        <button type="submit" class="btn btn-institucional">
+                                                            <i class="bi bi-pencil-square"></i>Editar
+                                                        </button>
+                                                    </a>
+                                                </div>       
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% }) %>  
+                            </tbody>
+                        </table>                   
+                    </section> 
+                </main>
+            </div>
+        </div>
+
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                let tabla = new DataTable('#table-categories', {
+                    responsive: true,
+                    // order: [2, 'desc'],
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+                    "language": {
+                        searchPlaceholder: "Búsqueda",
+                        paginate: {
+                            first: "Primera",
+                            last: "Ultima",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                        },
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
+                        search: "Buscar: ",
+                        processing: "Tratamiento en curso...",
+                        "lengthMenu": "Mostrar _MENU_  registros",
+                        "zeroRecords": "No se encontró ningún registro en el rango de fecha",
+                        "info": "Mostrando registros del _PAGE_ al _PAGES_ de un total de _MAX_ registros",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)"
+                    },
+                });
+            })
+        </script>
+    </body>
+
+</html>

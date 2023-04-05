@@ -3,7 +3,6 @@ const router = express.Router()
 const multer = require('multer');
 
 const newController = require('../controllers/newController')
-const authController = require('../controllers/authController')
 const { verifyCredentials} = require('../middleware/authMiddleware'); 
 
 const storage = multer.diskStorage({
@@ -31,7 +30,6 @@ router.get('/admin/:id/noticia', verifyCredentials, newController.detailNew)
 /**** UPDATE USER*/
 router.get('/admin/:id/editar-noticia', verifyCredentials, newController.editNew)
 router.post('/admin/:id/editar-noticia', verifyCredentials,upload.single('imagen'), newController.editNewAction)
-
 
 // /**** UPDATE PORTAL STATE NEW*/
 
