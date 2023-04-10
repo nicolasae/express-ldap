@@ -3,7 +3,10 @@
     --blanco: #ffffff;
     --gris: #BCBDC0;
     --rojo: #b50822;
+}
 
+html {
+    margin: 0 !important;
 }
 
 .content {
@@ -17,7 +20,6 @@
 }
 
 .access-panel {
-    /* width: 35vh; */
     margin: 20px auto;
 }
 
@@ -159,12 +161,14 @@ background-color: var(--gris);
 @media (min-width: 768px) {
    .access-panel{
     width: 70%;
+    height: 400px;
    }
 }
 
 @media (min-width: 992px) {
     .access-panel{
         width: 50%;
+        height: 500px;
     }
 }
 

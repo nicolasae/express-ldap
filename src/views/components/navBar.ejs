@@ -1,45 +1,62 @@
 <header id="header">
-
-  <nav class="row align-items-center menu-institucional">
-    <section class="row col-6 text-center text-sm-start logo-titulo ">
-      <!-- contenedor img -->
-      <div class="d-flex align-items-center col-12 titulo">
-          <!-- texto facultades -->
-          <div class="d-sm-block text-start ms-4">
-              <a href="/admin">
-                <span class="tituloSup">App titulo</span>                      
-              </a>
+    <nav class="row align-items-center menu-administrador">
+        <section class="col-6 text-center text-sm-start logo-titulo ">
+          <!-- contenedor img -->
+          <div class="d-flex align-items-center">
+              <!-- texto facultades -->
+              <div class="d-sm-block text-start ms-4">
+                  <a href="/admin">
+                    <span class="tituloSup">App titulo</span>                      
+                  </a>
+              </div>
           </div>
-      </div>
-    </section>
-
-    <div class="col-6 d-lg-none text-end">
-        <button class="btn boton text-white dropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu institucional">
-            <i class="bi bi-list-ul fs-1"></i>
-        </button>
-        <ul class="dropdown-menu">
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/usuarios">Listar Usuarios</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/usuarios/nuevo">Añadir Usuario</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Cerrar Sesión</a>
-            </li>
-        </ul>
-    </div>
+        </section>
     
-    <!-- Menu no responsive -->
-    <!-- <div class="col-10 col-lg-6 d-none d-lg-block">
-        <ul class="nav menu-estandar">
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Cerrar Sesión</a>
-            </li>
-        </ul>			
-    </div> -->
-    
-  </nav>
-  <!-- fin sección del banner superior -->
+        <div class="col-6 d-md-none text-end pe-5">
+            <button class="navbar-toggler btn text-white" type="button" data-bs-target="#offcanvasExample"
+                    aria-controls="offcanvasExample" aria-expanded="false" aria-label="Toggle navigation"
+                    data-bs-toggle="offcanvas">
+                    <i class="bi bi-list-ul fs-1"></i>
+            </button>
 
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                    aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menú</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <nav class="main-menu-admin text-start">
+                            <ul class="justify-content-md-center justify-content-xl-start list-unstyled list-group list-group-flush">
+                                                            
+                                <li class="list-group-item">
+                                    <a href="https://www2.utp.edu.co/rectoria/rectoria" title="Rectoría"> Usuarios </a>
+                                </li>                                
+                                <li class="list-group-item accordion accordion-flush" id="accordionFlushVices">
+                                    <div class="accordion-item">
+                                        <!-- <h2 class="accordion-header"> -->
+                                        <button class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseVices" aria-expanded="true" aria-controls="flush-collapseVices">
+                                            <span> Noticias </span>
+                                        </button>
+                                        <!-- </h2> -->
+                                        <div id="flush-collapseVices" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushVices" style="">
+                                        <div class="accordion-body">
+                                            <ul class="list-unstyled list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <a href="https://www2.utp.edu.co/vicerrectoria/administrativa">Categorías</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </li>                                                                                    
+                            </ul>
+                        </nav>
+
+                    </div>
+
+            </div>
+            
+        </div>
+    </nav>
 </header>

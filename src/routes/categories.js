@@ -6,18 +6,17 @@ const { verifyCredentials} = require('../middleware/authMiddleware');
 
 
 /**** GET ALL CATEGORIES*/
-// router.get('/admin/categorias', verifyCredentials, categoryController.categoriesList)
-router.get('/admin/categorias',  categoryController.categoriesList)
+router.get('/admin/categorias', verifyCredentials, categoryController.categoriesList)
 
 /**** CREATE CATEGORY*/
-router.get('/admin/categorias/nuevo', categoryController.newCategory)
-router.post('/admin/categorias/nuevo', categoryController.newCategoryAction)
+router.get('/admin/categorias/nuevo',verifyCredentials, categoryController.newCategory)
+router.post('/admin/categorias/nuevo',verifyCredentials, categoryController.newCategoryAction)
 
 /**** UPDATE USER*/
-router.get('/admin/:id/editar-categoria', categoryController.editCategory)
-router.post('/admin/:id/editar-categoria', categoryController.editCategoryAction)
+router.get('/admin/:id/editar-categoria', verifyCredentials,categoryController.editCategory)
+router.post('/admin/:id/editar-categoria', verifyCredentials,categoryController.editCategoryAction)
 
 /**** DETAIL CATEGORY*/
-router.get('/admin/:id/categoria', categoryController.detailCategory)
+router.get('/admin/:id/categoria',verifyCredentials, categoryController.detailCategory)
 
 module.exports = router

@@ -4,7 +4,7 @@
 
     <body class="admin-body">
         <%- include('../components/navBar') %>
-        <div class="">
+        <div class="admin">
             <div class="row">
                 <%- include('../components/sideBarMenu') %>
                 <main class="col-md-9 ms-sm-auto px-md-4">
@@ -54,33 +54,34 @@
                             required>
                         </div>
 
-                        <div class="row">
-                            <div class="mb-3 form-check form-switch">
-                                <input 
-                                    type="checkbox"
-                                    id="idRole"
-                                    class="form-check-input"
-                                    name="idRole"
-                                    role="switch"
-                                    <%= (locals.infoUser.idRole == 1) ? 'checked' : '' %>
-    
-                                >
-                              <label class="form-check-label" for="idRole">Super Admin</label>
-                            </div>
-    
-                            <div class="mb-3 form-check form-switch">
-                                <input 
-                                    type="checkbox"
-                                    id="active"
-                                    class="form-check-input"
-                                    name="active"
-                                    role="switch"
-                                    <%= ( locals.infoUser.active == true ) ? 'checked' : '' %>
-                                >
-                              <label class="form-check-label" for="active">Activo</label>
-                            </div>
-                        </div>
-                        
+                        <% if(locals.infoUser.id !== locals.infoUserLogged.id) { %>
+                            <div class="">
+                                <div class="mb-3 form-check form-switch">
+                                    <input 
+                                        type="checkbox"
+                                        id="idRole"
+                                        class="form-check-input"
+                                        name="idRole"
+                                        role="switch"
+                                        <%= (locals.infoUser.idRole == 1) ? 'checked' : '' %>                                    
+                                    >
+                                <label class="form-check-label" for="idRole">Super Admin</label>
+                                </div>
+        
+                                <div class="mb-3 form-check form-switch">
+                                    <input 
+                                        type="checkbox"
+                                        id="active"
+                                        class="form-check-input"
+                                        name="active"
+                                        role="switch"
+                                        <%= ( locals.infoUser.active == true ) ? 'checked' : '' %>                                    
+                                    >
+                                <label class="form-check-label" for="active">Activo</label>
+                                </div>
+                            </div>   
+                        <% } %>
+
                         <% if (locals.active && locals.active === 'create') { %>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
                                 <button id="btn-enviar" type="submit" class="btn btn-outline-institucional">Crear</button>
@@ -96,8 +97,7 @@
             </div>
         </div>
 
-        <script src="/js/userFormValidator.js"></script>
-
+        <!-- <script src="/js/userFormValidator.js"></script> -->
     </body>
 
 </html>

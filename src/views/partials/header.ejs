@@ -1,180 +1,228 @@
 <header id="header">
-    
-    <nav class="row align-items-center logos-top justify-content-around row_cabecera">
-        <div class="col-2 col-md-1 d-lg-none">
-            <div class="btn-group dropend">
-                <button class="btn btn-light dropdown rounded-end" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu institucional">
-                    <i class="bi bi-list"></i>
-                </button>
-                    <ul class="dropdown-menu">
-                        <li class="nav-item"><a class="nav-link" href="https://eventos.utp.edu.co/">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/principal/accesibilidad.php">Accesibilidad</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://pqrs.utp.edu.co/">PQRS</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/atencionalciudadano/">Atención al Ciudadano</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/atencionalciudadano/transparencia-y-acceso-a-informacion-publica.html">Transparencia</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/atencionalciudadano/menu-participa">Participa</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://www.utp.edu.co/correo">Correo</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/feed.php">RSS</a></li>
-                    </ul>
-            </div>
-        </div>
-
-    <!-- logo de la UTP -->
-
-    <section class="row col-4 col-sm-5 col-md-4 col-lg-3   text-center text-sm-start logo-titulo ">
-        <!-- contenedor img -->
-        <div class="d-flex align-items-center col-12 titulo">
-            <a class="subrayado" href="http://www.utp.edu.co/" rel="noopener norreferer" title="UTP" target="_blank">
-                <img src="/img/logoutp.png" title="Universidad Tecnológica de Pereira" alt="Logo Universidad Tecnológica de Pereira" class="logo">
+    <section class="fondo" style="
+      background-image: url(/img/Banner-Promocional.png);
+      background-size: cover;
+    ">
+        <div class="up-banner-section flex-lg-nowrap p-1 p-sm-2">
+            <!-- escudo utp -->
+            <a href="https://www.utp.edu.co" class="up-banner-section__img-utp order-1 order-lg-0 mx-3">
+                <img src="https://www.utp.edu.co/assets/img/escudos/identificador60.png"
+                    alt="Escudo Universidad Tecnologica de Pereira" width="200" />
             </a>
+            <!-- menu -->
+            <nav class="navbar order-0 order-lg-1 d-lg-none">
+                <button class="navbar-toggler bg-light" type="button" data-bs-target="#offcanvasExample"
+                    aria-controls="offcanvasExample" aria-expanded="false" aria-label="Toggle navigation"
+                    data-bs-toggle="offcanvas">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <!-- linea vertical -->
-            <div class="d-none d-sm-block vl col-1 ms-4"></div>
-            <!-- fin linea -->
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                    aria-labelledby="offcanvasExampleLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menú</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <hr class="w-75 mx-auto" />
 
-            <!-- texto facultades -->
-            <div class="col-sm-4 d-none d-sm-block text-start ms-4">
+                    <div class="offcanvas-body">
+                        <nav class="container d-lg-none responsive-top-menu" style="">
+                            <ul class="m-0 w-100">
+                                <a href="/">
+                                    <li>Inicio</li>
+                                </a>
 
-                <a href=""><span class="tituloSup">App titulo</span>
-                    
-                </a>
-            </div>
-            <!-- fin texto facultades -->
+                                <a href="https://www2.utp.edu.co/principal/mapa.php">
+                                    <li>Mapa del Sitio</li>
+                                </a>
+
+                                <a href="https://www2.utp.edu.co/atencionalciudadano/">
+                                    <li>Atención al Ciudadano</li>
+                                </a>
+
+                                <a href="https://pqrs.utp.edu.co">
+                                    <li>PQRS</li>
+                                </a>
+
+                                <a
+                                    href="https://www2.utp.edu.co/atencionalciudadano/transparencia-y-acceso-a-informacion-publica">
+                                    <li>Transparencia</li>
+                                </a>
+
+                                <a href="https://www2.utp.edu.co/atencionalciudadano/menu-participa">
+                                    <li>Participa</li>
+                                </a>
+
+                                <a href="https://www2.utp.edu.co/correo">
+                                    <li>Correo</li>
+                                </a>
+
+                                <a href="https://www2.utp.edu.co/feed.php">
+                                    <li>RSS</li>
+                                </a>
+                            </ul>
+                        </nav>
+
+                        <hr class="w-75 mx-auto" />
+
+                        <div class="icon-container justify-content-between">
+                            <div class="align-items-end d-flex flex-wrap justify-content-between mb-5">
+                                <a href="https://www2.utp.edu.co/inscripciones/" title="Inscripciones">
+                                    <img src="/img/iconos/inscripciones_azul.png" alt="" width="100" />
+                                </a>
+                                <a href="https://programasacademicos.utp.edu.co" title="Facultades">
+                                    <img src="/img/iconos/programas_academicos_azul.png" alt="" width="100" />
+                                </a>
+                                <a href="https://www2.utp.edu.co/portal/universidad" title="Universidad">
+                                    <img src="/img/iconos/universidad_azul.png" alt="" width="100" />
+                                </a>
+                            </div>
+
+                            <div class="align-items-end d-flex flex-wrap justify-content-between mb-5">
+                                <a href="https://biblioteca.utp.edu.co">
+                                    <img src="/img/iconos/biblioteca_azul.png" alt="" width="100" />
+                                </a>
+                                <a href="https://www2.utp.edu.co/portal/academia" title="Academia">
+                                    <img src="/img/iconos/academia_azul.png" alt="" width="100" />
+                                </a>
+                                <a href="https://www2.utp.edu.co/portal/servicios" title="Servicios">
+                                    <img src="/img/iconos/servicios_azul.png" alt="" width="100" />
+                                </a>
+                            </div>
+
+                            <div class="align-items-end d-flex flex-wrap justify-content-between mb-5">
+                                <a href="https://www2.utp.edu.co/portal/utp-virtual" title="UTP Virtual">
+                                    <img src="/img/iconos/UTP_virtual_azul.png" alt="" width="100" />
+                                </a>
+                                <a a="" href="https://www2.utp.edu.co/internacional/" title="Internacional">
+                                    <img src="/img/iconos/internacional_azul.png" alt="" width="100" />
+                                </a>
+                                <a href="https://eventos.utp.edu.co/" title="Eventos">
+                                    <img src="/img/iconos/eventos_azul.png" alt="" width="100" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <nav class="up-banner-section__main-menu d-none d-lg-flex text-light me-3">
+                <ul class="list-unstyled d-flex flex-lg-wrap m-0 gap-3 justify-content-center w-100">
+                    <a href="/" class="text-light">
+                        <li>Inicio</li>
+                    </a>
+                    <div class="vr vr opacity-75 text-light"></div>
+                    <a href="https://www2.utp.edu.co/principal/mapa.php" class="text-light">
+                        <li>Mapa del Sitio</li>
+                    </a>
+                    <div class="vr vr opacity-75 text-light"></div>
+                    <a href="https://www2.utp.edu.co/atencionalciudadano/" class="text-light">
+                        <li>Atención al Ciudadano</li>
+                    </a>
+                    <div class="vr vr opacity-75 text-light"></div>
+                    <a href="https://pqrs.utp.edu.co" class="text-light">
+                        <li>PQRS</li>
+                    </a>
+                    <div class="vr vr opacity-75 text-light"></div>
+                    <a href="https://www2.utp.edu.co/atencionalciudadano/transparencia-y-acceso-a-informacion-publica"
+                        class="text-light">
+                        <li>Transparencia</li>
+                    </a>
+                    <div class="vr vr opacity-75 text-light"></div>
+                    <a href="https://www2.utp.edu.co/atencionalciudadano/menu-participa" class="text-light">
+                        <li>Participa</li>
+                    </a>
+                    <div class="vr vr opacity-75 text-light"></div>
+                    <a href="https://www2.utp.edu.co/correo" class="text-light">
+                        <li>Correo</li>
+                    </a>
+                    <div class="vr vr opacity-75 text-light"></div>
+                    <a href="https://www2.utp.edu.co/feed.php" class="text-light">
+                        <li>RSS</li>
+                    </a>
+                </ul>
+            </nav>
+
+            <!-- ministerio -->
+            <a href="https://www.mineducacion.gov.co/portal/"
+                class="up-banner-section__img-men order-2 d-block mx-auto d-sm-inline-block my-3 m-sm-0">
+                <img src="https://www.utp.edu.co/assets/img/escudos/mineducacionLogo.png" alt="Ministerio de Educación"
+                    class="" />
+            </a>
         </div>
-        <!-- fin img -->
+
+        <section class="middle-banner-section d-flex justify-content-lg-end justify-content-center">
+
+        </section>
     </section>
 
-    <!-- menu superior -->
-    <nav class="col-lg-6 d-none d-lg-block ">
-        <ul class="nav nav-fill menu-estandar menu-top-center">
-            <li class="nav-item"><a class="nav-link" href="https://eventos.utp.edu.co/">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/principal/accesibilidad.php">Accesibilidad</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://pqrs.utp.edu.co/">PQRS</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/atencionalciudadano/">Atención al Ciudadano</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/atencionalciudadano/transparencia-y-acceso-a-informacion-publica.html">Transparencia</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/atencionalciudadano/menu-participa">Participa</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://www.utp.edu.co/correo">Correo</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://www2.utp.edu.co/feed.php">RSS</a></li>
-        </ul>
-    </nav>
+    <section class="navegacion d-flex">
 
-    <!-- logo del ministerio de educación -->
-    <section class="col-6 col-sm-5 col-md-6 col-lg-3 text-end logo-ministerio">
-        <a href="https://www.mineducacion.gov.co/" rel="noopener norreferer" title="Ministerio de Educación" target="_blank">
-            <img src="https://media2.utp.edu.co/imagenes/ministerioeducacion.png" title="Ministerio de Educación" alt="Ministerio de Educación de Colombia" class="logo2">
-        </a>
-    </section>
-    </nav>
+        <!-- menu de navegación cuando la pantalla esta en tamaño xs -->
+        <!-- ======================================================================================================================================================= -->
 
-    <!-- sección del slider que se muestra en la página principal. -->
-    <section class="sliderprincipal">
+        <!-- fin del menu de navegación cuando la pantalla esta en tamaño xs -->
+        <!-- ======================================================================================================================================================= -->
 
-        <div class="slider1">
-            <!-- sección del slider que se muestra en la página principal. -->
+        <nav class="col-lg-8 col-md-12 col-sm-12 d-none d-lg-block menu-nav">
+            <ul
+                class="d-flex gap-3 justify-content-md-center justify-content-xl-start list-inline list-unstyled menu_navegacion flex-wrap">
+                <li><a href="https://www2.utp.edu.co/inscripciones/" title="Inscripciones"> <small> Inscripciones
+                        </small> </a></li>
 
-                <section class="imagen-banner">
-                    <img src="/img/Banner-Promocional.png" title="Universidad Tecnológica de Pereira">
-                </section>
 
-        </div>
-        <!-- fin sección del slider que se muestra en la página principal -->
+                <li><a href="https://programasacademicos.utp.edu.co" title="Facultades"><small> Facultades </small> </a>
+                </li>
 
-        <div class="titulositio">
-            <h1>Aplicación</h1>
-        </div>
 
-    </section>
-    <nav class="row align-items-center menu-institucional">
-        <div class="col-7 d-lg-none">
-            <button class="btn boton text-white dropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu institucional">
-                <i class="bi bi-list-ul fs-1"></i>
-            </button>
-            <ul class="dropdown-menu">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Inicio</a>
+                <li><a href="https://www2.utp.edu.co/portal/universidad" title="Universidad"><small> Universidad
+                        </small> </a></li>
+
+
+                <li><a href="https://www2.utp.edu.co/portal/academia" title="Academia"><small> Academia </small> </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://app4.utp.edu.co/MatAcad/menu_inscripciones/">Inscripciones</a>
+
+
+                <li><a href="https://www2.utp.edu.co/portal/utp-virtual" title="UTP Virtual"><small>UTP Virtual </small>
+                    </a></li>
+
+
+                <li><a href="https://www2.utp.edu.co/portal/servicios" title="Servicios"><small> Servicios </small> </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://programasacademicos.utp.edu.co/">Facultades</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www2.utp.edu.co/institucional/inicio">La Universidad</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www2.utp.edu.co/institucional/utp-virtual/">UTP Virtual</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www2.utp.edu.co/institucional/servicios/">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www2.utp.edu.co/internacional/">Internacional</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://biblioteca.utp.edu.co/">Biblioteca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://eventos.utp.edu.co/">Eventos</a>
-                </li>
+
+
+                <li class="hidden-md"><a href="https://www2.utp.edu.co/internacional/" title="Internacional"><small>
+                            Internacional </small> </a></li>
+
+
+                <li><a href="https://eventos.utp.edu.co/" title="Eventos"><small> Eventos </small> </a></li>
             </ul>
-        </div>
-        <div class="col-5 d-lg-none">
-            <form role="search" id="cse-search-box" method="get" class="input-group input-group-sm" action="https://crie.utp.edu.co/">
-            <label class="sr-only">
-                <span class="d-none screen-reader-text">Buscar:</span>
-            </label>
-            <input name="ie" value="UTF-8" type="hidden">
-            <input class="form-control" type="search" aria-label="Google Search" placeholder="Busqueda" value="" name="s">
-                    <button class="input-group-text bi btn-primary bi-search rounded-end" aria-label="Buscador" aria-hidden="false"></button>
-                    <input id="buscarGeneral" name="siteurl" value="www.utp.edu.co/" type="hidden">
-            </form>			
+        </nav>
+
+        <div class="col-lg-2 col-6 buscador-container">
+            <div class="row buscador">
+                <form class="input-group input-group-sm" role="search"
+                    action="//www2.utp.edu.co/atencionalciudadano/busquedas.html" method="GET" id="cse-search-box">
+
+                    <input name="cx" value="007582353815135186119:mbmzeke9aqo" type="hidden">
+                    <input name="cof" value="FORID:10" type="hidden">
+                    <input name="ie" value="UTF-8" type="hidden">
+                    <label for="buscar" class="d-none">Buscar</label>
+                    <input class="form-control" id="buscar" name="q" type="text">
+
+                    <button class="btn btn-info text-light" type="button" id="button-addon2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <input name="siteurl" value="www2.utp.edu.co/" type="hidden">
+                </form>
+            </div>
         </div>
 
-        <div class="col-10 col-xl-9 d-none d-lg-block">
-            <ul class="nav menu-estandar">
-                <li class="nav-item">
-                    <a class="nav-link" href="https://programasacademicos.utp.edu.co/">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://app4.utp.edu.co/MatAcad/menu_inscripciones/">Inscripciones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://programasacademicos.utp.edu.co/">Facultades</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www2.utp.edu.co/institucional/inicio">La Universidad</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www2.utp.edu.co/institucional/utp-virtual/">UTP Virtual</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www2.utp.edu.co/institucional/servicios/">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www2.utp.edu.co/internacional/">Internacional</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://biblioteca.utp.edu.co/">Biblioteca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://eventos.utp.edu.co/">Eventos</a>
-                </li>
-            </ul>			
-        </div>
-        <div class="col-2 col-xl-3 d-none d-lg-block mt-2 mb-2">
-            <form role="search" id="cse-search-box" method="get" class="input-group input-group-sm" action="https://crie.utp.edu.co/">
-                <label class="sr-only">
-                    <span class="d-none screen-reader-text">Buscar:</span>
-                </label>
-                <input name="ie" value="UTF-8" type="hidden">
-                <input class="form-control" type="search" aria-label="Google Search" placeholder="Busqueda" value="" name="s">
-                    <button class="input-group-text bi btn-primary bi-search rounded-end" aria-label="Buscador" aria-hidden="false"></button>
-                <input id="buscarGeneral" name="siteurl" value="www.utp.edu.co/" type="hidden">
-
-            </form>			
-        </div>
-
-    </nav>
-    <!-- fin sección del slider que se muestra en la página principal -->
+    </section>
 </header>

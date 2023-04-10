@@ -4,16 +4,42 @@
     --gris: #BCBDC0;
 }
 
+.menu-administrador {
+    background-color: var(--institucional);
+    padding: 18px 0;
+    text-align: center;
+}
 .admin-body {
     max-width: 100%;
 }
 
-.navbar{
-    background-color: #004278;
+.admin a {
+    text-decoration: none;
+    color: var(--institucional);
 }
 
-.navbar a {
+.admin .nav-link {
+    padding: 0;
+}
+.admin .nav-item {
+    padding: 15px;
+}
+
+.menu-administrador a {
+    text-decoration: none;
     color: var(--blanco);
+}
+
+.main-menu-admin a, .main-menu-admin span {
+    color: #003d6d;
+    display: block;
+    padding: 4px 0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main-menu-admin .accordion-item {
+    background-color: var(--blanco);
 }
 
 .sidebar {
@@ -30,7 +56,7 @@
     background: linear-gradient(90deg, #131516 1%, #004278 50%);
     padding: 0.2em 1em;
     margin: 40px 0;
-    font-family: 'Oswald';
+    /* font-family: 'Oswald'; */
     font-size: 30pt;
 }
 
@@ -75,9 +101,6 @@ figure {
     font-weight: normal;
 }
 
-.admin .btn-institucional {
-    padding: 0;
-}
 
 .admin .card-body {
     padding: 1rem 0;
@@ -100,8 +123,12 @@ figure {
 /* Accordion sidebar */
 .accordion-item {
     background-color: #f7f7f7;
-    color: var(--blanco);
+    color: var(--institucional);
     border: none;
+}
+
+.accordion-collapse {
+    padding: 10px 0;
 }
 
 .accordion-button {
@@ -110,15 +137,28 @@ figure {
 }
 
 .accordion-button:not(.collapsed) {
-    color: var(--institucional);
     background-color: #f7f7f7;
     box-shadow: none;
+}
+
+.menu-administrador .accordion-item {
+    background-color: var(--blanco);
+}
+.menu-administrador .accordion-button {
+    background-color: var(--blanco);
+}
+.menu-administrador .accordion-button:not(.collapsed) {
+    background-color: var(--blanco);
 }
 
 .accordion-body {
     color: var(--institucional);
     align-items: center;
     display: flex;
+    padding: 0px;
+}
+
+.sidebar .accordion-body {
     padding-left: 50px;
 }
 

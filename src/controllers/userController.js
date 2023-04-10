@@ -37,7 +37,7 @@ const usersList = async (req, res) => {
       user.role  = ( user.idRole === 1 ) ? 'Super Administrador' : 'Administrador' 
       user.state  = ( user.active === true ) ? 'Activo' : 'Inactivo' 
     })
-    res.render('admin/usersList', { listUsersActives: dataActives,listUsersInactives: dataInactives,infoUserLogged: req.session.infoUserLogged })
+    res.render('admin/usersList', { listUsersActives: dataActives,listUsersInactives: dataInactives, infoUserLogged: req.session.infoUserLogged })
   }
   catch(error){
     console.log('Ha ocurrido un error: ' + error);
@@ -46,7 +46,7 @@ const usersList = async (req, res) => {
 
 // CREATE USER VIEW 
 const newUser = async(req, res) => {
-  return res.render('admin/newUser',{ infoUser:'',active: 'create'});
+  return res.render('admin/newUser',{ infoUser:'', infoUserLogged: req.session.infoUserLogged,active: 'create'});
 }
 
 // CREATE USER PROCCESS
@@ -68,9 +68,9 @@ const newUserAction = async (req, res) => {
       });
       
       if(created){
-        res.render('admin/newUser',{ infoUser:'', active: 'create', mensaje: 'Usuario creado con éxito', ok:true })
+        res.render('admin/newUser',{ infoUser:'', infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje: 'Usuario creado con éxito', ok:true })
       }else {
-        res.render('admin/newUser',{ infoUser:'',active: 'create', mensaje: 'Correo no disponible para creación de usuario', ok:false })
+        res.render('admin/newUser',{ infoUser:'',infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje: 'Correo no disponible para creación de usuario', ok:false })
       }
 
     }
@@ -83,11 +83,11 @@ const newUserAction = async (req, res) => {
 // UPDATE USER
 const editUser = async (req, res) => {
   let id = req.params.id;
-  
+  let infoUserLogged = req.session.infoUserLogged
   try {
     const user = await models.User.findByPk(id);
     const { dataValues } = user
-    return res.render('admin/newUser', { infoUser: dataValues });
+    return res.render('admin/newUser', { infoUser: dataValues, infoUserLogged:infoUserLogged, });
 
   }catch(error){  
     console.log('Ha ocurrido un error: ' + error);
@@ -99,21 +99,31 @@ const editUserAction = async( req, res ) => {
 
   try {
     let id = req.params.id 
+    let infoUserLogged = req.session.infoUserLogged
     const { name, email, active, idRole } = req.body;
+    let flag = false 
+    let dataUser = {}
+
+    if (active == undefined || idRole === undefined)  {
+      dataUser = await models.User.findByPk(id)
+      flag = true
+    }
+    
+    
     let infoUser = {
+      id: parseInt(id),
       name,
       email,
-      active: (active === 'on') ? true : false,
-      idRole: (idRole === 'on') ? 1 : 2,
+      active: (flag) ? dataUser.active: (active === 'on') ? true : false,
+      idRole: (flag) ? dataUser.idRole: (idRole === 'on') ? 1 : 2,
     };
-  
+    
     const user = await models.User.update(infoUser, { where: { id: id } });
-
-    res.render('admin/newUser', {infoUser: infoUser, mensaje:'Usuario actualizado correctamente',ok:true} );
+    
+    res.render('admin/newUser', {infoUser: infoUser, infoUserLogged:infoUserLogged, mensaje:'Usuario actualizado correctamente',ok:true} );
 
   }catch(error) {
     console.log('Ha ocurrido un error: ' + error);
-    res.render('admin/newUser', {infoUser: infoUser, mensaje:'Problema actulizando usuario',ok:false} );
 
   }
 }

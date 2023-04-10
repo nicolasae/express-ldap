@@ -3,6 +3,9 @@
 <%- include('./partials/head', {title : locals.title }) %>
 
     <body>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+
+        
         <%- include('./partials/header') %>
 
         <main id="contenido" class="cuerpo-contenido">
@@ -51,10 +54,12 @@
                                                 </div>
                                                 <div class="btn-institucional mt-4">
                                                     <button 
+                                                        class="g-recaptcha btn-submit center-block" 
                                                         id="btn-enviar"
                                                         type="submit"
-                                                        class="btn-submit center-block"
-                                                    >
+                                                        data-sitekey="6Ld97HYlAAAAAG-GEzoIse94C0SDDFGp8dRJ_D4d" 
+                                                        data-callback='onSubmit' 
+                                                        data-action='submit'>
                                                         Ingresar
                                                     </button>
                                                 </div>
@@ -69,7 +74,12 @@
             </div>
         </main>
 
-        <script src="/js/loginFormValidator.js"></script>
+        <!-- <script src="/js/loginFormValidator.js"></script> -->
+        <script>
+            function onSubmit(token) {
+              document.getElementById("login-form").submit();
+            }
+        </script>
 
         <%- include('./partials/footer') %>
     </body>
