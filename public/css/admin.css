@@ -12,7 +12,9 @@
 .admin-body {
     max-width: 100%;
 }
-
+.admin main {
+    padding: 30px;
+}
 .admin a {
     text-decoration: none;
     color: var(--institucional);
@@ -62,7 +64,7 @@
 
 .title-admin h1,.title-new h1 {
     color: var(--blanco);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .new-content {
@@ -71,7 +73,7 @@
     margin: 0 auto;
 }
 .new-content h2 {
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .card-header {
