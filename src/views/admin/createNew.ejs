@@ -88,20 +88,19 @@
                         <div class="mb-3">
                             <% if(locals.newData) { %>
                                 <label for="name" class="form-label">Selecciona una(s) categoría</label>
-                                <select id="selectCategories" name="selectCategories" placeholder="Elige una o varias categorías">
-                                    
+                                <select id="selectCategories" name="selectCategories" placeholder="Elige una o varias categorías" multiple="multiple">   
                                     <% dataCategories.forEach(category => { %>
-                                        <option value="<%= category.id %>"><%= category.name %></option>
-                                        
-                                    <% }) %>  
+                                        <option value="<%= category.id %>" <%= (category.isSelected)? 'selected':'' %>> <%= category.name %></option>
+                                    <% }) %>                                                                         
                                 </select>
                             <% } else { %>                                
                                 <label for="name" class="form-label">Selecciona una(s) categoría</label>
                                 <select id="selectCategories" name="selectCategories" placeholder="Elige una o varias categorías">
                                     <% dataCategories.forEach(category => { %>
-                                        <option value="<%= category.id %>"><%= category.name %></option>
-                                    <% }) %>  
+                                        <option value="<%= category.id %>"><%= category.name %></option>                                        
+                                    <% }) %>
                                 </select>
+                                
                             <% } %>  
                         </div>
 
@@ -157,7 +156,7 @@
             $(function () {
 
                 $('#selectCategories').selectize({
-                    maxItems: null,
+                    maxItems: null,                    
                     valueField: 'id',
                     labelField: 'title',
                     searchField: 'title',

@@ -119,31 +119,51 @@ const editNew = async (req, res) => {
         
         const newData = await models.New.findOne({
             where:{ id: id },
-            include: [{ 
-                model: models.Category,
-                as: 'Categories',
-                attributes:['id','name'],                
-                through:{
-                    attributes: [],
-                }
-            }],
             include:[{
                 model: models.User,
                 as: 'User', 
             }],
         })
 
-        const dataCategories = await models.Category.findAll({
+        const categoriesByNews =  await models.New.findOne({
+            where:{ id: id },
+            include: [{ 
+                model: models.Category,
+                as: 'Categories',
+                attributes:['id','name'],   
+                through:{
+                    attributes: [],
+                },                                     
+            }],
+            attributes: [],
+        })
+
+        const allCategories = await models.Category.findAll({
             attributes:['id','name'],
             order: [['id','ASC']],
             raw:true,
         })
+
+        let serializeAux = JSON.stringify(categoriesByNews.Categories)
+
+        const mergedCategoryObject = [...JSON.parse(serializeAux), ...allCategories];
+
+        const filterCategories = mergedCategoryObject.reduce((acc, obj) => {
+            const foundIndex = acc.findIndex(item => item.id === obj.id);
+            if (foundIndex !== -1) {
+              acc[foundIndex].isSelected = true;
+            } else {
+              acc.push({ ...obj, isSelected: false });
+            }
+            return acc;
+        }, []);
         
+        // res.json(result)
         return res.render('admin/createNew',{ 
             infoNew:'', 
             active: 'edit',
             newData: newData,
-            dataCategories: dataCategories
+            dataCategories: filterCategories
         });
         
     }catch(error){  
@@ -181,7 +201,6 @@ const editNewAction = async( req, res ) => {
     }
     
     try {
-        console.log(infoNew)
         const data = await models.New.update(infoNew,{ where: {id: id }})
 
         const newRecord = await models.New.findOne({ where: { id: id } });
