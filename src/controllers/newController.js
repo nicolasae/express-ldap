@@ -158,7 +158,6 @@ const editNew = async (req, res) => {
             return acc;
         }, []);
         
-        // res.json(result)
         return res.render('admin/createNew',{ 
             infoNew:'', 
             active: 'edit',

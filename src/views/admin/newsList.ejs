@@ -9,76 +9,76 @@
             <div class="row">
                 <%- include('../components/sideBarMenu') %>
 
-                <main class="col-md-9 ms-sm-auto px-md-4">
+                <main class="col-md-9 px-5">
                     <section>
                         <div class="title-admin">
                             <h1>Lista de noticias activas</h1>                        
                         </div>
-                        
-                        <table id="table-news" class="display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Titulo</th>
-                                    <th>Resumen</th>
-                                    <th>Activo para portal</th>
-                                    <th>Fecha de Publicación</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% dataNewsActives.forEach(news => { %>
+                        <div class="table-responsive">
+                            <table id="table-news" class="table table-striped nowrap" style="width: 100%;">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <a href="/admin/<%= news.id %>/noticia">
-                                                <%= news.title %>
-                                            </a>
-                                        </td>
-                                        <td><%- news.summary %></td>
-                                        <td>
-                                            <%- (news.activeForPortal) ? '<span class="badge bg-success">SI</span>': '<span class="badge bg-danger">NO</span>'%>
-                                            
-                                        </td>
-                                        <td><%= news.createdAt.getFullYear() %>-<%= news.createdAt.getMonth() %>-<%= news.createdAt.getDate() %></td>
-                                        <td>
-                                            <div class="btn-group">
-                        
-                                                <div class="me-4">
-                                                    <a href="/admin/<%= news.id %>/editar-noticia">
-                                                        <button type="submit" class="btn btn-institucional">
-                                                            <i class="bi bi-pencil-square"></i>Editar
-                                                        </button>
-                                                    </a>
-                                                </div>                                                
-                                                <div class="me-4">
-                                                    <form class="" action="/admin/<%= news.id %>/actualizar-estado-portal-noticia?_method=PUT" method="post">
-                                                        <% if(news.activeForPortal) { %>
-                                                            <button type="submit" class="btn btn-secondary">
-                                                                <i class="bi bi-eye-fill"></i>
-                                                                Visible
-                                                            </button>
-                                                        <% } else { %>
-                                                            <button type="submit" class="btn btn-primary">
-                                                                <i class="bi bi-eye-slash-fill"></i>
-                                                                Oculto
-                                                            </button>
-                                                        <%} %>
-                                                    </form>
-                                                </div>
-                                                <div class="me-4">
-                                                    <form class="" action="/admin/<%= news.id %>/actualizar-estado-noticia?_method=PUT" method="post">
-                                                        <button type="submit" class="btn btn-secondary">
-                                                            <i class="bi bi-person-check"></i>
-                                                            Desactivar
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <th data-priority="1001">Titulo</th>
+                                        <th >Resumen</th>
+                                        <th data-priority="1001">Activo para portal</th>
+                                        <th data-priority="1001">Fecha de Publicación</th>
+                                        <th data-priority="1001">Acciones</th>
                                     </tr>
-                                <% }) %>  
-                            </tbody>
-                        </table>
-                    
+                                </thead>
+                                <tbody>
+                                    <% dataNewsActives.forEach(news => { %>
+                                        <tr>
+                                            <td>
+                                                <a href="/admin/<%= news.id %>/noticia">
+                                                    <%= news.title %>
+                                                </a>
+                                            </td>
+                                            <td><%- news.summary %></td>
+                                            <td>
+                                                <%- (news.activeForPortal) ? '<span class="badge bg-success">SI</span>': '<span class="badge bg-danger">NO</span>'%>
+                                                
+                                            </td>
+                                            <td><%= news.createdAt.getFullYear() %>-<%= news.createdAt.getMonth() %>-<%= news.createdAt.getDate() %></td>
+                                            <td>
+                                                <div class="btn-group">
+                            
+                                                    <div class="me-4">
+                                                        <a href="/admin/<%= news.id %>/editar-noticia">
+                                                            <button type="submit" class="btn btn-institucional">
+                                                                <i class="bi bi-pencil-square"></i>Editar
+                                                            </button>
+                                                        </a>
+                                                    </div>                                                
+                                                    <div class="me-4">
+                                                        <form class="" action="/admin/<%= news.id %>/actualizar-estado-portal-noticia?_method=PUT" method="post">
+                                                            <% if(news.activeForPortal) { %>
+                                                                <button type="submit" class="btn btn-secondary">
+                                                                    <i class="bi bi-eye-fill"></i>
+                                                                    Visible
+                                                                </button>
+                                                            <% } else { %>
+                                                                <button type="submit" class="btn btn-primary">
+                                                                    <i class="bi bi-eye-slash-fill"></i>
+                                                                    Oculto
+                                                                </button>
+                                                            <%} %>
+                                                        </form>
+                                                    </div>
+                                                    <div class="me-4">
+                                                        <form class="" action="/admin/<%= news.id %>/actualizar-estado-noticia?_method=PUT" method="post">
+                                                            <button type="submit" class="btn btn-secondary">
+                                                                <i class="bi bi-person-check"></i>
+                                                                Desactivar
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% }) %>  
+                                </tbody>
+                            </table>
+                        </div>
                     </section> 
 
                     <section>
@@ -86,7 +86,7 @@
                             <h1>Lista de noticias inactivas</h1>                        
                         </div>
                         
-                        <table id="table-news-inactives" class="display" style="width:100%">
+                        <table id="table-news-inactives" class="table table-striped nowrap " style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Titulo</th>
@@ -168,55 +168,52 @@
 
 
         <script>
-            // $(document).ready(function () {
-            //     $('#table-news').DataTable();
-            // });
-            document.addEventListener("DOMContentLoaded", function () {
-                let tabla = new DataTable('#table-news', {
-                    responsive: true,
-                    // order: [2, 'desc'],
-                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
-                    "language": {
-                        searchPlaceholder: "Búsqueda",
-                        paginate: {
-                            first: "Primera",
-                            last: "Ultima",
-                            previous: "Anterior",
-                            next: "Siguiente",
-                        },
-                        url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
-                        search: "Buscar: ",
-                        processing: "Tratamiento en curso...",
-                        "lengthMenu": "Mostrar _MENU_  registros",
-                        "zeroRecords": "No se encontró ningún registro en el rango de fecha",
-                        "info": "Mostrando registros del _PAGE_ al _PAGES_ de un total de _MAX_ registros",
-                        "infoEmpty": "No hay registros disponibles",
-                        "infoFiltered": "(filtrado de _MAX_ registros totales)"
-                    },
-                });
-                let tablaInactivos = new DataTable('#table-news-inactives', {
-                    responsive: true,
-                    // order: [2, 'desc'],
-                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
-                    "language": {
-                        searchPlaceholder: "Búsqueda",
-                        paginate: {
-                            first: "Primera",
-                            last: "Ultima",
-                            previous: "Anterior",
-                            next: "Siguiente",
-                        },
-                        url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
-                        search: "Buscar: ",
-                        processing: "Tratamiento en curso...",
-                        "lengthMenu": "Mostrar _MENU_  registros",
-                        "zeroRecords": "No se encontró ningún registro en el rango de fecha",
-                        "info": "Mostrando registros del _PAGE_ al _PAGES_ de un total de _MAX_ registros",
-                        "infoEmpty": "No hay registros disponibles",
-                        "infoFiltered": "(filtrado de _MAX_ registros totales)"
-                    },
-                });
-            })
+            // document.addEventListener("DOMContentLoaded", function () {
+            //     let tabla = new DataTable('#table-news', {
+            //         responsive:true,
+
+            //         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+            //         "language": {
+            //             searchPlaceholder: "Búsqueda",
+            //             paginate: {
+            //                 first: "Primera",
+            //                 last: "Ultima",
+            //                 previous: "Anterior",
+            //                 next: "Siguiente",
+            //             },
+            //             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
+            //             search: "Buscar: ",
+            //             processing: "Tratamiento en curso...",
+            //             "lengthMenu": "Mostrar _MENU_  registros",
+            //             "zeroRecords": "No se encontró ningún registro en el rango de fecha",
+            //             "info": "Mostrando registros del _PAGE_ al _PAGES_ de un total de _MAX_ registros",
+            //             "infoEmpty": "No hay registros disponibles",
+            //             "infoFiltered": "(filtrado de _MAX_ registros totales)"
+            //         },
+                    
+            //     });
+            //     let tablaInactivos = new DataTable('#table-news-inactives', {
+            //         responsive:true,
+            //         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100]],
+            //         "language": {
+            //             searchPlaceholder: "Búsqueda",
+            //             paginate: {
+            //                 first: "Primera",
+            //                 last: "Ultima",
+            //                 previous: "Anterior",
+            //                 next: "Siguiente",
+            //             },
+            //             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
+            //             search: "Buscar: ",
+            //             processing: "Tratamiento en curso...",
+            //             "lengthMenu": "Mostrar _MENU_  registros",
+            //             "zeroRecords": "No se encontró ningún registro en el rango de fecha",
+            //             "info": "Mostrando registros del _PAGE_ al _PAGES_ de un total de _MAX_ registros",
+            //             "infoEmpty": "No hay registros disponibles",
+            //             "infoFiltered": "(filtrado de _MAX_ registros totales)"
+            //         },
+            //     });
+            // })
         </script>
     </body>
 
