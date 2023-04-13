@@ -171,35 +171,36 @@ const editNew = async (req, res) => {
 };
 
 const editNewAction = async( req, res ) => {
-    const id = req.params.id 
-    const { title, summary, link,active, activeForPortal, selectCategories} = req.body
-    // const idAuthor = req.session.infoUserLogged.id
-
-    const convertArrayCategories = []
-
-    if( typeof selectCategories == "string") {
-        convertArrayCategories[0] = parseInt(selectCategories)
-    }
-    else if(typeof selectCategories == "object" ) {
-        selectCategories.forEach((idCategory, index ) => {
-            convertArrayCategories[index] = parseInt(idCategory)
-        })
-    }
-    else {
-        convertArrayCategories[0] = 1
-    }  
-
-    const infoNew = {
-        title,
-        summary,
-        link,
-        image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
-        active: (active === 'on' ) ? 1 : 0,
-        activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
-        idAuthor:1
-    }
     
     try {
+        const id = req.params.id 
+        const { title, summary, link,active, activeForPortal, selectCategories} = req.body
+        const convertArrayCategories = []
+        const errors = validationResult(req);
+
+    
+        if( typeof selectCategories == "string") {
+            convertArrayCategories[0] = parseInt(selectCategories)
+        }
+        else if(typeof selectCategories == "object" ) {
+            selectCategories.forEach((idCategory, index ) => {
+                convertArrayCategories[index] = parseInt(idCategory)
+            })
+        }
+        else {
+            convertArrayCategories[0] = 1
+        }  
+    
+        const infoNew = {
+            title,
+            summary,
+            link,
+            image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
+            active: (active === 'on' ) ? 1 : 0,
+            activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
+            idAuthor:1
+        }
+
         const data = await models.New.update(infoNew,{ where: {id: id }})
 
         const newRecord = await models.New.findOne({ where: { id: id } });

@@ -23,9 +23,9 @@
                         <div id="seccionError">
                             <% if(locals.mensaje) { %>
                                 <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> d-flex align-items-center" role="alert">
-                                    <div>
+                                    <span>
                                     <%= locals.mensaje %>
-                                    </div>
+                                    </span>
                                 </div>
                             <% } %>
                         </div>
@@ -46,7 +46,11 @@
                             <label for="name" class="form-label">Resumen</label>
                             <textarea name="summary" id="editor">
                                 <%= locals.newData? locals.newData.summary : '' %>
-                            </textarea name="summary">
+                            </textarea>
+                            <div id="word-count">
+                                <p> Máximo de caracteres: 255     Cantidad de caracteres: 0</p>
+
+                            </div>
                         </div>                                                
                         <% if(locals.newData) { %>
                             <div class="mb-3">
@@ -61,6 +65,7 @@
                                 >                            
                             </div>
                         <% } %>
+
                         <div class="mb-3 block-image">
                             <% if(locals.newData) { %>
                                 <label for="name" class="form-label">Imagen</label>
@@ -166,12 +171,37 @@
         </script>
 
         <!-- CKEDITOR5 -->
+        
         <script>
             ClassicEditor
-                .create( document.querySelector( '#editor' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
+            .create( document.querySelector( '#editor' ), {
+                toolbar: [
+                    'heading', '|', 'undo', 'redo', '|', 'bold', 'italic', '|',
+                    'blockQuote', 'indent', 'link', '|', 'bulletedList', 'numberedList'
+                ],
+                
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (e) => {
+
+                const selectorInfo = document.querySelector(".ck-content")
+                const selectorContador = document.getElementById("word-count")
+                selectorInfo.addEventListener("keyup",function(event) {
+
+                    let countCharacters 
+                    (selectorInfo.innerText == '\n') 
+                    ? countCharacters = 0 
+                    : countCharacters = selectorInfo.innerText.length
+                    
+                    selectorContador.innerHTML = `<p> Máximo de caracteres: 255  Cantidad de caracteres: ${countCharacters}</p>` 
+                })
+                
+            })
         </script>
     
     </body>

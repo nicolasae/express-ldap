@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
       },
       summary: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       link: {

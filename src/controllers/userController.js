@@ -1,6 +1,5 @@
 const models = require('../database/models');
-const { validationResult } = require('express-validator')
-
+const {validationResult } = require('express-validator')
 
 // LOGIN
 const login = async (req,res) => {
@@ -46,22 +45,27 @@ const usersList = async (req, res) => {
 
 // CREATE USER VIEW 
 const newUser = async(req, res) => {
-  return res.render('admin/newUser',{ infoUser:'', infoUserLogged: req.session.infoUserLogged,active: 'create'});
+  return res.render('admin/newUser',{ infoUser:'', infoUserLogged: req.session.infoUserLogged, active: 'create'});
 }
 
 // CREATE USER PROCCESS
 const newUserAction = async (req, res) => {
 
-  const { name, email, active, idRole } = req.body
-    let infoUser = {
-      name,
-      email,
-      active: (active === 'on' ) ? true : false,
-      idRole: (idRole === 'on' ) ? 1 : 2,
-    };
+  try {
 
-    try {
-      // const user = await models.User.create(infoUser);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render('admin/newUser',{ infoUser:'',infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje: errors.errors, ok:false })
+    }
+    else {
+      const { name, email, active, idRole } = req.body
+      let infoUser = {
+        name,
+        email,
+        active: (active === 'on' ) ? true : false,
+        idRole: (idRole === 'on' ) ? 1 : 2,
+      };
+
       const [user, created] = await models.User.findOrCreate({
         where: { email: email },
         defaults: infoUser
@@ -70,46 +74,49 @@ const newUserAction = async (req, res) => {
       if(created){
         res.render('admin/newUser',{ infoUser:'', infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje: 'Usuario creado con éxito', ok:true })
       }else {
-        res.render('admin/newUser',{ infoUser:'',infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje: 'Correo no disponible para creación de usuario', ok:false })
+        res.render('admin/newUser',{ infoUser:'',infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje:'Correo no disponible para creación de usuario', ok:false })
       }
+    }
 
-    }
-    catch(error){
-      console.log('Ha ocurrido un error: ' + error);
-      res.status(500).json({ "message":`Problema con el servidor al crear nuevo usuario`})
-    }
+  }
+  catch(error){
+    console.log('Ha ocurrido un error: ' + error);
+  }
 };
 
 // UPDATE USER
 const editUser = async (req, res) => {
+  
   let id = req.params.id;
   let infoUserLogged = req.session.infoUserLogged
+
   try {
     const user = await models.User.findByPk(id);
     const { dataValues } = user
     return res.render('admin/newUser', { infoUser: dataValues, infoUserLogged:infoUserLogged, });
 
-  }catch(error){  
+  } catch(error){  
     console.log('Ha ocurrido un error: ' + error);
     res.status(500).json({ "message":`Problema con el servidor`})
   }
 };
 
 const editUserAction = async( req, res ) => {
-
+  
   try {
+    
     let id = req.params.id 
     let infoUserLogged = req.session.infoUserLogged
     const { name, email, active, idRole } = req.body;
     let flag = false 
     let dataUser = {}
+    const errors = validationResult(req);
 
     if (active == undefined || idRole === undefined)  {
       dataUser = await models.User.findByPk(id)
       flag = true
     }
-    
-    
+
     let infoUser = {
       id: parseInt(id),
       name,
@@ -118,13 +125,17 @@ const editUserAction = async( req, res ) => {
       idRole: (flag) ? dataUser.idRole: (idRole === 'on') ? 1 : 2,
     };
     
-    const user = await models.User.update(infoUser, { where: { id: id } });
-    
-    res.render('admin/newUser', {infoUser: infoUser, infoUserLogged:infoUserLogged, mensaje:'Usuario actualizado correctamente',ok:true} );
 
+    if (!errors.isEmpty()) {
+      res.render('admin/newUser', {infoUser: infoUser, infoUserLogged:infoUserLogged, mensaje:errors.errors, ok:false} )
+    }
+    else {
+      const user = await models.User.update(infoUser, { where: { id: id } })      
+      res.render('admin/newUser', {infoUser: infoUser, infoUserLogged:infoUserLogged, mensaje:'Usuario actualizado correctamente',ok:true} )
+    }
+    
   }catch(error) {
     console.log('Ha ocurrido un error: ' + error);
-
   }
 }
 
@@ -156,6 +167,9 @@ const toggleStateUser = async( req, res ) => {
   }
 }
 
+
+
+
 module.exports = {
   login,
   logout,
@@ -167,5 +181,4 @@ module.exports = {
   editUserAction,
   toggleStateUser,
   deleteUser,
-
 };

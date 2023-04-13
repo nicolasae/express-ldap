@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     const checkEnableBtn = () => {
 
-        console.log(enableBtn)
         if (enableBtn.includes(0)) {
 
             // seccionErrorSelector.innerHTML = `

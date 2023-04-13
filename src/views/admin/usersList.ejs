@@ -19,22 +19,20 @@
 
                             <thead>
                                 <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col">Rol</th>
-                                <% if(infoUserLogged.idRole === 1) { %>
+                                    <!-- <th scope="col">Id</th> -->
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Rol</th>
                                     <th scope="col">Acciones</th>
-                                <% } %>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <% listUsersActives.forEach(user => { %>
                                     <tr>
-                                        <th scope="row">
+                                        <!-- <th scope="row">
                                             <%= user.id %>
-                                        </th>
+                                        </th> -->
                                         <td>
                                             <% if(infoUserLogged.idRole === 1) { %>
                                                 <a href="/admin/<%= user.id %>/editar-usuario">
@@ -90,22 +88,20 @@
                         <table id="table-users-inactives" class="table table-striped dt-responsive nowrap " style="width: 100%;">
                             <thead>
                                 <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col">Rol</th>
-                                <% if(infoUserLogged.idRole === 1) { %>
-                                    <th scope="col">Acciones</th>
-                                <% } %>
+                                    <!-- <th scope="col">Id</th> -->
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Rol</th>                               
+                                    <th scope="col">Acciones</th>                                
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <% listUsersInactives.forEach(user => { %>
                                     <tr>
-                                        <th scope="row">
+                                        <!-- <th scope="row">
                                             <%= user.id %>
-                                        </th>
+                                        </th> -->
                                         <td>
                                             <% if(infoUserLogged.idRole === 1) { %>
                                                 <a href="/admin/<%= user.id %>/editar-usuario">

@@ -20,13 +20,27 @@
                         <form class="edit-form" action="/admin/<%= locals.infoCategory.id %>/editar-categoria" method="post" id="edit-category-form">
                     <%} %>
                             
-                        <div id="seccionError">
-                            <% if(locals.mensaje) { %>
-                                <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> d-flex align-items-center" role="alert">
-                                    <div>
-                                    <%= locals.mensaje %>
+                        <div id="seccionError" class="mb-4">
+                            <% if (locals.mensaje){ %>
+                                <% if(typeof locals.mensaje == typeof {}) { %>
+                                    <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                        <ul class="mb-0">
+                                            <% locals.mensaje.forEach(item => { %>
+                                                <li>
+                                                    <b><%= item.msg %></b>
+                                                </li>
+                                            <% }) %>
+                                        </ul>                                                                                                                                              
                                     </div>
-                                </div>
+                                <% } else { %>
+                                    <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                        <span> 
+                                            <b>
+                                                <%= locals.mensaje%>
+                                            </b>
+                                        </span>
+                                    </div>
+                                <% } %>
                             <% } %>
                         </div>
                         

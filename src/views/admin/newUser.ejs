@@ -18,21 +18,34 @@
                             <h1>Editar</h1>
                         </div>
                         <form class="edit-form" action="/admin/<%= locals.infoUser.id %>/editar-usuario" method="post" id="edit-user-form">
-                    <%} %>
-                            
+                    <%} %>                            
 
-                        <div id="seccionError">
-                            <% if(locals.mensaje) { %>
-                                <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> d-flex align-items-center" role="alert">
-                                    <div>
-                                    <%= locals.mensaje %>
+                        <div id="seccionError" class="mb-4">
+                            <% if (locals.mensaje){ %>
+                                <% if(typeof locals.mensaje == typeof {}) { %>
+                                    <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                        <ul class="mb-0">
+                                            <% locals.mensaje.forEach(item => { %>
+                                                <li>
+                                                    <b><%= item.msg %></b>
+                                                </li>
+                                            <% }) %>
+                                        </ul>                                                                                                                                              
                                     </div>
-                                </div>
+                                <% } else { %>
+                                    <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                        <span> 
+                                            <b>
+                                                <%= locals.mensaje%>
+                                            </b>
+                                        </span>
+                                    </div>
+                                <% } %>
                             <% } %>
                         </div>
                     
                         <div class="mb-3">
-                            <label for="name" class="form-label">Nombre</label>
+                            <label for="name" class="form-label">Nombre y apellidos</label>
                             <input 
                                 type="text" 
                                 id="name"
@@ -44,7 +57,7 @@
                         </div>
 
                         <div class="mb-3">
-                          <label for="email" class="form-label">Correo Electrónico</label>
+                          <label for="email" class="form-label">Correo UTP</label>
                           <input 
                             type="email" 
                             id="email" 

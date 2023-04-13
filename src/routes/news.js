@@ -3,6 +3,7 @@ const router = express.Router()
 const multer = require('multer');
 
 const newController = require('../controllers/newController')
+const validator = require('../validators/formsValidator')
 const { verifyCredentials} = require('../middleware/authMiddleware'); 
 
 const storage = multer.diskStorage({
@@ -21,15 +22,15 @@ const upload = multer({ storage: storage });
 router.get('/admin/noticias', verifyCredentials, newController.newsList)
 
 /**** CREATE USER*/
-router.get('/admin/noticias/nuevo',  verifyCredentials,newController.createNew)
-router.post('/admin/noticias/nuevo',  verifyCredentials,upload.single('imagen'), newController.createNewAction)
+router.get('/admin/noticias/nuevo', verifyCredentials, newController.createNew)
+router.post('/admin/noticias/nuevo', verifyCredentials, validator.validadate('createNew'), upload.single('imagen'), newController.createNewAction)
 
 /**** DETAIL NEW*/
 router.get('/admin/:id/noticia', verifyCredentials, newController.detailNew)
 
 /**** UPDATE USER*/
 router.get('/admin/:id/editar-noticia', verifyCredentials, newController.editNew)
-router.post('/admin/:id/editar-noticia', verifyCredentials,upload.single('imagen'), newController.editNewAction)
+router.post('/admin/:id/editar-noticia', verifyCredentials,validator.validadate('editNew'),upload.single('imagen'), newController.editNewAction)
 
 // /**** UPDATE PORTAL STATE NEW*/
 
