@@ -11,11 +11,11 @@ router.get('/admin/categorias', verifyCredentials, categoryController.categories
 
 /**** CREATE CATEGORY*/
 router.get('/admin/categorias/nuevo',verifyCredentials, categoryController.newCategory)
-router.post('/admin/categorias/nuevo',verifyCredentials, validator.validadate('createCategory'),categoryController.newCategoryAction)
+router.post('/admin/categorias/nuevo',verifyCredentials, validator.validate('createCategory'),categoryController.newCategoryAction)
 
 /**** UPDATE USER*/
 router.get('/admin/:id/editar-categoria', verifyCredentials,categoryController.editCategory)
-router.post('/admin/:id/editar-categoria', verifyCredentials,validator.validadate('editCategory'),categoryController.editCategoryAction)
+router.post('/admin/:id/editar-categoria', verifyCredentials,validator.validate('editCategory'),categoryController.editCategoryAction)
 
 /**** DETAIL CATEGORY*/
 router.get('/admin/:id/categoria',verifyCredentials, categoryController.detailCategory)

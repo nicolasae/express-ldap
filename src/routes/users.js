@@ -20,11 +20,11 @@ router.get('/admin', verifyCredentials, userController.admin);
 router.get('/admin/usuarios', verifyCredentials, userController.usersList)
 /**** CREATE USER*/
 router.get('/admin/usuarios/nuevo', verifySuperAdmin, userController.newUser)
-router.post('/admin/usuarios/nuevo', verifySuperAdmin, validator.validadate('createUser'), userController.newUserAction)
+router.post('/admin/usuarios/nuevo', verifySuperAdmin, validator.validate('createUser'), userController.newUserAction)
 
 /**** UPDATE USER*/
 router.get('/admin/:id/editar-usuario',verifySuperAdmin, userController.editUser)
-router.post('/admin/:id/editar-usuario',verifySuperAdmin, validator.validadate('editUser'),  userController.editUserAction)
+router.post('/admin/:id/editar-usuario',verifySuperAdmin, validator.validate('editUser'),  userController.editUserAction)
 /**** UPDATE STATE USER*/
 router.put('/admin/:id/actualizar-estado-usuario', verifySuperAdmin, userController.toggleStateUser);
 /**** DELETE USER*/

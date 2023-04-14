@@ -54,6 +54,7 @@ const newUserAction = async (req, res) => {
   try {
 
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       res.render('admin/newUser',{ infoUser:'',infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje: errors.errors, ok:false })
     }
@@ -74,10 +75,9 @@ const newUserAction = async (req, res) => {
       if(created){
         res.render('admin/newUser',{ infoUser:'', infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje: 'Usuario creado con éxito', ok:true })
       }else {
-        res.render('admin/newUser',{ infoUser:'',infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje:'Correo no disponible para creación de usuario', ok:false })
+        res.render('admin/newUser',{ infoUser:'',infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje:'Ese correo ya está en uso. Pruebe con otro', ok:false })
       }
     }
-
   }
   catch(error){
     console.log('Ha ocurrido un error: ' + error);
@@ -166,8 +166,6 @@ const toggleStateUser = async( req, res ) => {
     console.log('Ha ocurrido un error: ' + error);
   }
 }
-
-
 
 
 module.exports = {

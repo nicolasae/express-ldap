@@ -20,15 +20,29 @@
                     <form class="edit-form" action="/admin/<%= locals.newData.id %>/editar-noticia" method="post" id="edit-noticia-form" enctype="multipart/form-data">
                 <%} %>
                     
-                        <div id="seccionError">
-                            <% if(locals.mensaje) { %>
-                                <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> d-flex align-items-center" role="alert">
-                                    <span>
-                                    <%= locals.mensaje %>
+                    <div id="seccionError" class="mb-4">
+                        <% if (locals.mensaje){ %>
+                            <% if(typeof locals.mensaje == typeof {}) { %>
+                                <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                    <ul class="mb-0">
+                                        <% locals.mensaje.forEach(item => { %>
+                                            <li>
+                                                <b><%= item.msg %></b>
+                                            </li>
+                                        <% }) %>
+                                    </ul>                                                                                                                                              
+                                </div>
+                            <% } else { %>
+                                <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                    <span> 
+                                        <b>
+                                            <%= locals.mensaje%>
+                                        </b>
                                     </span>
                                 </div>
                             <% } %>
-                        </div>
+                        <% } %>
+                    </div>
                         
                         <div class="mb-3">
                             <label for="name" class="form-label">Título</label>
@@ -75,17 +89,18 @@
                                     id="imagen" 
                                     name="imagen"
                                     type="file" 
+                                    accept="image/*"
                                 >   
                                 <input type="text" disabled="disabled" class="form-control my-4" value="<%= newData.image%>">
                                 <img src="/img/uploads/<%=newData.image%>" alt="imagen de <%= newData.title%>">
                             <% } else { %>
                                 <label for="name" class="form-label">Imagen</label>
-                                <!-- <input class="form-control" type="file" id="imageFile"> -->
                                 <input 
                                     class="form-control" 
                                     id="imagen" 
                                     name="imagen"
                                     type="file" 
+                                    accept="image/*"
                                 >   
                             <% } %>                                  
                         </div>
