@@ -74,10 +74,8 @@ const getAllCategories = async ( req,res ) => {
     }
 }
 
-
 module.exports = {
     getAllNews,
     getInfoNewById,
     getAllCategories,
-
 }

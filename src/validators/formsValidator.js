@@ -40,9 +40,6 @@ const validate = (method) => {
           .withMessage('El nombre de la categoría es obligatorio')
           .isLength({ min: 3, max: 50 })
           .withMessage('El nombre de la categoría debe tener entre 3 y 50 caracteres')
-          .trim()
-          .isAlphanumeric()
-          .withMessage('El nombre de la categoría solo puede contener letras y números'),
       ]
     }
 
@@ -63,15 +60,21 @@ const validate = (method) => {
           .withMessage('Resumen de noticia requerido')
           .isLength({ min:20,max:255 })
           .withMessage('El resumen de la noticia debe tener entre 20 y 55 caracteres'),
-        // check('file').custom((value, { req }) => {
-        //   // if (!req.file) {
-        //   //   throw new Error('Debe seleccionar un archivo');
-        //   // }
-        //   if (!req.file.mimetype.startsWith('image/')) {
-        //     throw new Error('El archivo debe ser una imagen');
-        //   }
-        //   return true;
-        // })          
+        body('link')
+          .trim()
+          .notEmpty()
+          .withMessage('Resumen de noticia requerido')
+          .isURL()
+          .withMessage('Ingrese un enlace válido'),
+        check('file').custom((value, { req }) => {
+          // if (!req.file) {
+          //   throw new Error('Debe seleccionar un archivo');
+          // }
+          if (!req.file.mimetype.startsWith('image/')) {
+            throw new Error('El archivo debe ser una imagen');
+          }
+          return true;
+        })          
       ]
     }
   }

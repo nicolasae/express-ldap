@@ -8,18 +8,21 @@ module.exports = {
       { 
         id: 1,
         name: 'Sin categoria',
+        state:1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       { 
         id: 2,
         name: 'Institucional',
+        state:1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       { 
         id: 3,
         name: 'Académico',
+        state:1,
         createdAt: new Date(),
         updatedAt: new Date()
       },

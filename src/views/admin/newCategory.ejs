@@ -55,6 +55,18 @@
                                 required
                             >
                         </div>
+
+                        <div class="mb-3 form-check form-switch">
+                            <input 
+                                type="checkbox"
+                                id="state"
+                                class="form-check-input"
+                                name="state"
+                                role="switch"
+                                                                
+                            >
+                        <label class="form-check-label" for="state">Activo</label>
+                        </div>
                         
                         <% if (locals.active && locals.active === 'create') { %>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">

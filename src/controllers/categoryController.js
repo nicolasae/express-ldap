@@ -34,11 +34,12 @@ const newCategory = async(req, res) => {
 const newCategoryAction = async (req, res) => {
 
     try {
-        const { name } = req.body
+        const { name, state } = req.body
         const errors = validationResult(req);
         
         let infoCategory = {
             name,
+            state: (state === 'on' ) ? true : false,
         };  
         
         console.log(errors)

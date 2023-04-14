@@ -62,23 +62,21 @@
                                 <%= locals.newData? locals.newData.summary : '' %>
                             </textarea>
                             <div id="word-count">
-                                <p> Máximo de caracteres: 255     Cantidad de caracteres: 0</p>
-
+                                <p> Máximo de caracteres: 255 Cantidad de caracteres: 0</p>
                             </div>
-                        </div>                                                
-                        <% if(locals.newData) { %>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Enlace</label>
-                                <input 
-                                    type="text" 
-                                    id="link"
-                                    class="form-control" 
-                                    name="link"
-                                    value="<%= locals.newData.link %>" 
-                                    required
-                                >                            
-                            </div>
-                        <% } %>
+                        </div>  
+                                                                      
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Enlace</label>
+                            <input 
+                                type="text" 
+                                id="link"
+                                class="form-control" 
+                                name="link"
+                                value="<%= locals.newData ? locals.newData.link: '' %>" 
+                                required
+                            >                            
+                        </div>
 
                         <div class="mb-3 block-image">
                             <% if(locals.newData) { %>

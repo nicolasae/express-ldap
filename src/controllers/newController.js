@@ -37,7 +37,7 @@ const createNew = async( req, res ) => {
         order: [['id','ASC']],
         raw:true,
     })
-    return res.render('admin/createNew',{ infoNew:'', active: 'create', dataCategories: dataCategories, newData: ''});
+    return res.render('admin/createNew',{ active: 'create', dataCategories: dataCategories, newData: ''});
 }
 
 // CREATE NEW PROCCESS
@@ -53,10 +53,10 @@ const createNewAction = async (req, res) => {
         })
 
         if (!errors.isEmpty()) {
-            res.render('admin/createNew',{ infoNew:'', active: 'create', dataCategories: dataCategories, newData: '', mensaje:errors.errors, ok:false})
+            res.render('admin/createNew',{  active: 'create', dataCategories: dataCategories, newData: '', mensaje:errors.errors, ok:false})
         }
         else {
-            const { title, summary, active, activeForPortal, selectCategories} = req.body
+            const { title, summary, active, activeForPortal, selectCategories,link} = req.body
             const idAuthor = req.session.infoUserLogged.id
 
             const convertArrayCategories = []
@@ -80,7 +80,7 @@ const createNewAction = async (req, res) => {
                 id: actualId, 
                 title,
                 summary,
-                link:`${urlSite}/admin/${actualId}/noticia`,
+                link,
                 image: req.file? req.file.filename : 'imagen-noticia-defecto.jpeg',
                 active: (active === 'on' ) ? 1 : 0,
                 activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
