@@ -17,7 +17,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
 /**** GET ALL NEWS*/
 router.get('/admin/noticias', verifyCredentials, newController.newsList)
 
@@ -33,14 +32,12 @@ router.get('/admin/:id/editar-noticia', verifyCredentials, newController.editNew
 router.post('/admin/:id/editar-noticia', verifyCredentials, upload.single('imagen'), validator.validate('editNew'), newController.editNewAction)
 
 // /**** UPDATE PORTAL STATE NEW*/
-
 router.put('/admin/:id/actualizar-estado-portal-noticia', verifyCredentials,newController.toggleStatePortal);
+
 // /**** UPDATE PORTAL STATE NEW*/
-
 router.put('/admin/:id/actualizar-estado-noticia', verifyCredentials,newController.toggleState);
+
 // /**** DELETE USER*/
-
 router.delete('/admin/:id/borrar-noticia', verifyCredentials, newController.deleteNew);
-
 
 module.exports = router

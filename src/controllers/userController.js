@@ -37,8 +37,8 @@ const usersList = async (req, res) => {
       user.state  = ( user.active === true ) ? 'Activo' : 'Inactivo' 
     })
     res.render('admin/usersList', { listUsersActives: dataActives,listUsersInactives: dataInactives, infoUserLogged: req.session.infoUserLogged })
-  }
-  catch(error){
+  
+  }catch(error){
     console.log('Ha ocurrido un error: ' + error);
   }
 };
@@ -167,7 +167,6 @@ const toggleStateUser = async( req, res ) => {
   }
 }
 
-
 module.exports = {
   login,
   logout,
@@ -179,4 +178,4 @@ module.exports = {
   editUserAction,
   toggleStateUser,
   deleteUser,
-};
+}

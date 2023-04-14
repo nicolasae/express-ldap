@@ -1,19 +1,16 @@
 // ************ Require's ************/
 const express = require("express");
 const router = express.Router();
-const path = require('path');
 
-const mainController = require("../controllers/mainController");
-const userController = require('../controllers/userController')
 const usersRoutes = require("./users")
 const newsRoutes = require("./news")
 const categoriesRoutes = require("./categories")
+const apiRoutes = require("./api")
+
+const userController = require('../controllers/userController')
 
 /*** Home */
-// router.get("/", mainController.index);
 router.get("/", userController.login)
-
-
 
 /*** Users Router */
 router.use("", usersRoutes);
@@ -21,5 +18,8 @@ router.use("", usersRoutes);
 router.use("", newsRoutes);
 /*** Categories Router */
 router.use("", categoriesRoutes);
+/*** API Router */
+router.use("/api/", apiRoutes);
+
 
 module.exports = router;
