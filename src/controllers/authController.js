@@ -50,6 +50,7 @@ const authenticationLogin = async (req, res) => {
                 if (infoUser && infoUser.active == true) {
 
                     const checkUserLdap = await authLdap(username,password);
+                    console.log(checkUserLdap)
                     if ( checkUserLdap !== "Invalid Credentials" ){
                         let response = {
                             'identification' : checkUserLdap.numerodocumento,
