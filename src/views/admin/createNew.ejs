@@ -62,7 +62,11 @@
                                 <%= locals.newData? locals.newData.summary : '' %>
                             </textarea>
                             <div id="word-count">
-                                <p> Máximo de caracteres: 255 Cantidad de caracteres: 0</p>
+                                <% if(locals.newData) { %>
+                                    <p> Máximo de caracteres: 255 Cantidad de caracteres: <%= locals.newData.summary.length %></p> 
+                                <% } else { %>
+                                    <p> Máximo de caracteres: 255 Cantidad de caracteres: 0</p> 
+                                <% } %> 
                             </div>
                         </div>  
                                                                       
@@ -81,7 +85,6 @@
                         <div class="mb-3 block-image">
                             <% if(locals.newData) { %>
                                 <label for="name" class="form-label">Imagen</label>
-                                <!-- <input class="form-control" type="file" id="imageFile"> -->
                                 <input 
                                     class="form-control" 
                                     id="imagen" 

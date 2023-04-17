@@ -42,7 +42,6 @@ const newCategoryAction = async (req, res) => {
             state: (state === 'on' ) ? true : false,
         };  
         
-        console.log(errors)
         if (!errors.isEmpty()) {
             res.render('admin/newCategory',{ infoCategory:'', active: 'create', mensaje: errors.errors, ok:false })
         }else {

@@ -248,7 +248,7 @@ const editNewAction = async( req, res ) => {
                 return acc;
             }, []);
 
-            return res.render('admin/createNew',{ active: 'edit', newData: newData, dataCategories: filterCategories, mensaje:errors.errors,ok:false });
+            return res.render('admin/createNew',{ active: 'edit', newData: newData, dataCategories: filterCategories, mensaje:errors.errors, ok:false });
         } else {
             const newRecord = await models.New.findOne({ where: { id: id } });
             const categories = await models.Category.findAll({ where: { id: convertArrayCategories } });
