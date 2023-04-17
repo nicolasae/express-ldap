@@ -1,66 +1,79 @@
-const { response } = require("express");
 const { authenticate } = require("ldap-authentication");
-const dbConfig = require("../config/ldapConfig.js");
+const { validationResult } = require('express-validator')
 
-const { users } = require("../models");
 
-const db = require("../models");
-
-// create main Model
-const User = db.users;
+const ldapConnection = require("../database/config/ldap.js");
+const models = require('../database/models');
 
 // Authentication with LDAP
-const auth = async (username, password) => {
+const authLdap = async (username, password) => {
+    
     let options = {
         ldapOpts: {
-            url: dbConfig.url,
+            url: ldapConnection.url,
         },
-        adminDn: dbConfig.adminDn,
-        adminPassword: dbConfig.adminPassword,
+        adminDn: ldapConnection.adminDn,
+        adminPassword: ldapConnection.adminPassword,
         userPassword: password,
-        userSearchBase: dbConfig.userSearchBase,
-        usernameAttribute: dbConfig.usernameAttribute,
+        userSearchBase: ldapConnection.userSearchBase,
+        usernameAttribute: ldapConnection.usernameAttribute,
         username: username,
     };
 
+    let ldapAuthResponse
     try {
-        const ldapAuthResponse = await authenticate(options);
-
-        return ldapAuthResponse
+        ldapAuthResponse = await authenticate(options);
 
     } catch (error) {
-        console.log(error);
+        ldapAuthResponse = error.lde_message
+        
     }
-
+    return ldapAuthResponse;
 };
 
 // Validate credentials User
-const authAdmin = async (req, res) => {
+const authenticationLogin = async (req, res) => {
+    const {username , password} = req.body
+    const localEmail = `${username}@utp.edu.co`;
+
+    let errors = validationResult(req);
+    console.log(errors)
+
     
-    let username = req.body.user;
-    let localEmail = `${username}@utp.edu.co`;
-    let password = req.body.password;
-
-    try {
-
-        const infoUser = await User.findOne({ where: { correo: localEmail } });
-
-        if(infoUser){
-            if(infoUser.admin) {
-                const checkUserLdap = await auth(username, password);
-                res.status(200).send(JSON.stringify(checkUserLdap));
-            }else{
-                res.status(200).send(`El usuario ${username} no es administrador en el aplicativo`);
-            }
-        }else{
-            res.status(404).send(`El usuario ${username} no se encuentra registrado en el aplicativo`);
+        if (username == '' || password == '') {
+            res.render('login', { mensaje:'Favor llenar todos los campos del formulario'});
         }
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Ha ocurrido un error interno');
-    }
+        else {
+            try {    
+                const infoUser = await models.User.findOne({ where: { email: localEmail } });
+                
+                if (infoUser && infoUser.active == true) {
+
+                    const checkUserLdap = await authLdap(username,password);
+                    if ( checkUserLdap !== "Invalid Credentials" ){
+                        let response = {
+                            'identification' : checkUserLdap.numerodocumento,
+                            'role': infoUser.idRole == 1 ? 'Super Administrador' : 'Administrador',
+                            ...infoUser.dataValues
+                        }
+                        req.session.infoUserLogged = response
+                        res.redirect('/admin');
+                    }else {        
+                        // res.status(401).json({'message': 'LDAP: El usuario no se encuentra registrado'})
+                        res.render('login', { mensaje:'Las credenciales son inválidas' })
+                    }
+                    
+                } else {
+                    // res.status(401).json({'message':`El usuario ${username} no se encuentra registrado o activo en el aplicativo`});
+                    res.render('login',{ mensaje:'Las credenciales son inválidas'})
+                }
+            } catch (error) {
+                console.log('Ha ocurrido un error: ' + error);
+            }
+        }
 };
 
+
 module.exports = {
-    authAdmin,
+    authenticationLogin,
 };
