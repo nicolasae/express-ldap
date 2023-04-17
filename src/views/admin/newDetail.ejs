@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/head', {title : 'Lista de noticias' }) %>
+
+    <body class="admin-body">
+        <%- include('../components/navBar') %>
+
+        <div class="admin">
+            <div class="row">
+                <%- include('../components/sideBarMenu') %>
+
+                <main class="col-md-9 ms-sm-auto px-md-4">
+                    <section>
+                        <div class="title-new">
+                            <h1><%= newData.title%></h1>                        
+                        </div>
+                        <div class="new-content col-12">
+                            <div class="row col-12 g-0 border overflow-hidden flex-md-row mb-4">
+
+                                <div class="col-7 p-4 d-flex flex-column justify-content-around">
+                                  
+                                    <h2 class="mb-0"><%= newData.title%></h2>
+
+                                    <div class="mb-1 text-body-secondary">
+                                        <%= newData.createdAt.getFullYear() %>-<%= newData.createdAt.getMonth() %>-<%= newData.createdAt.getDate() %>
+                                    </div>
+
+                                    <%- newData.summary %>
+                                    <div>
+                                        <% categories.forEach(category => { %>
+                                            <span class="badge">
+                                                <%= category.name %>
+                                            </span>
+                                        <% }) %>  
+                                    </div>
+                                </div>
+
+                                <figure class="col-5 block-image text-end">
+                                    <img src="/img/uploads/<%=newData.image%>" alt="imagen de <%= newData.title%>">
+                                </figure>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('./partials/head', {title : 'User Profile' }) %>
+
+    <body class="admin-body">
+        <%- include('./components/navBar') %>
+
+        <div class="admin">
+            <div class="row">
+                <%- include('./components/sideBarMenu') %>
+                <main class="col-md-9 ms-sm-auto px-md-5 mb-5">
+                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1>Bienvenido <%= infoUserLogged.name %>!</h1>
+                    </div>   
+                    
+                    <section class="my-5 px-1 px-xl-5">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <b>Usuarios</b>
+                            </div>
+                            <div class="col-12">  
+                                <div class="card-body row ">                  
+                                    <% if (infoUserLogged.idRole === 1) {%>                                
+                                        <div class="col-4 d-flex align-items-center justify-content-end">
+                                            <span>
+                                                Usuarios
+                                            </span>
+                                        </div>                                       
+                                        <div class="col-8 row">
+                                            <div class="col-12 col-sm-6 d-flex justify-content-sm-end">
+                                                <a href="/admin/usuarios/nuevo" class="">
+                                                    <i class="bi bi-plus-square-fill fs-3"></i>
+                                                    <span>Agregar</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-12 col-sm-6 d-flex justify-content-sm-start">
+                                                <a href="/admin/usuarios" class="">
+                                                    <i class="bi bi-list-task fs-3"></i>
+                                                    <span>Listar</span>
+                                                </a>
+                                            </div>                                           
+                                        </div>
+                                    <%}  else {%>  
+                                        <div class="col-4 d-flex align-items-center justify-content-end">
+                                            <span>
+                                                Usuarios
+                                            </span>
+                                        </div> 
+                                        <div class="col-8 row">
+                                        
+                                            <div class="col-12 col-sm-6 d-flex justify-content-sm-end">
+                                                <a href="/admin/usuarios" class="">
+                                                    <i class="bi bi-list-task fs-3"></i>
+                                                    <span>Listar</span>
+                                                </a>
+                                            </div>                                           
+                                        </div>
+                                    <%} %>   
+                                </div>                               
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="my-5 px-1 px-xl-5">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <b>Noticias</b>
+                            </div>
+                            <div class="col-12">  
+                                <div class="card-body row ">                                                                               
+                                    <div class="col-4 d-flex align-items-center justify-content-end">
+                                        <span>
+                                            Noticias
+                                        </span>
+                                    </div>                                       
+                                    <div class="col-8 row">
+                                        <div class="col-12 col-sm-6 d-flex justify-content-sm-end">
+                                            <a href="/admin/noticias/nuevo" class="">
+                                                <i class="bi bi-plus-square-fill fs-3"></i>
+                                                <span>Agregar</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-12 col-sm-6 d-flex justify-content-sm-start">
+                                            <a href="/admin/noticias" class="">
+                                                <i class="bi bi-list-task fs-3"></i>
+                                                <span>Listar</span>
+                                            </a>
+                                        </div>                                           
+                                    </div> 
+                                </div> 
+                                <hr>
+                                <div class="card-body row ">                                                                               
+                                    <div class="col-4 d-flex align-items-center justify-content-end">
+                                        <span>
+                                            Categorías
+                                        </span>
+                                    </div>                                       
+                                    <div class="col-8 row">
+                                        <div class="col-12 col-sm-6 d-flex justify-content-sm-end">
+                                            <a href="/admin/categorias/nuevo" class="">
+                                                <i class="bi bi-plus-square-fill fs-3"></i>
+                                                <span>Agregar</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-12 col-sm-6 d-flex justify-content-sm-start">
+                                            <a href="/admin/categorias" class="">
+                                                <i class="bi bi-list-task fs-3"></i>
+                                                <span>Listar</span>
+                                            </a>
+                                        </div>                                           
+                                    </div> 
+                                </div>                                
+                            </div>
+                        </div>
+                    </section>
+
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

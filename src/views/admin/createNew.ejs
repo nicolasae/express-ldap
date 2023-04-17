@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include('../partials/head', {title : 'List of news' }) %>
+
+    <body class="admin-body">
+        <%- include('../components/navBar') %>
+        <div class="admin">
+            <div class="row">
+                <%- include('../components/sideBarMenu') %>
+                <main class="col-md-9 ms-sm-auto px-md-4">
+                <% if (locals.active && locals.active === 'create') { %>
+                    <div class="title-admin">
+                        <h1>Nueva noticia</h1>
+                    </div>
+                    <form class="create-form" action="/admin/noticias/nuevo" method="post" id="create-new-form" name="create-form" enctype="multipart/form-data">
+                <% } else { %>
+                    <div class="title-admin">
+                        <h1>Editar noticia</h1>
+                    </div>
+                    <form class="edit-form" action="/admin/<%= locals.newData.id %>/editar-noticia" method="post" id="edit-noticia-form" enctype="multipart/form-data">
+                <%} %>
+                    
+                    <div id="seccionError" class="mb-4">
+                        <% if (locals.mensaje){ %>
+                            <% if(typeof locals.mensaje == typeof {}) { %>
+                                <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                    <ul class="mb-0">
+                                        <% locals.mensaje.forEach(item => { %>
+                                            <li>
+                                                <b><%= item.msg %></b>
+                                            </li>
+                                        <% }) %>
+                                    </ul>                                                                                                                                              
+                                </div>
+                            <% } else { %>
+                                <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                    <span> 
+                                        <b>
+                                            <%= locals.mensaje%>
+                                        </b>
+                                    </span>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                        
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Título</label>
+                            <input 
+                                type="text" 
+                                id="title"
+                                class="form-control" 
+                                name="title"
+                                value="<%= locals.newData? locals.newData.title : '' %>" 
+                                required
+                            >
+                        </div>  
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Resumen</label>
+                            <textarea name="summary" id="editor">
+                                <%= locals.newData? locals.newData.summary : '' %>
+                            </textarea>
+                            <div id="word-count">
+                                <% if(locals.newData) { %>
+                                    <p> Máximo de caracteres: 255 Cantidad de caracteres: <%= locals.newData.summary.length %></p> 
+                                <% } else { %>
+                                    <p> Máximo de caracteres: 255 Cantidad de caracteres: 0</p> 
+                                <% } %> 
+                            </div>
+                        </div>  
+                                                                      
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Enlace</label>
+                            <input 
+                                type="text" 
+                                id="link"
+                                class="form-control" 
+                                name="link"
+                                value="<%= locals.newData ? locals.newData.link: '' %>" 
+                                required
+                            >                            
+                        </div>
+
+                        <div class="mb-3 block-image">
+                            <% if(locals.newData) { %>
+                                <label for="name" class="form-label">Imagen</label>
+                                <input 
+                                    class="form-control" 
+                                    id="imagen" 
+                                    name="imagen"
+                                    type="file" 
+                                    accept="image/*"
+                                >   
+                                <input type="text" disabled="disabled" class="form-control my-4" value="<%= newData.image%>">
+                                <img src="/img/uploads/<%=newData.image%>" alt="imagen de <%= newData.title%>">
+                            <% } else { %>
+                                <label for="name" class="form-label">Imagen</label>
+                                <input 
+                                    class="form-control" 
+                                    id="imagen" 
+                                    name="imagen"
+                                    type="file" 
+                                    accept="image/*"
+                                >   
+                            <% } %>                                  
+                        </div>
+
+                        <div class="mb-3">
+                            <% if(locals.newData) { %>
+                                <label for="name" class="form-label">Selecciona una(s) categoría</label>
+                                <select id="selectCategories" name="selectCategories" placeholder="Elige una o varias categorías" multiple="multiple">   
+                                    <% dataCategories.forEach(category => { %>
+                                        <option value="<%= category.id %>" <%= (category.isSelected)? 'selected':'' %>> <%= category.name %></option>
+                                    <% }) %>                                                                         
+                                </select>
+                            <% } else { %>                                
+                                <label for="name" class="form-label">Selecciona una(s) categoría</label>
+                                <select id="selectCategories" name="selectCategories" placeholder="Elige una o varias categorías">
+                                    <% dataCategories.forEach(category => { %>
+                                        <option value="<%= category.id %>"><%= category.name %></option>                                        
+                                    <% }) %>
+                                </select>
+                                
+                            <% } %>  
+                        </div>
+
+                        <div class="mb-3 form-check form-switch">
+                            <input 
+                                type="checkbox"
+                                id="active"
+                                class="form-check-input"
+                                name="active"
+                                role="switch"
+                                <%= ( locals.newData.active == true ) ? 'checked' : '' %>
+                        
+                            >
+                          <label class="form-check-label" for="idRole">Activo</label>
+                        </div>
+                                                
+                        <div class="mb-3 form-check form-switch">
+                            <input 
+                                type="checkbox"
+                                id="activeForPortal"
+                                class="form-check-input"
+                                name="activeForPortal"
+                                role="switch"
+                                <%= ( locals.newData.activeForPortal == true ) ? 'checked' : '' %>
+                                
+                            >
+                          <label class="form-check-label" for="active">Activo para el Portal</label>
+                        </div>   
+                        <% if(locals.newData) { %>
+                            <div class="">
+                                <label for="name" class="form-label">Autor de la noticia</label>
+                                <input type="text" disabled="disabled" class="form-control mb-4" value="<%= newData.User.name%>">
+                            </div>
+                        <% } %>
+
+                        <% if (locals.active && locals.active === 'create') { %>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button id="btn-enviar" type="submit" class="btn btn-outline-institucional">Crear</button>
+                            </div>
+                        <% } else { %>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button id="btn-enviar" type="submit" class="btn btn-outline-institucional">Actualizar</button>
+                            </div>
+                        <%} %>
+                        
+                    </form>
+                </main>
+            </div>
+        </div>
+
+        <!-- SELECTIZE -->
+        <script>   
+            $(function () {
+
+                $('#selectCategories').selectize({
+                    maxItems: null,                    
+                    valueField: 'id',
+                    labelField: 'title',
+                    searchField: 'title',
+                    create: false
+                });
+            }); 
+        </script>
+
+        <!-- CKEDITOR5 -->
+        
+        <script>
+            ClassicEditor
+            .create( document.querySelector( '#editor' ), {
+                toolbar: [
+                    'heading', '|', 'undo', 'redo', '|', 'bold', 'italic', '|',
+                    'blockQuote', 'indent', 'link', '|', 'bulletedList', 'numberedList'
+                ],
+                
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (e) => {
+
+                const selectorInfo = document.querySelector(".ck-content")
+                const selectorContador = document.getElementById("word-count")
+                selectorInfo.addEventListener("keyup",function(event) {
+
+                    let countCharacters 
+                    (selectorInfo.innerText == '\n') 
+                    ? countCharacters = 0 
+                    : countCharacters = selectorInfo.innerText.length
+                    
+                    selectorContador.innerHTML = `<p> Máximo de caracteres: 255  Cantidad de caracteres: ${countCharacters}</p>` 
+                })
+                
+            })
+        </script>
+    
+    </body>
+</html>
