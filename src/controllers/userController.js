@@ -154,7 +154,7 @@ const editUserAction = async( req, res ) => {
     
     let id = req.params.id 
     let infoUserLogged = req.session.infoUserLogged
-    const { name,identification,password,email,active,idRole } = req.body;
+    const { name,identification,email,active,idRole } = req.body;
     let flag = false 
     let dataUser = {}
     const errors = validationResult(req);
@@ -164,15 +164,12 @@ const editUserAction = async( req, res ) => {
       flag = true
     }
 
-    const saltRounds = 10; 
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
     let infoUser = {
       id: parseInt(id),
       name,
       identification,
       email,
-      password:hashedPassword,
+      // password:hashedPassword,
       active: (flag) ? dataUser.active: (active === 'on') ? true : false,
       idRole: (flag) ? dataUser.idRole: (idRole === 'on') ? 1 : 2,
     };
