@@ -14,13 +14,27 @@
                     <section class="d-flex justify-content-center">
                         <div class="access-panel row col-12">
 
-                            <div id="seccionError" class="">
-                                <% if(locals.mensaje) { %>
-                                    <div class="alert alert-danger d-flex align-items-center mx-5 my-3 mx-lg-0 mb-md-1 " role="alert">
-                                        <span>
-                                        <%= locals.mensaje %>
-                                        </span>
-                                    </div>
+                            <div id="seccionError" class="mb-4">
+                                <% if (locals.mensaje){ %>
+                                    <% if(typeof locals.mensaje == typeof {}) { %>
+                                        <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                            <ul class="mb-0">
+                                                <% locals.mensaje.forEach(item => { %>
+                                                    <li>
+                                                        <b><%= item.msg %></b>
+                                                    </li>
+                                                <% }) %>
+                                            </ul>                                                                                                                                              
+                                        </div>
+                                    <% } else { %>
+                                        <div class="alert alert-<%= ( locals.ok == true ) ? 'success' : 'danger' %> align-items-center" role="alert">
+                                            <span> 
+                                                <b>
+                                                    <%= locals.mensaje%>
+                                                </b>
+                                            </span>
+                                        </div>
+                                    <% } %>
                                 <% } %>
                             </div>
 

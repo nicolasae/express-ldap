@@ -1,9 +1,9 @@
 module.exports = {
   "development": {
-    "username": "root",
-    "password": "",
-    "database": "database_development",
-    "host": "localhost",
+    "username": "ylf92kakkr9t1m33",
+    "password": "gydtevvk2l6c4qtm",
+    "database": "k4ydlqgm7lx51br6",
+    "host": "yjo6uubt3u5c16az.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql",
     "logging":false,
   },

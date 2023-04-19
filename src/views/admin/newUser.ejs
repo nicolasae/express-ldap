@@ -55,16 +55,38 @@
                                 required
                             >
                         </div>
+                        
+                        <div class="mb-3">
+                            <label for="identification" class="form-label">Identificación</label>
+                            <input 
+                              type="identification" 
+                              id="identification" 
+                              class="form-control" 
+                              name="identification"
+                              value="<%= locals.infoUser? locals.infoUser.identification : '' %>" 
+                              required>
+                        </div>
 
                         <div class="mb-3">
-                          <label for="email" class="form-label">Correo UTP</label>
-                          <input 
-                            type="email" 
-                            id="email" 
-                            class="form-control" 
-                            name="email"
-                            value="<%= locals.infoUser? locals.infoUser.email : '' %>" 
-                            required>
+                            <label for="email" class="form-label">Correo UTP</label>
+                            <input 
+                              type="email" 
+                              id="email" 
+                              class="form-control" 
+                              name="email"
+                              value="<%= locals.infoUser? locals.infoUser.email : '' %>" 
+                              required>
+                          </div>  
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input 
+                              type="password" 
+                              id="password" 
+                              class="form-control" 
+                              name="password"
+                              value=""
+                              required>
                         </div>
 
                         <% if(locals.infoUser.id !== locals.infoUserLogged.id) { %>

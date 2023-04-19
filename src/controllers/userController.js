@@ -1,10 +1,44 @@
 const models = require('../database/models');
 const {validationResult } = require('express-validator')
+const bcrypt = require('bcrypt');
+
 
 // LOGIN
 const login = async (req,res) => {
   return res.render('login',{title:'Express App'})
 };
+
+const loginAction = async( req, res ) => {
+
+  try {
+    const errors = validationResult(req);
+    const {username , password} = req.body
+    const localEmail = `${username}@utp.edu.co`;
+    
+    if (!errors.isEmpty()) {
+      res.render('login',{ infoUser:'', active: 'login', mensaje: errors.errors, ok:false })
+    }
+    else {
+      const infoUser = await models.User.findOne({ where: { email: localEmail } });
+      const passwordMatches = await bcrypt.compare(password, infoUser.password);
+
+      if(passwordMatches){
+        let response = {
+          'role': infoUser.idRole == 1 ? 'Super Administrador' : 'Administrador',
+          ...infoUser.dataValues
+        }
+        req.session.infoUserLogged = response
+        res.redirect('/admin');
+
+      } else {
+        res.render('login', { infoUser:'',  mensaje:'Las credenciales son inválidas', ok:false })
+      }
+    }
+  } catch (error) {
+    console.log('Ha ocurrido un error: ' + error);
+  }
+
+}
 
 const logout = async (req, res) => {
   req.session.destroy();
@@ -59,10 +93,16 @@ const newUserAction = async (req, res) => {
       res.render('admin/newUser',{ infoUser:'',infoUserLogged: req.session.infoUserLogged, active: 'create', mensaje: errors.errors, ok:false })
     }
     else {
-      const { name, email, active, idRole } = req.body
+      const { name, identification, password, email, active, idRole } = req.body
+
+      const saltRounds = 10; 
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
       let infoUser = {
         name,
+        identification,
         email,
+        password:hashedPassword,
         active: (active === 'on' ) ? true : false,
         idRole: (idRole === 'on' ) ? 1 : 2,
       };
@@ -107,7 +147,7 @@ const editUserAction = async( req, res ) => {
     
     let id = req.params.id 
     let infoUserLogged = req.session.infoUserLogged
-    const { name, email, active, idRole } = req.body;
+    const { name,identification,password,email,active,idRole } = req.body;
     let flag = false 
     let dataUser = {}
     const errors = validationResult(req);
@@ -117,10 +157,15 @@ const editUserAction = async( req, res ) => {
       flag = true
     }
 
+    const saltRounds = 10; 
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     let infoUser = {
       id: parseInt(id),
       name,
+      identification,
       email,
+      password:hashedPassword,
       active: (flag) ? dataUser.active: (active === 'on') ? true : false,
       idRole: (flag) ? dataUser.idRole: (idRole === 'on') ? 1 : 2,
     };
@@ -169,6 +214,7 @@ const toggleStateUser = async( req, res ) => {
 
 module.exports = {
   login,
+  loginAction,
   logout,
   admin,
   usersList,

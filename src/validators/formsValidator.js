@@ -3,6 +3,17 @@ const { body, check } = require('express-validator')
 const validate = (method) => {
 
   switch (method) {
+    case 'login':{
+      return [
+        body('username')
+          .notEmpty()
+          .withMessage('El nombre de usuario es obligatorio'),
+        body('password')
+          .notEmpty()
+          .withMessage('La contraseña es obligatorio')
+      ]
+    }
+
     case 'createUser':
     case 'editUser':{
       return [ 
@@ -53,13 +64,13 @@ const validate = (method) => {
           .trim()
           .notEmpty()
           .isLength({ min: 3})
-          .withMessage('El título de la noticas debe tener minimo tres caracteres'),
+          .withMessage('El título de la noticias debe tener minimo tres caracteres'),
         body('summary')
           .trim()
           .notEmpty()
           .withMessage('Resumen de noticia requerido')
-          .isLength({ min:20,max:255 })
-          .withMessage('El resumen de la noticia debe tener entre 20 y 55 caracteres'),
+          .isLength({ max:255 })
+          .withMessage('El resumen de la noticia debe tener máximo 255 caracteres'),
         body('link')
           .trim()
           .notEmpty()
@@ -67,9 +78,12 @@ const validate = (method) => {
           .isURL()
           .withMessage('Ingrese un enlace válido'),
         check('file').custom((value, { req }) => {
-          // if (!req.file) {
-          //   throw new Error('Debe seleccionar un archivo');
-          // }
+          if (!req.file) {
+            return true;
+          }
+          if (!req.file) {
+            throw new Error('Debe seleccionar una imagen');
+          }
           if (!req.file.mimetype.startsWith('image/')) {
             throw new Error('El archivo debe ser una imagen');
           }

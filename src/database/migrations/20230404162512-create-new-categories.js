@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('NewCategories', {
+    await queryInterface.createTable('NewsCategories', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -38,12 +38,12 @@ module.exports = {
       }
     });
 
-    await queryInterface.addIndex('NewCategories', ['idNew', 'idCategory'], {
+    await queryInterface.addIndex('NewsCategories', ['idNew', 'idCategory'], {
       unique: true
     });
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('NewCategories');
+    await queryInterface.dropTable('NewsCategories');
   }
 };

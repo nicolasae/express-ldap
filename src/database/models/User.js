@@ -33,6 +33,14 @@ module.exports = (sequelize, DataTypes) => {
           isEmail:true
         }
       },
+      password:{
+        type: DataTypes.STRING,
+        // allowNull:false,
+      },
+      identification:{
+        type:DataTypes.INTEGER,
+        allowNull:false
+      },
       active: {
         type: DataTypes.BOOLEAN, 
         allowNull:false

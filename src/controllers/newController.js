@@ -1,6 +1,5 @@
 const models = require('../database/models');
 const { validationResult } = require('express-validator');
-const urlSite = 'http://localhost:8080'
 
 //GET ALL NEWS
 const newsList = async (req, res) => {
@@ -45,6 +44,8 @@ const createNewAction = async (req, res) => {
     
     try {
         const errors = validationResult(req);
+        console.log(req.body)
+        console.log(errors)
 
         const dataCategories = await models.Category.findAll({
             attributes:['id','name'],
@@ -52,17 +53,18 @@ const createNewAction = async (req, res) => {
             raw:true,
         })
 
+
         if (!errors.isEmpty()) {
             res.render('admin/createNew',{  active: 'create', dataCategories: dataCategories, newData: '', mensaje:errors.errors, ok:false})
         }
         else {
             const { title, summary, active, activeForPortal, selectCategories,link} = req.body
             const idAuthor = req.session.infoUserLogged.id
-
+            
             const convertArrayCategories = []
     
-            const countDataNew = await models.New.count()
-            const actualId = countDataNew + 1 
+            // const countDataNew = await models.New.count()
+            // const actualId = countDataNew + 1 
               
             if( typeof selectCategories == "string") {
                 convertArrayCategories[0] = parseInt(selectCategories)
@@ -77,7 +79,7 @@ const createNewAction = async (req, res) => {
             }  
             
             const infoNew = {
-                id: actualId, 
+                // id: actualId, 
                 title,
                 summary,
                 link,
@@ -86,9 +88,10 @@ const createNewAction = async (req, res) => {
                 activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
                 idAuthor,
             }
+
             // Insert a new
             const newData = await models.New.create({
-                id: infoNew.id,
+                // id: infoNew.id,
                 title: infoNew.title,
                 summary:infoNew.summary,
                 link: infoNew.link,
@@ -109,13 +112,14 @@ const createNewAction = async (req, res) => {
                     idCategory: item,
                     idNew: newData.id
                 }
-                const saveNewCategory = await models.NewCategory.create(nc)
+                const saveNewCategory = await models.NewsCategory.create(nc)
             })
+            
             res.render('admin/createNew',{ active: 'create', dataCategories: dataCategories, newData: '', mensaje:'Noticia creada con exito',ok:true})
         }
 
 
-    }catch(error){
+    } catch(error){
         console.log('Ha ocurrido un error: ' + error);
     }
 }
@@ -178,7 +182,7 @@ const editNew = async (req, res) => {
 const editNewAction = async( req, res ) => {
     
     try {
-        const errors = validationResult(req);
+       
         const id = req.params.id         
         const { title, summary, link,active, activeForPortal, selectCategories} = req.body
     
@@ -195,7 +199,9 @@ const editNewAction = async( req, res ) => {
         else {
             convertArrayCategories[0] = 1
         }  
-    
+        
+        const errors = validationResult(req);
+        console.log(errors)
         const infoNew = {
             title,
             summary,
@@ -205,6 +211,7 @@ const editNewAction = async( req, res ) => {
             activeForPortal: (activeForPortal === 'on' ) ? 1 : 0,
             idAuthor:1
         }
+        
         
         if (!errors.isEmpty()) {
             const newData = await models.New.findOne({
@@ -256,7 +263,6 @@ const editNewAction = async( req, res ) => {
             await models.New.update(infoNew,{ where: {id: id }})
             await newRecord.setCategories(categories);
             res.redirect(`/admin/${id}/noticia`)
-            // return res.render('admin/createNew',{ active: 'edit', newData: newData, dataCategories: filterCategories, mensaje:'Noticias actualizada exitosamente',ok:true });
         }
     }catch(error) {
         console.log('Ha ocurrido un error: ' + error);

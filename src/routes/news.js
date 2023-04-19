@@ -20,16 +20,18 @@ const upload = multer({ storage: storage });
 /**** GET ALL NEWS*/
 router.get('/admin/noticias', verifyCredentials, newController.newsList)
 
-/**** CREATE USER*/
+/**** CREATE NEW*/
 router.get('/admin/noticias/nuevo', verifyCredentials, newController.createNew)
 router.post('/admin/noticias/nuevo', verifyCredentials, upload.single('imagen'), validator.validate('createNew'), newController.createNewAction)
+// router.post('/admin/:id/editar-noticia', [ verifyCredentials, upload.single('imagen'), validator.validate('createNew') ], newController.editNewAction)
+
 
 /**** DETAIL NEW*/
 router.get('/admin/:id/noticia', verifyCredentials, newController.detailNew)
 
 /**** UPDATE USER*/
 router.get('/admin/:id/editar-noticia', verifyCredentials, newController.editNew)
-router.post('/admin/:id/editar-noticia', verifyCredentials, upload.single('imagen'), validator.validate('editNew'), newController.editNewAction)
+router.post('/admin/:id/editar-noticia', verifyCredentials,upload.single('imagen'), validator.validate('editNew') , newController.editNewAction)
 
 // /**** UPDATE PORTAL STATE NEW*/
 router.put('/admin/:id/actualizar-estado-portal-noticia', verifyCredentials,newController.toggleStatePortal);

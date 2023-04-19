@@ -15,6 +15,12 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
+      password:{
+        type:Sequelize.STRING
+      },
+      identification:{
+        type: Sequelize.INTEGER,
+      },
       active: {
         type: Sequelize.BOOLEAN
       },

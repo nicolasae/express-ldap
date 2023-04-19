@@ -9,7 +9,8 @@ const { verifyCredentials, verifySuperAdmin} = require('../middleware/authMiddle
 
 /**** LOGIN*/
 router.get('/login/', userController.login )
-router.post('/login/', authController.authenticationLogin)
+// router.post('/login/', authController.authenticationLogin)
+router.post('/login/',validator.validate('login'), userController.loginAction)
 
 /**** LOGOUT*/
 router.get('/logout', userController.logout); 
