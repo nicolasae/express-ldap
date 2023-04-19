@@ -10,6 +10,6 @@ router.get('/information-new/:id', apiController.getInfoNewById)
 /**** GET ALL CATEGORIES*/
 router.get('/all-categories', apiController.getAllCategories)
 /**** GET ALL CATEGORIES FOR PORTAL*/
-router.get('/news-for-portal',apiController.getActivePortal)
+router.get('/news-for-portal',apiController.getNewsForPortal)
 
 module.exports = router

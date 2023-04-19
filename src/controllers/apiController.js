@@ -75,20 +75,21 @@ const getAllCategories = async ( req,res ) => {
 }
 
 // GET ALL NEWS ACTIVES FOR PORTAL
-const getActivePortal = async ( req,res ) => {
+const getNewsForPortal = async ( req,res ) => {
     try {
-        let dataCategories = await models.Category.findAll({
+        let dataNews = await models.New.findAll({
             where:{activeForPortal:1,active:1},
-            attributes: ['id','name','createdAt', 'updatedAt'],
+            attributes: ['id','title','summary','image','createdAt', 'updatedAt'],
             raw:true
-        })
-
-        dataCategories.forEach(item => {                        
+        })         
+        
+        dataNews.forEach(item => {                        
+            item.image = `${baseURL}${item.image}`
             item.formatCreateAt = formatDate(item.createdAt)
             item.formatUpdatedAt = formatDate(item.updatedAt)
         });
 
-        res.json(dataCategories)
+        res.json(dataNews)
         
 
     }catch(error){
@@ -100,5 +101,5 @@ module.exports = {
     getAllNews,
     getInfoNewById,
     getAllCategories,
-    getActivePortal
+    getNewsForPortal
 }
