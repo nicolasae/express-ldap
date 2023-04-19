@@ -74,8 +74,31 @@ const getAllCategories = async ( req,res ) => {
     }
 }
 
+// GET ALL NEWS ACTIVES FOR PORTAL
+const getActivePortal = async ( req,res ) => {
+    try {
+        let dataCategories = await models.Category.findAll({
+            where:{activeForPortal:1,active:1},
+            attributes: ['id','name','createdAt', 'updatedAt'],
+            raw:true
+        })
+
+        dataCategories.forEach(item => {                        
+            item.formatCreateAt = formatDate(item.createdAt)
+            item.formatUpdatedAt = formatDate(item.updatedAt)
+        });
+
+        res.json(dataCategories)
+        
+
+    }catch(error){
+        console.log('Ha ocurrido un error: ' + error);
+    }
+}
+
 module.exports = {
     getAllNews,
     getInfoNewById,
     getAllCategories,
+    getActivePortal
 }
