@@ -20,18 +20,25 @@ const loginAction = async( req, res ) => {
     }
     else {
       const infoUser = await models.User.findOne({ where: { email: localEmail } });
-      const passwordMatches = await bcrypt.compare(password, infoUser.password);
+      
+      const passwordMatches = bcrypt.compareSync(password, infoUser.password);
+      
+      if(infoUser.active){
+        if(passwordMatches){
 
-      if(passwordMatches){
-        let response = {
-          'role': infoUser.idRole == 1 ? 'Super Administrador' : 'Administrador',
-          ...infoUser.dataValues
+          let response = {
+            'role': infoUser.idRole == 1 ? 'Super Administrador' : 'Administrador',
+            ...infoUser.dataValues
+          }
+          req.session.infoUserLogged = response
+          res.redirect('/admin');
+
+        } else {
+          res.render('login', { infoUser:'',  mensaje:'Las credenciales son inválidas', ok:false })
         }
-        req.session.infoUserLogged = response
-        res.redirect('/admin');
-
-      } else {
-        res.render('login', { infoUser:'',  mensaje:'Las credenciales son inválidas', ok:false })
+      }
+      else {
+        res.render('login', { infoUser:'',  mensaje:'Usuario inactivo. Comuniquese con el administrador del sitio', ok:false })
       }
     }
   } catch (error) {

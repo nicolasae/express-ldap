@@ -56,9 +56,7 @@
                                         <td><%= user.role %></td>
                                         <% if(infoUserLogged.idRole === 1 ){ %>
                                             <td>
-                                                <div class="btn-group">  
-                                                                                            
-                                                    
+                                                <div class="btn-group">                                                                                                                                              
                                                         <div class="me-4">
                                                             <a href="/admin/<%= user.id %>/editar-usuario">
                                                                 <button type="submit" class="btn btn-institucional">
@@ -130,9 +128,10 @@
                                             <%} %>
                                         </td>
                                         <td><%= user.role %></td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <% if(infoUserLogged.idRole === 1 ){ %>
+                                        <% if(infoUserLogged.idRole === 1 ){ %>
+                                            <td>
+                                                <div class="btn-group">
+                                                    
                                                     <div class="me-4">
                                                         <a href="/admin/<%= user.id %>/editar-usuario">
                                                             <button type="submit" class="btn btn-institucional">
@@ -159,9 +158,9 @@
                                                             </form>
                                                         </div>
                                                     <% } %>
-                                                <% } %>
-                                            </div>
-                                        </td>
+                                                </div>
+                                            </td>
+                                        <% } %>
                                     </tr>
                                 <% }) %>                            
                                 

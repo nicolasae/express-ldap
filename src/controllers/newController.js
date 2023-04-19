@@ -32,6 +32,7 @@ const newsList = async (req, res) => {
 const createNew = async( req, res ) => {
 
     const dataCategories = await models.Category.findAll({
+        where:{state:1},
         attributes:['id','name'],
         order: [['id','ASC']],
         raw:true,
@@ -44,15 +45,11 @@ const createNewAction = async (req, res) => {
     
     try {
         const errors = validationResult(req);
-        console.log(req.body)
-        console.log(errors)
-
         const dataCategories = await models.Category.findAll({
             attributes:['id','name'],
             order: [['id','ASC']],
             raw:true,
         })
-
 
         if (!errors.isEmpty()) {
             res.render('admin/createNew',{  active: 'create', dataCategories: dataCategories, newData: '', mensaje:errors.errors, ok:false})
@@ -62,9 +59,6 @@ const createNewAction = async (req, res) => {
             const idAuthor = req.session.infoUserLogged.id
             
             const convertArrayCategories = []
-    
-            // const countDataNew = await models.New.count()
-            // const actualId = countDataNew + 1 
               
             if( typeof selectCategories == "string") {
                 convertArrayCategories[0] = parseInt(selectCategories)
@@ -78,8 +72,7 @@ const createNewAction = async (req, res) => {
                 convertArrayCategories[0] = 1
             }  
             
-            const infoNew = {
-                // id: actualId, 
+            const infoNew = { 
                 title,
                 summary,
                 link,
@@ -91,7 +84,6 @@ const createNewAction = async (req, res) => {
 
             // Insert a new
             const newData = await models.New.create({
-                // id: infoNew.id,
                 title: infoNew.title,
                 summary:infoNew.summary,
                 link: infoNew.link,
@@ -153,6 +145,7 @@ const editNew = async (req, res) => {
         })
 
         const allCategories = await models.Category.findAll({
+            where:{state:1},
             attributes:['id','name'],
             order: [['id','ASC']],
             raw:true,

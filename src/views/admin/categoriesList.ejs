@@ -19,6 +19,7 @@
                             <thead>
                                 <tr>                                   
                                     <th>Nombre</th>
+                                    <th>Activo</th>
                                     <th>Fecha de Publicación</th>
                                     <th>Fecha de Actualización</th>
                                     <th>Acciones</th>
@@ -28,9 +29,12 @@
                                 <% dataCategories.forEach(categories => { %>
                                     <tr>
                                         <td>
-                                            <a href="/admin/<%= categories.id %>/categoria">
+                                            <a href="/admin/<%= categories.id %>/editar-categoria">
                                                 <%- categories.name %>
                                             </a>
+                                        </td>
+                                        <td>
+                                            <%- (categories.state) ? '<span class="badge bg-success">SI</span>': '<span class="badge bg-danger">NO</span>'%>
                                         </td>
                                         <td><%= categories.createdAt.getFullYear() %>-<%= categories.createdAt.getMonth() %>-<%= categories.createdAt.getDate() %></td>
                                         <td><%= categories.updatedAt.getFullYear() %>-<%= categories.updatedAt.getMonth() %>-<%= categories.updatedAt.getDate() %></td>                                      
@@ -56,7 +60,6 @@
 
 
         <script>
-
             document.addEventListener("DOMContentLoaded", function () {
                 let tabla = new DataTable('#table-categories', {
                     responsive: true,

@@ -63,9 +63,9 @@
                                 class="form-check-input"
                                 name="state"
                                 role="switch"
-                                                                
+                                <%= (locals.infoCategory.state == 1) ? 'checked' : '' %>                            
                             >
-                        <label class="form-check-label" for="state">Activo</label>
+                            <label class="form-check-label" for="state">Activo</label>
                         </div>
                         
                         <% if (locals.active && locals.active === 'create') { %>

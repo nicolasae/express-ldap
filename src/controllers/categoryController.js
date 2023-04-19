@@ -4,7 +4,9 @@ const {validationResult } = require('express-validator')
 //GET ALL NEWS
 const categoriesList = async (req, res) => {
     try {
-        let dataCategories = await models.Category.findAll({});               
+        let dataCategories = await models.Category.findAll({
+            raw:true
+        });    
         res.render('admin/categoriesList', { dataCategories: dataCategories})  
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
@@ -41,6 +43,7 @@ const newCategoryAction = async (req, res) => {
             name,
             state: (state === 'on' ) ? true : false,
         };  
+        console.log(infoCategory)
         
         if (!errors.isEmpty()) {
             res.render('admin/newCategory',{ infoCategory:'', active: 'create', mensaje: errors.errors, ok:false })
@@ -53,7 +56,7 @@ const newCategoryAction = async (req, res) => {
             if(created){
                 res.render('admin/newCategory',{ infoCategory:'', active: 'create', mensaje: 'Categoria creado con éxito', ok:true })
             }else {
-                res.render('admin/newCategory',{ infoCategory:'',active: 'create', mensaje: 'Nombre de categoria no disponible para creación de usuario', ok:false })
+                res.render('admin/newCategory',{ infoCategory:'',active: 'create', mensaje: 'Nombre de categoria no disponible para creación de categoría', ok:false })
             }
         }
     }
@@ -68,7 +71,7 @@ const editCategory = async (req, res) => {
     try {
         let id = req.params.id;
         const category = await models.Category.findByPk( id, {raw:true});
-        res.render('admin/newCategory', { infoCategory: category, mensaje: 'Categoria creada con exito', ok:true});
+        res.render('admin/newCategory', { infoCategory: category, mensaje: ''});
   
     }catch(error){  
         console.log('Ha ocurrido un error: ' + error);
@@ -79,18 +82,21 @@ const editCategoryAction = async( req, res ) => {
     
     try {
         let id = req.params.id 
-        const { name } = req.body;
+        const { name, state } = req.body;
         const errors = validationResult(req);
 
         let infoCategory = {
             id: parseInt(id),
             name,
+            state: (state === 'on' ) ? true : false,
         }
+        console.log(infoCategory)
         
         if (!errors.isEmpty()) {
-            res.render('admin/newCategory',{ infoCategory:infoCategory, mensaje: errors.errors, ok:false,active:'edit' })
+            res.render('admin/newCategory',{ infoCategory:infoCategory, mensaje: errors.errors, ok:false, active:'edit' })
         }else {
-            const category = await models.Category.update({ name: name}, 
+            const category = await models.Category.update(
+                infoCategory, 
                 { where: 
                     { id: id }
                 }

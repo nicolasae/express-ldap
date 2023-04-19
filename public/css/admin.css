@@ -218,3 +218,7 @@ figure {
 #select-categories-selectized {
     font-size: 16px;
 }
+
+.selectize-control.multi .selectize-input [data-value].active{
+    background-image: none;
+}
