@@ -77,21 +77,39 @@ const getAllCategories = async ( req,res ) => {
 // GET ALL NEWS ACTIVES FOR PORTAL
 const getNewsForPortal = async ( req,res ) => {
     try {
-        let dataNews = await models.New.findAll({
-            where:{activeForPortal:1,active:1},
-            attributes: ['id','title','summary','image','createdAt', 'updatedAt'],
-            raw:true
-        })         
-        
-        dataNews.forEach(item => {                        
-            item.image = `${baseURL}${item.image}`
-            item.formatCreateAt = formatDate(item.createdAt)
-            item.formatUpdatedAt = formatDate(item.updatedAt)
-        });
+        const quantityNews = parseInt(req.query.c)
+        const countDataNew = await models.New.count({ where:{ activeForPortal:1,active:1 } })
 
-        res.json(dataNews)
-        
-
+        if(req.query.c && (countDataNew > quantityNews)){
+            let dataNews = await models.New.findAll({
+                where:{ activeForPortal:1,active:1 },
+                attributes: ['id', 'title','summary', 'image', 'createdAt', 'updatedAt'],
+                limit:quantityNews,
+                order: [['updatedAt', 'DESC']],
+                raw:true
+            })         
+            
+            dataNews.forEach(item => {                        
+                item.image = `${baseURL}${item.image}`
+                item.formatCreateAt = formatDate(item.createdAt)
+                item.formatUpdatedAt = formatDate(item.updatedAt)
+            });
+            res.json(dataNews)
+        }
+        else{
+            let dataNews = await models.New.findAll({
+                where:{ activeForPortal:1,active:1 },
+                attributes: ['id','title','summary','image','createdAt', 'updatedAt'],
+                raw:true
+            })         
+            
+            dataNews.forEach(item => {                        
+                item.image = `${baseURL}${item.image}`
+                item.formatCreateAt = formatDate(item.createdAt)
+                item.formatUpdatedAt = formatDate(item.updatedAt)
+            });
+            res.json(dataNews)
+        }
     }catch(error){
         console.log('Ha ocurrido un error: ' + error);
     }
