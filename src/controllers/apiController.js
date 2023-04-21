@@ -1,5 +1,5 @@
 const models = require('../database/models');
-const baseURL = 'https://media2.utp.edu.co/'
+const baseDir = '/img/uploads/'
 
 // FORMAT DATE 
 const formatDate = (fecha) => {
@@ -20,7 +20,7 @@ const getAllNews = async ( req,res ) => {
         })         
         
         dataNews.forEach(item => {                        
-            item.image = `${baseURL}${item.image}`
+            item.image = `${baseDir}${item.image}`
             item.formatCreateAt = formatDate(item.createdAt)
             item.formatUpdatedAt = formatDate(item.updatedAt)
         });
@@ -42,7 +42,7 @@ const getInfoNewById = async( req, res ) => {
             raw:true
         })
 
-        dataInfoNew.image = `${baseURL}${dataInfoNew.image}`
+        dataInfoNew.image = `${baseDir}${dataInfoNew.image}`
         dataInfoNew.formatCreateAt = formatDate(dataInfoNew.createdAt)
         dataInfoNew.formatUpdatedAt = formatDate(dataInfoNew.updatedAt)
         
@@ -90,7 +90,7 @@ const getNewsForPortal = async ( req,res ) => {
             })         
             
             dataNews.forEach(item => {                        
-                item.image = `${baseURL}${item.image}`
+                item.image = `${baseDir}${item.image}`
                 item.formatCreateAt = formatDate(item.createdAt)
                 item.formatUpdatedAt = formatDate(item.updatedAt)
             });
@@ -104,7 +104,7 @@ const getNewsForPortal = async ( req,res ) => {
             })         
             
             dataNews.forEach(item => {                        
-                item.image = `${baseURL}${item.image}`
+                item.image = `${baseDir}${item.image}`
                 item.formatCreateAt = formatDate(item.createdAt)
                 item.formatUpdatedAt = formatDate(item.updatedAt)
             });
