@@ -10,7 +10,7 @@ Este endpoint proporciona todas las noticias en formato JSON. Se puede acceder m
 https://service-portalnews.herokuapp.com/api/news-for-portal
 
 Devuelve lo siguiente:
-
+```
 [
     {
         "id": 4,
@@ -23,14 +23,14 @@ Devuelve lo siguiente:
         "formatUpdatedAt": "2023-04-20"
     },
 ]
-
+```
 # Obtener una noticia por id 
 Este endpoint proporciona la noticias que corresponda con el id dado en formato JSON. Se puede acceder mediante la siguiente URL:
 
 https://service-portalnews.herokuapp.com/api/information-new/id
 
 Devuelve lo siguiente:
-
+```
 {
     "id": 1,
     "title": "Resolución No. 2461 Convoca Elecciones representantes Consejo Superior, Consejo Académico y Comités Institucionales",
@@ -45,7 +45,7 @@ Devuelve lo siguiente:
     "formatCreateAt": "2023-04-19",
     "formatUpdatedAt": "2023-04-20"
 }
-
+```
 # Obtener noticias que estan activas y son para el portal UTP  
 Este endpoint proporciona las noticias que se encuentran activas para el portal, en caso de requerir obtener la información de una cantidad específica de noticias se debe cambiar el valor de c que se muestra en el siguiente URL: 
 
@@ -54,7 +54,7 @@ https://service-portalnews.herokuapp.com/api/news-for-portal?c=2
 La URL anterior devuelve la información de las dos ultimas noticias modificadas. Si se da un valor de "c" mayor a la cantidad de noticias existentes mostrara la cantidad máxima de noticias creadas con anterioridad.
 
 Devuelve lo siguiente:
-
+```
 [
     {
         "id": 6,
@@ -67,14 +67,14 @@ Devuelve lo siguiente:
         "formatUpdatedAt": "2023-04-21"
     }
 ]
-
+```
 # Obtener todas las categorías 
 Este endpoint proporciona todas las categorías en formato JSON. Se puede acceder mediante la siguiente URL:
 
 https://service-portalnews.herokuapp.com/api/all-categories
 
 Devuelve lo siguiente:
-
+```
 [
     {
         "id": 1,
@@ -85,3 +85,4 @@ Devuelve lo siguiente:
         "formatUpdatedAt": "2023-04-19"
     },
 ]
+```
