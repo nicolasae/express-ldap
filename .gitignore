@@ -1,5 +1,6 @@
 src/database/config/
 src/database/seeders/
+public/img/uploads
 # Created by https://www.toptal.com/developers/gitignore/api/macos,node,visualstudiocode,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,node,visualstudiocode,windows
 
