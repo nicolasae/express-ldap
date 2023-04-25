@@ -99,7 +99,7 @@ const getNewsForPortal = async ( req,res ) => {
         else{
             let dataNews = await models.New.findAll({
                 where:{ activeForPortal:1,active:1 },
-                attributes: ['id','title','summary','image','createdAt', 'updatedAt'],
+                attributes: ['id','title','summary','image','link','createdAt', 'updatedAt'],
                 raw:true
             })         
             
