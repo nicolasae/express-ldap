@@ -1,5 +1,5 @@
 const models = require('../database/models');
-const baseDir = '/img/uploads/'
+const baseDir = 'https://service-portalnews.herokuapp.com/img/uploads/'
 
 // FORMAT DATE 
 const formatDate = (fecha) => {
@@ -15,7 +15,7 @@ const getAllNews = async ( req,res ) => {
     try {
 
         let dataNews = await models.New.findAll({
-            attributes: ['id','title','summary','image','createdAt', 'updatedAt'],
+            attributes: ['id','title','summary','image','link','createdAt', 'updatedAt'],
             raw:true
         })         
         
@@ -83,7 +83,7 @@ const getNewsForPortal = async ( req,res ) => {
         if(req.query.c && (countDataNew > quantityNews)){
             let dataNews = await models.New.findAll({
                 where:{ activeForPortal:1,active:1 },
-                attributes: ['id', 'title','summary', 'image', 'createdAt', 'updatedAt'],
+                attributes: ['id', 'title','summary', 'image', 'link', 'createdAt', 'updatedAt'],
                 limit:quantityNews,
                 order: [['updatedAt', 'DESC']],
                 raw:true
