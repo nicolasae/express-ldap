@@ -90,7 +90,6 @@ const editCategoryAction = async( req, res ) => {
             name,
             state: (state === 'on' ) ? true : false,
         }
-        console.log(infoCategory)
         
         if (!errors.isEmpty()) {
             res.render('admin/newCategory',{ infoCategory:infoCategory, mensaje: errors.errors, ok:false, active:'edit' })

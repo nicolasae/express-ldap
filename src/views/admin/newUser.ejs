@@ -76,18 +76,20 @@
                               name="email"
                               value="<%= locals.infoUser? locals.infoUser.email : '' %>" 
                               required>
-                          </div>  
-
-                        <!-- <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input 
-                              type="password" 
-                              id="password" 
-                              class="form-control" 
-                              name="password"
-                              value=""
-                              required>
-                        </div> -->
+                        </div>  
+                          
+                        <% if(!locals.infoUser) { %>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input 
+                                type="password" 
+                                id="password" 
+                                class="form-control" 
+                                name="password"
+                                value=""
+                                required>
+                            </div>
+                        <% } %>
 
                         <% if(locals.infoUser.id !== locals.infoUserLogged.id) { %>
                             <div class="">

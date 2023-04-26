@@ -156,24 +156,28 @@ const editUserAction = async( req, res ) => {
     let infoUserLogged = req.session.infoUserLogged
     const { name,identification,email,active,idRole } = req.body;
     let flag = false 
-    let dataUser = {}
+    // let dataUser = {}
     const errors = validationResult(req);
 
-    if (active == undefined || idRole === undefined)  {
-      dataUser = await models.User.findByPk(id)
-      flag = true
-    }
+    const dataUser = await models.User.findByPk(id)
+
+    // if (active == undefined || idRole === undefined)  {
+    //   dataUser = await models.User.findByPk(id)
+    //   flag = true
+    // }
 
     let infoUser = {
       id: parseInt(id),
       name,
       identification,
       email,
-      // password:hashedPassword,
-      active: (flag) ? dataUser.active: (active === 'on') ? true : false,
-      idRole: (flag) ? dataUser.idRole: (idRole === 'on') ? 1 : 2,
+      password:dataUser.password,
+      active: (active === 'on') ? true : false ,
+      idRole: (idRole === 'on') ? 1 : 2 ,
     };
-    
+
+    // console.log(dataUser)
+    // console.log(infoUser)
 
     if (!errors.isEmpty()) {
       res.render('admin/newUser', {infoUser: infoUser, infoUserLogged:infoUserLogged, mensaje:errors.errors, ok:false} )
