@@ -58,7 +58,7 @@ app.use(function(err, req, res, next) {
 });
 
 // ************ Servidor ************/
-const port = 8080;
+const port = 3000;
 app.listen(process.env.PORT || port, () => {
     console.log(`Servidor corriendo en puerto ${port} - URL: http://localhost:${port}`)
 });

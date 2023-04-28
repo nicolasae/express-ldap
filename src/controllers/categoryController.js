@@ -29,7 +29,7 @@ const detailCategory = async(req, res) => {
 
 // CREATE USER CATEGORY 
 const newCategory = async(req, res) => {
-    return res.render('admin/newCategory',{ infoUser:'',active: 'create'});
+    return res.render('admin/newCategory',{ infoCategory:'', active: 'create'});
 }
 
 // CREATE USER PROCCESS
@@ -43,7 +43,6 @@ const newCategoryAction = async (req, res) => {
             name,
             state: (state === 'on' ) ? true : false,
         };  
-        console.log(infoCategory)
         
         if (!errors.isEmpty()) {
             res.render('admin/newCategory',{ infoCategory:'', active: 'create', mensaje: errors.errors, ok:false })
