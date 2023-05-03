@@ -36,8 +36,7 @@ const authenticationLogin = async (req, res) => {
     const localEmail = `${username}@utp.edu.co`;
 
     let errors = validationResult(req);
-    console.log(errors)
-
+    // console.log(errors)
     
     if (username == '' || password == '') {
         res.render('login', { mensaje:'Favor llenar todos los campos del formulario'});

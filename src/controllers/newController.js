@@ -194,7 +194,6 @@ const editNewAction = async( req, res ) => {
         }  
         
         const errors = validationResult(req);
-        console.log(errors)
         const infoNew = {
             title,
             summary,

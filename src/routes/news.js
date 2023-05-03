@@ -2,20 +2,22 @@ const express = require('express');
 const router = express.Router()
 const multer = require('multer');
 
+const upload = require('../middleware/multerNews');
+
 const newController = require('../controllers/newController')
 const validator = require('../validators/formsValidator')
 const { verifyCredentials} = require('../middleware/authMiddleware'); 
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'public/img/uploads');
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname.trim() );
-    }
-});
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, './public/img/uploads');
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname.trim() );
+//     }
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 /**** GET ALL NEWS*/
 router.get('/admin/noticias', verifyCredentials, newController.newsList)
@@ -23,8 +25,6 @@ router.get('/admin/noticias', verifyCredentials, newController.newsList)
 /**** CREATE NEW*/
 router.get('/admin/noticias/nuevo', verifyCredentials, newController.createNew)
 router.post('/admin/noticias/nuevo', verifyCredentials, upload.single('imagen'), validator.validate('createNew'), newController.createNewAction)
-// router.post('/admin/:id/editar-noticia', [ verifyCredentials, upload.single('imagen'), validator.validate('createNew') ], newController.editNewAction)
-
 
 /**** DETAIL NEW*/
 router.get('/admin/:id/noticia', verifyCredentials, newController.detailNew)

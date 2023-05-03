@@ -7,6 +7,8 @@ const logger = require('morgan');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const cors = require('cors')
+const multer = require('multer');
+
 
 /*** Main Router (require) */
 const mainRoutes = require("./routes/mainRoutes")
@@ -60,7 +62,7 @@ app.use(function(err, req, res, next) {
 // ************ Servidor ************/
 const port = 3000;
 app.listen(process.env.PORT || port, () => {
-    console.log(`Servidor corriendo en puerto ${port} - URL: http://localhost:${port}`)
+    console.log(`Servidor corriendo en puerto ${port}`)
 });
 
 module.exports = app;
