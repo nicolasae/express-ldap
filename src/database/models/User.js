@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       identification:{
         type:DataTypes.INTEGER,
-        allowNull:false
+        // allowNull:false
       },
       active: {
         type: DataTypes.BOOLEAN, 

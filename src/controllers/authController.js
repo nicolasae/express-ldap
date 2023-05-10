@@ -36,7 +36,6 @@ const authenticationLogin = async (req, res) => {
     const localEmail = `${username}@utp.edu.co`;
 
     let errors = validationResult(req);
-    // console.log(errors)
     
     if (username == '' || password == '') {
         res.render('login', { mensaje:'Favor llenar todos los campos del formulario'});
@@ -44,11 +43,11 @@ const authenticationLogin = async (req, res) => {
     else {
         try {    
             const infoUser = await models.User.findOne({ where: { email: localEmail } });
-            console.log(infoUser)
+            
             if (infoUser && infoUser.active == true) {
 
                 const checkUserLdap = await authLdap(username,password);
-                console.log(checkUserLdap)
+                
                 if ( checkUserLdap !== "Invalid Credentials" ){
                     let response = {
                         'identification' : checkUserLdap.numerodocumento,
@@ -59,12 +58,12 @@ const authenticationLogin = async (req, res) => {
                     res.redirect('/admin');
                 }else {        
                     // res.status(401).json({'message': 'LDAP: El usuario no se encuentra registrado'})
-                    res.render('login', { mensaje:'Las credenciales son inválidas' })
+                    res.render('login', { infoUser:'',  mensaje:'Las credenciales son inválidas', ok:false })
                 }
                 
             } else {
                 // res.status(401).json({'message':`El usuario ${username} no se encuentra registrado o activo en el aplicativo`});
-                res.render('login',{ mensaje:'Las credenciales son inválidas'})
+                res.render('login', { infoUser:'',  mensaje:'Usuario no registrado o en estado inactivo. Comuniquese con el administrador del sitio', ok:false })
             }
         } catch (error) {
             console.log('Ha ocurrido un error: ' + error);

@@ -33,7 +33,8 @@ module.exports = {
         email: 'nicolas.aguirre@utp.edu.co',
         active: true,
         idRole: 1,
-        password:'$2a$10$vaiae3vn6yUwQDKBF8Q8wOeb.r21.HNQzqQVqHkZ7idyd.ynOzXzW',
+        password:'',
+        // password:'$2a$10$vaiae3vn6yUwQDKBF8Q8wOeb.r21.HNQzqQVqHkZ7idyd.ynOzXzW',
         identification: 1010124299,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -44,7 +45,8 @@ module.exports = {
         email: 'ccmanzano@utp.edu.co',
         active: false,
         idRole: 2,
-        password:'$2a$10$pktWkqRY1F89M6hN0.bq1OVUTMQm4PBjxlc8S5wHesPiiyA0c7r1S',
+        password:'',
+        // password:'$2a$10$pktWkqRY1F89M6hN0.bq1OVUTMQm4PBjxlc8S5wHesPiiyA0c7r1S',
         identification: 1088324977,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -55,7 +57,8 @@ module.exports = {
         email: 'cris.635@utp.edu.co',
         active: false,
         idRole: 2,
-        password:'$2a$10$wA0JiLDHQBdiVfbtC2L8hezRqeY0SvHyVgu4pIiindcleHXI8mieK',
+        password:'',
+        // password:'$2a$10$wA0JiLDHQBdiVfbtC2L8hezRqeY0SvHyVgu4pIiindcleHXI8mieK',
         identification: 1088325301,
         createdAt: new Date(),
         updatedAt: new Date()

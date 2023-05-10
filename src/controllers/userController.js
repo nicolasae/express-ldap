@@ -2,14 +2,26 @@ const models = require('../database/models');
 const {validationResult } = require('express-validator')
 const bcrypt = require('bcrypt');
 
+const authController = require('../controllers/authController')
 
 // LOGIN
 const login = async (req,res) => {
   return res.render('login',{title:'Express App'})
 };
 
-const loginAction = async( req, res ) => {
+const checkTypeOfVerification = async( req, res ) => {
+  const userArray = ['liNgfreN','iNtoPTiv']
+  const {username} = req.body
 
+  if(userArray.includes(username)){
+    loginAction(req,res)
+  }else {
+    authController.authenticationLogin(req,res)
+  }
+}
+
+const loginAction = async( req, res ) => {
+  console.log('entro')
   try {
     const errors = validationResult(req);
     const {username , password} = req.body
@@ -101,9 +113,13 @@ const newUserAction = async (req, res) => {
     }
     else {
       const { name, identification, password, email, active, idRole } = req.body
-
-      const saltRounds = 10; 
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      
+      let hashedPassword = password
+      
+      if(password != '') {
+        const saltRounds = 10; 
+        hashedPassword = await bcrypt.hash(password, saltRounds);d
+      }
 
       let infoUser = {
         name,
@@ -232,4 +248,5 @@ module.exports = {
   editUserAction,
   toggleStateUser,
   deleteUser,
+  checkTypeOfVerification
 }
